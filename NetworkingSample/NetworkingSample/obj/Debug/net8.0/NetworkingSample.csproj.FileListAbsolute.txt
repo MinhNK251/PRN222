@@ -1,0 +1,14 @@
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\bin\Debug\net8.0\NetworkingSample.exe
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\bin\Debug\net8.0\NetworkingSample.deps.json
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\bin\Debug\net8.0\NetworkingSample.runtimeconfig.json
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\bin\Debug\net8.0\NetworkingSample.dll
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\bin\Debug\net8.0\NetworkingSample.pdb
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.GeneratedMSBuildEditorConfig.editorconfig
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.AssemblyInfoInputs.cache
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.AssemblyInfo.cs
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.csproj.CoreCompileInputs.cache
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.dll
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\refint\NetworkingSample.dll
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.pdb
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\NetworkingSample.genruntimeconfig.cache
+D:\College\PRN222\Source Code\NetworkingSample\NetworkingSample\obj\Debug\net8.0\ref\NetworkingSample.dll

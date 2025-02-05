@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\College\\PRN222\\Source Code\\DemoHttpClient\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E233E47B-437E-4D10-9F80-0FFF0B347F09}|DemoHttpClient\\DemoHttpClient.csproj|d:\\college\\prn222\\source code\\demohttpclient\\demohttpclient\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E233E47B-437E-4D10-9F80-0FFF0B347F09}|DemoHttpClient\\DemoHttpClient.csproj|solutionrelative:demohttpclient\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E233E47B-437E-4D10-9F80-0FFF0B347F09}|DemoHttpClient\\DemoHttpClient.csproj|d:\\college\\prn222\\source code\\demohttpclient\\demohttpclient\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E233E47B-437E-4D10-9F80-0FFF0B347F09}|DemoHttpClient\\DemoHttpClient.csproj|solutionrelative:demohttpclient\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoHttpClient\\DemoHttpClient\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "DemoHttpClient\\MainWindow.xaml",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoHttpClient\\DemoHttpClient\\MainWindow.xaml",
+              "RelativeToolTip": "DemoHttpClient\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-11T06:35:41.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoHttpClient\\DemoHttpClient\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "DemoHttpClient\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoHttpClient\\DemoHttpClient\\MainWindow.xaml.cs",
+              "RelativeToolTip": "DemoHttpClient\\MainWindow.xaml.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-11T02:51:14.512Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
