@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "D:\\College\\PRN222\\Source Code\\DemoMVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\models\\mystockcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\models\\mystockcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|d:\\college\\prn222\\source code\\demomvc\\demomvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7DC3347C-AAEC-4F6C-B2BB-CEB4A0213AAF}|DemoMVC\\DemoMVC.csproj|solutionrelative:demomvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +43,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "DemoMVC\\Views\\Home\\Index.cshtml",
-              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "DemoMVC\\Views\\Home\\Index.cshtml",
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "DemoMVC\\Controllers\\ProductController.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "DemoMVC\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAowD4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T07:35:05.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Program.cs",
+              "RelativeDocumentMoniker": "DemoMVC\\Program.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Program.cs",
+              "RelativeToolTip": "DemoMVC\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-08T07:46:17.823Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T07:32:50.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Startup.cs",
+              "RelativeDocumentMoniker": "DemoMVC\\Startup.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Startup.cs",
+              "RelativeToolTip": "DemoMVC\\Startup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T07:23:07.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MyStockContext.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Models\\MyStockContext.cs",
+              "RelativeDocumentMoniker": "DemoMVC\\Models\\MyStockContext.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Models\\MyStockContext.cs",
+              "RelativeToolTip": "DemoMVC\\Models\\MyStockContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T07:15:30.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "DemoMVC\\Models\\Product.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\Models\\Product.cs",
+              "RelativeToolTip": "DemoMVC\\Models\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T07:12:41.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\appsettings.json",
+              "RelativeDocumentMoniker": "DemoMVC\\appsettings.json",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\DemoMVC\\DemoMVC\\appsettings.json",
+              "RelativeToolTip": "DemoMVC\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-12T06:53:43.505Z",
               "EditorCaption": ""
             }
           ]

@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\College\\PRN222\\Source Code\\Lab2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\model\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\iperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\model\\iperson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\model\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|solutionrelative:lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B9D8C128-4282-4AA5-B0FE-1D50995154BE}|Lab2\\Lab2.csproj|d:\\college\\prn222\\source code\\lab2\\lab2\\model\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,26 +38,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Machine.cs",
               "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\Machine.cs",
               "RelativeDocumentMoniker": "Lab2\\Model\\Machine.cs",
               "ToolTip": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\Machine.cs",
               "RelativeToolTip": "Lab2\\Model\\Machine.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-09T03:08:07.778Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Employee.cs",
               "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\Employee.cs",
               "RelativeDocumentMoniker": "Lab2\\Model\\Employee.cs",
               "ToolTip": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\Employee.cs",
               "RelativeToolTip": "Lab2\\Model\\Employee.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-09T03:05:29.541Z",
               "EditorCaption": ""
@@ -72,25 +72,24 @@
               "RelativeToolTip": "Lab2\\Model\\Customer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-09T02:44:55.131Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-09T02:44:55.131Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "IPerson.cs",
               "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\IPerson.cs",
               "RelativeDocumentMoniker": "Lab2\\Model\\IPerson.cs",
               "ToolTip": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Model\\IPerson.cs",
               "RelativeToolTip": "Lab2\\Model\\IPerson.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-09T02:43:41.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\Lab2\\Lab2\\Program.cs",
               "RelativeDocumentMoniker": "Lab2\\Program.cs",
@@ -98,8 +97,7 @@
               "RelativeToolTip": "Lab2\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-09T02:37:41.739Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-09T02:37:41.739Z"
             }
           ]
         }
