@@ -1,0 +1,393 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_dao\\teamdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|solutionrelative:euro2024db_dao\\teamdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_dao\\euro2024dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|solutionrelative:euro2024db_dao\\euro2024dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_dao\\groupteamdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97ABC8FF-3509-4B5B-8DED-2DE4F0684C4F}|Euro2024DB_DAO\\Euro2024DB_DAO.csproj|solutionrelative:euro2024db_dao\\groupteamdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\pages\\teampage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\pages\\teampage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\iteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\teamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\teamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_sonnn\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B27BDE97-960B-4699-A1C6-B2A9B64CED22}|Euro2024DB_SonNN\\Euro2024DB_SonNN.csproj|solutionrelative:euro2024db_sonnn\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\groupteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\groupteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\igroupteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\igroupteamrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|c:\\users\\kijte\\source\\repos\\pe_prn221_fa24_trailtest_sonnn\\euro2024db_repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE1A0B41-F7F8-45C6-828B-2ABC1596C606}|Euro2024DB_Repository\\Euro2024DB_Repository.csproj|solutionrelative:euro2024db_repository\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:48:33.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Create.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T09:37:34.714Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Index.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADYAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-13T09:50:51.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Create.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACEAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T08:16:53.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-13T09:25:09.94Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TeamDAO.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\TeamDAO.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_DAO\\TeamDAO.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\TeamDAO.cs",
+              "RelativeToolTip": "Euro2024DB_DAO\\TeamDAO.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwCgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T09:29:27.137Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACkAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-13T09:25:09.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-13T09:25:09.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\Login.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\Login.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T08:26:07.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Edit.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Edit.cshtml.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAuwDsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:25:09.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Details.cshtml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAmwB8AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:25:09.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GroupTeamDAO.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\GroupTeamDAO.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_DAO\\GroupTeamDAO.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\GroupTeamDAO.cs",
+              "RelativeToolTip": "Euro2024DB_DAO\\GroupTeamDAO.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwBsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:52:20.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\Login.cshtml",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\Login.cshtml",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-20T08:25:58.91Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Delete.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml.cs",
+              "RelativeToolTip": "Euro2024DB_SonNN\\Pages\\TeamPage\\Delete.cshtml.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwDcAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:25:10.027Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ITeamRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\ITeamRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\ITeamRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\ITeamRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\ITeamRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T09:30:02.382Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Euro2024DbContext.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\Euro2024DbContext.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_DAO\\Euro2024DbContext.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_DAO\\Euro2024DbContext.cs",
+              "RelativeToolTip": "Euro2024DB_DAO\\Euro2024DbContext.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAYwBkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T09:10:15.205Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "TeamRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\TeamRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\TeamRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\TeamRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\TeamRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwAUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T09:30:10.485Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\appsettings.json",
+              "RelativeDocumentMoniker": "Euro2024DB_SonNN\\appsettings.json",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_SonNN\\appsettings.json",
+              "RelativeToolTip": "Euro2024DB_SonNN\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-17T09:09:09.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "GroupTeamRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\GroupTeamRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\GroupTeamRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\GroupTeamRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\GroupTeamRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:54:09.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IGroupTeamRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\IGroupTeamRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\IGroupTeamRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\IGroupTeamRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\IGroupTeamRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:53:41.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "IAccountRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\IAccountRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\IAccountRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\IAccountRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\IAccountRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T09:00:10.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "AccountRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\AccountRepository.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_Repository\\AccountRepository.cs",
+              "ToolTip": "C:\\Users\\kijte\\source\\repos\\PE_PRN221_FA24_TrailTest_SonNN\\Euro2024DB_Repository\\AccountRepository.cs",
+              "RelativeToolTip": "Euro2024DB_Repository\\AccountRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T02:35:08.058Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

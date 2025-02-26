@@ -1,0 +1,72 @@
+﻿@page
+@model Euro2024DB_SonNN.Pages.TeamPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    String email = HttpContext.Session.GetString("Email");
+    String role = HttpContext.Session.GetString("Role");
+    if (!("1").Equals(role) && !("3").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+
+<h1>Index</h1>
+@{
+    if (("1").Equals(role))
+    {
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].Point)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].Group)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Team) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Point)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.GroupName)
+            </td>
+            <td>
+                @{
+                    if (("1").Equals(role))
+                    {
+                        <p>
+                             <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> |
+                        </p>
+                    }
+                }
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
