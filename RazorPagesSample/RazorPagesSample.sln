@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.11.35222.181
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesSample", "RazorPagesSample\RazorPagesSample.csproj", "{9BDEDA68-9B06-448C-B136-BF32DE1B6370}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesSample", "RazorPagesSample\RazorPagesSample.csproj", "{CD9A8D71-0A70-4623-979B-2019A4225CAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BDEDA68-9B06-448C-B136-BF32DE1B6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BDEDA68-9B06-448C-B136-BF32DE1B6370}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BDEDA68-9B06-448C-B136-BF32DE1B6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BDEDA68-9B06-448C-B136-BF32DE1B6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9A8D71-0A70-4623-979B-2019A4225CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9A8D71-0A70-4623-979B-2019A4225CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9A8D71-0A70-4623-979B-2019A4225CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9A8D71-0A70-4623-979B-2019A4225CAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6606890C-97D1-4F35-8C1E-7BC2EC7E2B72}
 	EndGlobalSection
 EndGlobal

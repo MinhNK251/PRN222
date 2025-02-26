@@ -1,0 +1,25 @@
+﻿@page
+@model AjaxPartialModel
+@{
+	ViewData["Title"] = "Student Deatail";
+}
+
+<h2>Ajax</h2>
+<p><button id="load">Load</button></p>
+<div id="grid"></div>
+
+@section scripts
+{
+	<script>
+		document.getElementById('load').addEventListener('click', ()=>
+		{
+			fetch('ajaxpartial?handler=StudentPartial')
+			.then((response) => {
+				return response.text();
+			})
+			.then((result) =>{
+				document.getElementById('grid').innerHTML = result;
+			});
+		});
+	</script>
+}
