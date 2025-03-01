@@ -1,6 +1,9 @@
 USE [master]
 GO
 
+DROP DATABASE [FUNewsManagement]
+GO
+
 CREATE DATABASE [FUNewsManagement]
 GO
 
