@@ -1,0 +1,13 @@
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\bin\Debug\net8.0\RepositoryLayer.deps.json
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\bin\Debug\net8.0\RepositoryLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\bin\Debug\net8.0\RepositoryLayer.pdb
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.csproj.AssemblyReference.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.AssemblyInfoInputs.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.AssemblyInfo.cs
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.csproj.CoreCompileInputs.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.sourcelink.json
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\refint\RepositoryLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\RepositoryLayer.pdb
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\RepositoryLayer\obj\Debug\net8.0\ref\RepositoryLayer.dll

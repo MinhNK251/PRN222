@@ -1,0 +1,16 @@
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\bin\Debug\net8.0\ServiceLayer.deps.json
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\bin\Debug\net8.0\ServiceLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\bin\Debug\net8.0\ServiceLayer.pdb
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\bin\Debug\net8.0\RepositoryLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\bin\Debug\net8.0\RepositoryLayer.pdb
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.AssemblyReference.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfoInputs.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfo.cs
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.CoreCompileInputs.cache
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.sourcelink.json
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceL.3037F684.Up2Date
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\refint\ServiceLayer.dll
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ServiceLayer.pdb
+D:\College\PRN222\Source Code\GuidelineForASM1_PE\ServiceLayer\obj\Debug\net8.0\ref\ServiceLayer.dll

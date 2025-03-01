@@ -1,0 +1,16 @@
+﻿@using ServiceLayer.Models
+@model StudentDTO
+
+@{
+    ViewData["Title"] = "Student Informatio Page";
+}
+@Html.AntiForgeryToken()
+@if (Model != null)
+{
+    <div class="text-center">
+    <h1 class="display-4">Student Information</h1>
+    <p>Learn about <a href = "https://learn.microsoft.com/aspnet/core" > building Web apps with ASP.NET Core</a>.</p>
+    <div>@Model.Id</div>
+    <div>@Model.Name</div>
+</div>
+}
