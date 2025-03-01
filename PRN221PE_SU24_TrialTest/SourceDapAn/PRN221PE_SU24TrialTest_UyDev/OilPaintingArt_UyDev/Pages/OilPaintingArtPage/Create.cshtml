@@ -1,0 +1,93 @@
+﻿@page
+@model OilPaintingArt_UyDev.Pages.OilPaintingArtPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+
+    string? email = HttpContext.Session.GetString("Email");
+    int? role = HttpContext.Session.GetInt32("RoleId");
+
+    if(email == null || (role != 3))
+    {
+        TempData["ErrorMessage"] = "You do not have permission to do this function";
+        Response.Redirect("/Error");
+    }
+}
+
+<h1>Create</h1>
+
+
+@if (TempData["Message"] != null)
+{
+    <h2 class="text-info">@TempData["Message"]</h2>
+}
+
+<h4>OilPaintingArt</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.OilPaintingArtId" class="control-label"></label>
+                <input asp-for="OilPaintingArt.OilPaintingArtId" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.OilPaintingArtId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.ArtTitle" class="control-label"></label>
+                <input asp-for="OilPaintingArt.ArtTitle" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.ArtTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.OilPaintingArtLocation" class="control-label"></label>
+                <input asp-for="OilPaintingArt.OilPaintingArtLocation" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.OilPaintingArtLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.OilPaintingArtStyle" class="control-label"></label>
+                <input asp-for="OilPaintingArt.OilPaintingArtStyle" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.OilPaintingArtStyle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.Artist" class="control-label"></label>
+                <input asp-for="OilPaintingArt.Artist" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.Artist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.NotablFeatures" class="control-label"></label>
+                <input asp-for="OilPaintingArt.NotablFeatures" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.NotablFeatures" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.PriceOfOilPaintingArt" class="control-label"></label>
+                <input asp-for="OilPaintingArt.PriceOfOilPaintingArt" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.PriceOfOilPaintingArt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.StoreQuantity" class="control-label"></label>
+                <input asp-for="OilPaintingArt.StoreQuantity" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.StoreQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.CreatedDate" class="control-label"></label>
+                <input asp-for="OilPaintingArt.CreatedDate" class="form-control" />
+                <span asp-validation-for="OilPaintingArt.CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OilPaintingArt.SupplierId" class="control-label"></label>
+                <select asp-for="OilPaintingArt.SupplierId" class ="form-control" asp-items="ViewBag.SupplierId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

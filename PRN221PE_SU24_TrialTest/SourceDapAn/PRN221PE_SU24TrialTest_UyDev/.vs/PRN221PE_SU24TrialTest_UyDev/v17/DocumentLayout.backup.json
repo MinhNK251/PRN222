@@ -1,0 +1,349 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}|BOs\\BOs.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\bos\\oilpaintingart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}|BOs\\BOs.csproj|solutionrelative:bos\\oilpaintingart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\repos\\iartrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|solutionrelative:repos\\iartrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\repos\\supplierrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|solutionrelative:repos\\supplierrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}|DAOs\\DAOs.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\daos\\oilpaintingartdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}|DAOs\\DAOs.csproj|solutionrelative:daos\\oilpaintingartdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\create.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\delete.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\oilpaintingart_uydev\\pages\\oilpaintingartpage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}|OilPaintingArt_UyDev\\OilPaintingArt_UyDev.csproj|solutionrelative:oilpaintingart_uydev\\pages\\oilpaintingartpage\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|d:\\thifpt\\thithupe\\prn221pe_su24trialtest_uydev\\repos\\isupplierrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}|Repos\\Repos.csproj|solutionrelative:repos\\isupplierrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 623,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OilPaintingArt.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\BOs\\OilPaintingArt.cs",
+              "RelativeDocumentMoniker": "BOs\\OilPaintingArt.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\BOs\\OilPaintingArt.cs",
+              "RelativeToolTip": "BOs\\OilPaintingArt.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAABgAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T19:26:48.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAAAGMAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:02:23.13Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Create.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwCIAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:02:22.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:02:22.68Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Edit.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Edit.cshtml.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAA6wDkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:02:22.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Program.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Program.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Program.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:14:29.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Index.cshtml.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAYwB0AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:02:23.179Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OilPaintingArtDAO.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\DAOs\\OilPaintingArtDAO.cs",
+              "RelativeDocumentMoniker": "DAOs\\OilPaintingArtDAO.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\DAOs\\OilPaintingArtDAO.cs",
+              "RelativeToolTip": "DAOs\\OilPaintingArtDAO.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowCAAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:04:19.746Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:02:22.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IArtRepo.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\IArtRepo.cs",
+              "RelativeDocumentMoniker": "Repos\\IArtRepo.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\IArtRepo.cs",
+              "RelativeToolTip": "Repos\\IArtRepo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAkAAABXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:15:13.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SupplierRepo.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\SupplierRepo.cs",
+              "RelativeDocumentMoniker": "Repos\\SupplierRepo.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\SupplierRepo.cs",
+              "RelativeToolTip": "Repos\\SupplierRepo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:20:01.335Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Create.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:02:22.562Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Details.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:02:22.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:02:23.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\Error.cshtml",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\Error.cshtml",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\Error.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-08T18:59:57.038Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\Index.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\Index.cshtml.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAwwCcAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:03:02.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Delete.cshtml.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml.cs",
+              "RelativeDocumentMoniker": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml.cs",
+              "RelativeToolTip": "OilPaintingArt_UyDev\\Pages\\OilPaintingArtPage\\Delete.cshtml.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:02:23.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ISupplierRepo.cs",
+              "DocumentMoniker": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\ISupplierRepo.cs",
+              "RelativeDocumentMoniker": "Repos\\ISupplierRepo.cs",
+              "ToolTip": "D:\\ThiFPT\\ThiThuPE\\PRN221PE_SU24TrialTest_UyDev\\Repos\\ISupplierRepo.cs",
+              "RelativeToolTip": "Repos\\ISupplierRepo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T18:19:22.885Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 217,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 114,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

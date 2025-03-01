@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OilPaintingArt_UyDev", "OilPaintingArt_UyDev\OilPaintingArt_UyDev.csproj", "{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repos", "Repos\Repos.csproj", "{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOs", "DAOs\DAOs.csproj", "{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOs", "BOs\BOs.csproj", "{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAC9296-F04F-4A63-8D44-8261B9E54C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F23CD4-B0B5-4D95-8D11-B62438BB1858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54BCFE1-73AC-425B-B7FB-041FF834A9BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDC8844-22E0-4BA5-AB60-3F8833F2935F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA012DA7-EC83-482C-AF4C-529714F9B9F1}
+	EndGlobalSection
+EndGlobal

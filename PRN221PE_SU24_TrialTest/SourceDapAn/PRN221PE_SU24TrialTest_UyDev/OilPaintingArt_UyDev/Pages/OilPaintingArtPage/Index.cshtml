@@ -1,0 +1,106 @@
+﻿@page
+@model OilPaintingArt_UyDev.Pages.OilPaintingArtPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+@if(TempData["Message"] != null)
+{
+    <h2 class="text-info">@TempData["Message"]</h2>
+}
+
+
+<form method="get">
+    <input type="text" name="searchTerm" />
+    <input type="submit" value="Search" />
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].ArtTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].OilPaintingArtLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].OilPaintingArtStyle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].NotablFeatures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].PriceOfOilPaintingArt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].StoreQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OilPaintingArt[0].Supplier.CompanyName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OilPaintingArt) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OilPaintingArtLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OilPaintingArtStyle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotablFeatures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceOfOilPaintingArt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OilPaintingArtId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.OilPaintingArtId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.OilPaintingArtId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<ul class="pagination">
+    @for(var i = 1; i<=Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+            <a class="page-link" asp-route-pageIndex="@i">@i</a>
+        </li>
+    }
+</ul>
