@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Euro2025DB_HienNVH.props" />
+</Project>

@@ -1,0 +1,91 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{904FCE37-B622-4AC0-85C3-31E20545FAE3}|Euro2024_Repository\\Euro2024_Repository.csproj|d:\\college\\prn222\\pe01\\test_pe\\pe_prn222_fa25_trailtest_hiennvh\\euro2024_repository\\accountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{904FCE37-B622-4AC0-85C3-31E20545FAE3}|Euro2024_Repository\\Euro2024_Repository.csproj|solutionrelative:euro2024_repository\\accountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{904FCE37-B622-4AC0-85C3-31E20545FAE3}|Euro2024_Repository\\Euro2024_Repository.csproj|d:\\college\\prn222\\pe01\\test_pe\\pe_prn222_fa25_trailtest_hiennvh\\euro2024_repository\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{904FCE37-B622-4AC0-85C3-31E20545FAE3}|Euro2024_Repository\\Euro2024_Repository.csproj|solutionrelative:euro2024_repository\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DCC011D-E78A-427A-BEEC-00AE3776584A}|Euro2024DB_BusinessObjects\\Euro2024DB_BusinessObjects.csproj|d:\\college\\prn222\\pe01\\test_pe\\pe_prn222_fa25_trailtest_hiennvh\\euro2024db_businessobjects\\euro2024dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DCC011D-E78A-427A-BEEC-00AE3776584A}|Euro2024DB_BusinessObjects\\Euro2024DB_BusinessObjects.csproj|solutionrelative:euro2024db_businessobjects\\euro2024dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C36C892-90CA-4F36-85F2-531CABBE60E0}|Eurro2024_DAO\\Eurro2024_DAO.csproj|d:\\college\\prn222\\pe01\\test_pe\\pe_prn222_fa25_trailtest_hiennvh\\eurro2024_dao\\eurro2024_dao.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5C36C892-90CA-4F36-85F2-531CABBE60E0}|Eurro2024_DAO\\Eurro2024_DAO.csproj|solutionrelative:eurro2024_dao\\eurro2024_dao.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IAccountRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024_Repository\\IAccountRepo.cs",
+              "RelativeDocumentMoniker": "Euro2024_Repository\\IAccountRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024_Repository\\IAccountRepo.cs",
+              "RelativeToolTip": "Euro2024_Repository\\IAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T11:16:35.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AccountRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024_Repository\\AccountRepo.cs",
+              "RelativeDocumentMoniker": "Euro2024_Repository\\AccountRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024_Repository\\AccountRepo.cs",
+              "RelativeToolTip": "Euro2024_Repository\\AccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T11:16:33.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Euro2024DBContext.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024DB_BusinessObjects\\Euro2024DBContext.cs",
+              "RelativeDocumentMoniker": "Euro2024DB_BusinessObjects\\Euro2024DBContext.cs",
+              "ToolTip": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Euro2024DB_BusinessObjects\\Euro2024DBContext.cs",
+              "RelativeToolTip": "Euro2024DB_BusinessObjects\\Euro2024DBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T10:53:08.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Eurro2024_DAO.csproj",
+              "DocumentMoniker": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Eurro2024_DAO\\Eurro2024_DAO.csproj",
+              "RelativeDocumentMoniker": "Eurro2024_DAO\\Eurro2024_DAO.csproj",
+              "ToolTip": "D:\\College\\PRN222\\PE01\\Test_PE\\PE_PRN222_FA25_TrailTest_HienNVH\\Eurro2024_DAO\\Eurro2024_DAO.csproj",
+              "RelativeToolTip": "Eurro2024_DAO\\Eurro2024_DAO.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-15T06:06:25.041Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
