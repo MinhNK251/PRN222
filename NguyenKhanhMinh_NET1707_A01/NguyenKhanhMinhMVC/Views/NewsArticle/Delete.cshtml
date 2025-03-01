@@ -1,0 +1,20 @@
+﻿@model BusinessObjectsLayer.Models.NewsArticle
+
+@{
+    ViewData["Title"] = "Delete News Article";
+}
+
+<h2>Delete News Article</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Model.NewsTitle</h4>
+    <p>@Model.Headline</p>
+    <p>@Model.CreatedDate.ToShortDateString()</p>
+</div>
+
+<form asp-action="ConfirmDelete" method="post">
+    <input type="hidden" name="id" asp-for="NewsArticleId" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

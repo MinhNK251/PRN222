@@ -1,0 +1,49 @@
+﻿@model BusinessObjectsLayer.DTOs.CategoryDTO
+
+@{
+    ViewData["Title"] = Model.CategoryId == 0 ? "Create Category" : "Edit Category";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="CreateEdit" asp-controller="Category" method="post">
+    @Html.AntiForgeryToken() <!-- Add Anti-Forgery Token -->
+
+    <input type="hidden" asp-for="CategoryId" />
+
+    <!-- Category Name -->
+    <div class="form-group">
+        <label asp-for="CategoryName" class="control-label"></label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <!-- Category Description -->
+    <div class="form-group">
+        <label asp-for="CategoryDescription" class="control-label"></label>
+        <textarea asp-for="CategoryDescription" class="form-control"></textarea>
+        <span asp-validation-for="CategoryDescription" class="text-danger"></span>
+    </div>
+
+    <!-- Parent Category Dropdown -->
+    <div class="form-group">
+        <label asp-for="ParentCategoryId" class="control-label"></label>
+        <select asp-for="ParentCategoryId" asp-items="@(ViewBag.ParentCategories as SelectList)" class="form-control">
+            <option value="">-- Select Parent Category --</option>
+        </select>
+        <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+    </div>
+
+    <!-- Is Active Checkbox -->
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+
+    <!-- Submit & Cancel Buttons -->
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,29 @@
+﻿@model BusinessObjectsLayer.Models.SystemAccount
+
+@{
+    ViewData["Title"] = "System Account Details";
+}
+
+<h2>@Model.AccountName</h2>
+
+<p><strong>Email:</strong> @Model.AccountEmail</p>
+<p><strong>Role:</strong> @Model.AccountRole</p>
+<p><strong>Account ID:</strong> @Model.AccountId</p>
+
+<h3>Created News Articles:</h3>
+<ul>
+    @foreach (var article in Model.NewsArticleCreatedBies)
+    {
+        <li>@article.NewsTitle</li>
+    }
+</ul>
+
+<h3>Updated News Articles:</h3>
+<ul>
+    @foreach (var article in Model.NewsArticleUpdatedBies)
+    {
+        <li>@article.NewsTitle</li>
+    }
+</ul>
+
+<a asp-action="Index" class="btn btn-primary">Back to List</a>

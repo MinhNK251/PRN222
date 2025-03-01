@@ -1,0 +1,40 @@
+﻿@model BusinessObjectsLayer.DTOs.SystemAccountDTO
+
+@{
+    ViewData["Title"] = "Manage Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Profile" asp-controller="SystemAccount" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="AccountId" />
+
+    <!-- Account Name -->
+    <div class="form-group">
+        <label asp-for="AccountName" class="control-label"></label>
+        <input asp-for="AccountName" class="form-control" />
+        <span asp-validation-for="AccountName" class="text-danger"></span>
+    </div>
+
+    <!-- Account Email -->
+    <div class="form-group">
+        <label asp-for="AccountEmail" class="control-label"></label>
+        <input asp-for="AccountEmail" class="form-control" />
+        <span asp-validation-for="AccountEmail" class="text-danger"></span>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        <label asp-for="AccountPassword" class="control-label"></label>
+        <input asp-for="AccountPassword" type="password" class="form-control" />
+        <span asp-validation-for="AccountPassword" class="text-danger"></span>
+    </div>
+
+    <!-- Submit & Cancel Buttons -->
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

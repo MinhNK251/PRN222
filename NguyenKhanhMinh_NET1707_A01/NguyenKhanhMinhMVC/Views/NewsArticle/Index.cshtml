@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BusinessObjectsLayer.Models.NewsArticle>
+
+@{
+    ViewBag.Title = "News Articles";
+    int accountRole = ViewBag.AccountRole ?? -1;
+    string accountName = ViewBag.AccountName ?? "Unknown";
+}
+
+<h2>News Articles</h2>
+
+<p>Welcome, @accountName!</p>
+
+<p>
+    @if (accountRole != -1)
+    {
+        <a asp-action="Profile" asp-controller="SystemAccount" class="btn btn-primary">Manage Profile</a>
+        <form asp-action="Logout" asp-controller="SystemAccount" method="post" class="d-inline">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    }
+</p>
+
+<p>
+    @if (accountRole != -1)
+    {
+        <form asp-action="History" asp-controller="NewsArticle" class="d-inline">
+            <button type="submit" class="btn btn-primary">Your History</button>
+        </form>
+    }
+</p>
+
+@if (accountRole != 2)
+{
+    <p>
+        <a asp-action="CreateEdit" class="btn btn-success">Create New</a>
+        <a asp-action="Index" asp-controller="Category" class="btn btn-primary">Manage Categories</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Headline</th>
+            <th>Created Date</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+            <tr>
+                <td>@article.NewsTitle</td>
+                <td>@article.Headline</td>
+                <td>@article.CreatedDate.ToShortDateString()</td>
+                <td>@article.Category.CategoryName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@article.NewsArticleId" class="btn btn-info">Details</a>
+                    
+                    @if (accountRole != 2)
+                    {
+                        <a asp-action="CreateEdit" asp-route-id="@article.NewsArticleId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@article.NewsArticleId" class="btn btn-danger">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

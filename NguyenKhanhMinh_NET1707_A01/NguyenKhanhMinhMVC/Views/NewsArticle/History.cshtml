@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BusinessObjectsLayer.Models.NewsArticle>
+
+@{
+    ViewBag.Title = "News History";
+    int accountRole = ViewBag.AccountRole ?? -1;
+    string accountName = ViewBag.AccountName ?? "Unknown";
+    int userId = ViewBag.UserId ?? -1;
+}
+
+<h2>News History</h2>
+
+<p>Welcome, @accountName!</p>
+
+<p>Showing news articles created by user ID: @userId</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Headline</th>
+            <th>Category</th>
+            <th>Created By</th>
+            <th>Created Date</th>
+            <th>Modified Date</th>
+            <th>Status</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+            <tr>
+                <td>@article.NewsTitle</td>
+                <td>@article.Headline</td>
+                <td>@article.Category?.CategoryName</td>
+                <td>@article.CreatedBy?.AccountName</td>
+                <td>@article.CreatedDate.ToShortDateString()</td>
+                <td>@article.ModifiedDate.ToShortDateString()</td>
+                <td>@(article.NewsStatus ? "Active" : "Inactive")</td>
+                <td>
+                    @if (article.Tags != null && article.Tags.Any())
+                    {
+                        <ul>
+                            @foreach (var tag in article.Tags)
+                            {
+                                <li>@tag.TagName</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No tags</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+</div>

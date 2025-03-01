@@ -1,0 +1,60 @@
+﻿@model IEnumerable<BusinessObjectsLayer.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    int accountRole = ViewBag.AccountRole ?? -1;
+    string accountName = ViewBag.AccountName ?? "Unknown";
+}
+
+<h2>Categories</h2>
+
+<p>Welcome, @accountName!</p>
+
+<p>
+    @if (accountRole != -1)
+    {
+        <form asp-action="Logout" method="post" asp-controller="SystemAccount" class="d-inline">
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    }
+</p>
+
+@if (accountRole != 2)
+{
+    <p>
+        <a asp-action="CreateEdit" class="btn btn-success">Create New</a>
+        <a asp-action="Index" asp-controller="NewsArticle" class="btn btn-primary">Back to News Articles</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Parent Category</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.CategoryName</td>
+                <td>@category.CategoryDescription</td>
+                <td>@(category.ParentCategory?.CategoryName ?? "N/A")</td>
+                <td>@(category.IsActive ? "Active" : "Inactive")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-info">Details</a>
+
+                    @if (accountRole != 2)
+                    {
+                        <a asp-action="CreateEdit" asp-route-id="@category.CategoryId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-danger">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

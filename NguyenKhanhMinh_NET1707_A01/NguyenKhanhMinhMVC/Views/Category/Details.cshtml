@@ -1,0 +1,21 @@
+﻿@model BusinessObjectsLayer.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h2>@Model.CategoryName</h2>
+
+<p><strong>Description:</strong> @Model.CategoryDescription</p>
+<p><strong>Parent Category:</strong> @(Model.ParentCategory?.CategoryName ?? "N/A")</p>
+<p><strong>Status:</strong> @(Model.IsActive ? "Active" : "Inactive")</p>
+
+<h3>Related News Articles:</h3>
+<ul>
+    @foreach (var article in Model.NewsArticles)
+    {
+        <li>@article.NewsTitle</li>
+    }
+</ul>
+
+<a asp-action="Index" class="btn btn-primary">Back to List</a>

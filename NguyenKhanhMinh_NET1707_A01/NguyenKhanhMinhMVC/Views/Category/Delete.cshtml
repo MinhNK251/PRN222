@@ -1,0 +1,21 @@
+﻿@model BusinessObjectsLayer.Models.Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h2>Delete Category</h2>
+
+<h3>Are you sure you want to delete this category?</h3>
+<div>
+    <h4>@Model.CategoryName</h4>
+    <p><strong>Description:</strong> @Model.CategoryDescription</p>
+    <p><strong>Parent Category:</strong> @(Model.ParentCategory?.CategoryName ?? "N/A")</p>
+    <p><strong>Status:</strong> @(Model.IsActive ? "Active" : "Inactive")</p>
+</div>
+
+<form asp-action="ConfirmDelete" method="post">
+    <input type="hidden" name="id" asp-for="CategoryId" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

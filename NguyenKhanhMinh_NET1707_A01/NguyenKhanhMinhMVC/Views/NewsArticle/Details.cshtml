@@ -1,0 +1,23 @@
+﻿@model BusinessObjectsLayer.Models.NewsArticle
+
+<h2>@Model.NewsTitle</h2>
+
+<p><strong>Headline:</strong> @Model.Headline</p>
+<p><strong>Category:</strong> @Model.Category.CategoryName</p>
+<p><strong>Source:</strong> @Model.NewsSource</p>
+<p><strong>Content:</strong></p>
+<div>@Html.Raw(Model.NewsContent)</div>
+<p><strong>Created Date:</strong> @Model.CreatedDate.ToString("yyyy-MM-dd HH:mm")</p>
+<p><strong>Modified Date:</strong> @Model.ModifiedDate.ToString("yyyy-MM-dd HH:mm")</p>
+<p><strong>Status:</strong> @(Model.NewsStatus == true ? "Active" : "Inactive")</p>
+<p><strong>Created By:</strong> @(Model.CreatedBy?.AccountName ?? "Unknown")</p>
+<p><strong>Updated By:</strong> @(Model.UpdatedBy?.AccountName ?? "Unknown")</p>
+<h3>Tags:</h3>
+<ul>
+    @foreach (var tag in Model.Tags)
+    {
+        <li>@tag.TagName</li>
+    }
+</ul>
+
+<a asp-action="Index" class="btn btn-primary">Back to List</a>

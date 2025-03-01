@@ -1,0 +1,70 @@
+﻿@model BusinessObjectsLayer.DTOs.NewsArticleDTO
+
+@{
+    ViewData["Title"] = Model.NewsArticleId == 0 ? "Create News Article" : "Edit News Article";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="CreateEdit" asp-controller="NewsArticle" method="post">
+    @Html.AntiForgeryToken() <!-- Add Anti-Forgery Token -->
+
+    <input type="hidden" asp-for="NewsArticleId" />
+
+    <!-- News Title -->
+    <div class="form-group">
+        <label asp-for="NewsTitle" class="control-label"></label>
+        <input asp-for="NewsTitle" class="form-control" />
+        <span asp-validation-for="NewsTitle" class="text-danger"></span>
+    </div>
+
+    <!-- Headline -->
+    <div class="form-group">
+        <label asp-for="Headline" class="control-label"></label>
+        <input asp-for="Headline" class="form-control" />
+        <span asp-validation-for="Headline" class="text-danger"></span>
+    </div>
+
+    <!-- News Content -->
+    <div class="form-group">
+        <label asp-for="NewsContent" class="control-label"></label>
+        <textarea asp-for="NewsContent" class="form-control"></textarea>
+        <span asp-validation-for="NewsContent" class="text-danger"></span>
+    </div>
+
+    <!-- News Source -->
+    <div class="form-group">
+        <label asp-for="NewsSource" class="control-label"></label>
+        <input asp-for="NewsSource" class="form-control" />
+        <span asp-validation-for="NewsSource" class="text-danger"></span>
+    </div>
+
+    <!-- Category Dropdown -->
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" asp-items="@(ViewBag.Categories as SelectList)" class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <!-- Tags Multi-Select -->
+    <div class="form-group">
+        <label>Tags</label>
+        <select asp-for="SelectedTagIds" asp-items="@(ViewBag.Tags as MultiSelectList)" class="form-control" multiple></select>
+        <span asp-validation-for="SelectedTagIds" class="text-danger"></span>
+    </div>
+
+    <!-- News Status -->
+    <div class="form-group">
+        <label asp-for="NewsStatus" class="control-label"></label>
+        <input asp-for="NewsStatus" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="NewsStatus" class="text-danger"></span>
+    </div>
+
+    <!-- Submit & Cancel Buttons -->
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
