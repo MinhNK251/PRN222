@@ -11,202 +11,108 @@ namespace DAOsLayer
 {
     public class NewsArticleDAO
     {
-        private readonly FunewsManagementContext _context;
+        private FunewsManagementContext _dbContext;
+        private static NewsArticleDAO? instance;
 
         public NewsArticleDAO()
         {
-            _context = new FunewsManagementContext();
+            _dbContext = new FunewsManagementContext();
         }
 
-        // Get all active news articles (for public view)
-        public async Task<List<NewsArticle>> GetActiveNewsArticles()
+        public static NewsArticleDAO Instance
         {
-            return await _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .Where(x => x.NewsStatus == true)
-                .ToListAsync();
-        }
-
-        // Get all news articles (for Admin/Staff)
-        public async Task<List<NewsArticle>> GetAllNewsArticles()
-        {
-            return await _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .ToListAsync();
-        }
-
-        // Search news articles by title, headline, or content
-        public async Task<List<NewsArticle>> SearchNewsArticles(string searchTerm)
-        {
-            var query = _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchTerm))
+            get
             {
-                query = query.Where(x => x.NewsTitle.ToLower().Contains(searchTerm.ToLower()) ||
-                                         x.Headline.ToLower().Contains(searchTerm.ToLower()) ||
-                                         x.NewsContent.ToLower().Contains(searchTerm.ToLower()));
-            }
-
-            return await query.ToListAsync();
-        }
-
-        // Get a news article by ID
-        public async Task<NewsArticle> GetNewsArticleById(int id)
-        {
-            return await _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .FirstOrDefaultAsync(m => m.NewsArticleId == id);
-        }
-
-        public async Task<List<NewsArticle>> GenerateReport(DateTime startDate, DateTime endDate)
-        {
-            return await _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .Where(x => x.CreatedDate >= startDate && x.CreatedDate <= endDate)
-                .OrderByDescending(x => x.CreatedDate)
-                .ToListAsync();
-        }
-
-        public async Task<List<NewsArticle>> GetNewsByCreator(int creatorId)
-        {
-            return await _context.NewsArticles
-                .Include(x => x.Category)
-                .Include(x => x.CreatedBy)
-                .Include(x => x.UpdatedBy)
-                .Include(x => x.Tags)
-                .Where(x => x.CreatedById == creatorId)
-                .ToListAsync();
-        }
-
-        // Add a new news article with selected tags
-        public async Task AddNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds)
-        {
-            try
-            {
-                // Check if a news article with the same ID already exists
-                var existingArticle = await GetNewsArticleById(newsArticleDTO.NewsArticleId);
-                if (existingArticle != null)
+                if (instance == null)
                 {
-                    throw new Exception("News article already exists");
+                    instance = new NewsArticleDAO();
                 }
+                return instance;
+            }
+        }
 
-                // Map the DTO to the NewsArticle entity
-                var newsArticle = new NewsArticle
+        private FunewsManagementContext CreateDbContext()
+        {
+            return new FunewsManagementContext();
+        }
+
+        // Get NewsArticle by Id
+        public NewsArticle? GetNewsArticleById(string newsArticleId)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .SingleOrDefault(n => n.NewsArticleId == newsArticleId);
+            }
+        }
+
+        // Get all NewsArticles
+        public List<NewsArticle> GetNewsArticles()
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .ToList();
+            }
+        }
+
+        // Get all active NewsArticles
+        public List<NewsArticle> GetActiveNewsArticles()
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Where(n => n.NewsStatus == true)
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .ToList();
+            }
+        }
+
+        // Add a new NewsArticle
+        public void AddNewsArticle(NewsArticle newsArticle)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                dbContext.NewsArticles.Add(newsArticle);
+                dbContext.SaveChanges();
+            }
+        }
+
+        // Update an existing NewsArticle
+        public void UpdateNewsArticle(string newsArticleId, NewsArticle updatedNewsArticle)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                var existingNewsArticle = GetNewsArticleById(newsArticleId);
+                if (existingNewsArticle != null)
                 {
-                    NewsTitle = newsArticleDTO.NewsTitle,
-                    Headline = newsArticleDTO.Headline,
-                    NewsContent = newsArticleDTO.NewsContent,
-                    NewsSource = newsArticleDTO.NewsSource,
-                    CategoryId = newsArticleDTO.CategoryId,
-                    NewsStatus = newsArticleDTO.NewsStatus,
-                    CreatedById = createdBy,
-                    UpdatedById = updatedBy,
-                    CreatedDate = DateTime.Now,
-                    ModifiedDate = DateTime.Now
-                };
-
-                // Add the news article to the database
-                _context.NewsArticles.Add(newsArticle);
-                await _context.SaveChangesAsync();
-
-                // Handle selected tags
-                if (selectedTagIds != null && selectedTagIds.Length > 0)
-                {
-                    var tags = await _context.Tags
-                                              .Where(t => selectedTagIds.Contains(t.TagId))
-                                              .ToListAsync();
-                    newsArticle.Tags = tags;
-                    await _context.SaveChangesAsync();
+                    dbContext.NewsArticles.Update(updatedNewsArticle);
+                    dbContext.SaveChanges();
                 }
             }
-            catch (Exception e)
-            {
-                throw new Exception("Failed to add news article", e);
-            }
         }
 
-        // Update an existing news article and its associated tags
-        public async Task UpdateNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds)
+        // Remove a NewsArticle by Id
+        public void RemoveNewsArticle(string newsArticleId)
         {
-            try
+            using (var dbContext = CreateDbContext())
             {
-                // Retrieve the existing news article by ID
-                var existingArticle = await GetNewsArticleById(newsArticleDTO.NewsArticleId);
-                if (existingArticle == null)
+                var existingNewsArticle = GetNewsArticleById(newsArticleId);
+                if (existingNewsArticle != null)
                 {
-                    throw new Exception("News article does not exist");
-                }
-
-                // Update properties of the existing article
-                existingArticle.NewsTitle = newsArticleDTO.NewsTitle;
-                existingArticle.Headline = newsArticleDTO.Headline;
-                existingArticle.NewsContent = newsArticleDTO.NewsContent;
-                existingArticle.NewsSource = newsArticleDTO.NewsSource;
-                existingArticle.CategoryId = newsArticleDTO.CategoryId;
-                existingArticle.NewsStatus = newsArticleDTO.NewsStatus;
-                existingArticle.UpdatedById = updatedBy;
-                existingArticle.ModifiedDate = DateTime.Now;
-
-                // Update the news article in the database
-                _context.NewsArticles.Update(existingArticle);
-                await _context.SaveChangesAsync();
-
-                // Handle associated tags
-                existingArticle.Tags.Clear(); // Clear existing tags to avoid duplicates
-                if (selectedTagIds != null && selectedTagIds.Length > 0)
-                {
-                    var tags = await _context.Tags
-                                              .Where(t => selectedTagIds.Contains(t.TagId))
-                                              .ToListAsync();
-                    existingArticle.Tags = tags;
-                    await _context.SaveChangesAsync();
+                    dbContext.NewsArticles.Remove(existingNewsArticle);
+                    dbContext.SaveChanges();
                 }
             }
-            catch (Exception e)
-            {
-                throw new Exception("Failed to update news article", e);
-            }
-        }
-
-
-        // Delete a news article
-        public async Task DeleteNewsArticle(int id)
-        {
-            var existingArticle = await _context.NewsArticles
-                                                .Include(na => na.Tags) // Include related tags
-                                                .FirstOrDefaultAsync(na => na.NewsArticleId == id);
-
-            if (existingArticle == null)
-            {
-                throw new Exception("News article not found.");
-            }
-
-            // Remove the article from the tags' collections
-            foreach (var tag in existingArticle.Tags.ToList())
-            {
-                tag.NewsArticles.Remove(existingArticle);
-            }
-
-            // Remove the article from the database
-            _context.NewsArticles.Remove(existingArticle);
-            await _context.SaveChangesAsync();
         }
     }
+
 }
