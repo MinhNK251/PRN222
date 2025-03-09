@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\categoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\categoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B88566D7-29A0-4CEE-8A37-C907502D6370}|BusinessObjectsLayer\\BusinessObjectsLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\businessobjectslayer\\models\\adminaccountsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B88566D7-29A0-4CEE-8A37-C907502D6370}|BusinessObjectsLayer\\BusinessObjectsLayer.csproj|solutionrelative:businessobjectslayer\\models\\adminaccountsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\tagrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\tagrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\systemaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\systemaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\newsarticlerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\newsarticlerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\itagrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\itagrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\isystemaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\isystemaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\inewsarticlerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\inewsarticlerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a02\\repositorieslayer\\icategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81CDFB91-6211-408A-A2D4-C0D55E1F5DDD}|RepositoriesLayer\\RepositoriesLayer.csproj|solutionrelative:repositorieslayer\\icategoryrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +46,125 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminAccountSettings.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\BusinessObjectsLayer\\Models\\AdminAccountSettings.cs",
+              "RelativeDocumentMoniker": "BusinessObjectsLayer\\Models\\AdminAccountSettings.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\BusinessObjectsLayer\\Models\\AdminAccountSettings.cs",
+              "RelativeToolTip": "BusinessObjectsLayer\\Models\\AdminAccountSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:44:44.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TagRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\TagRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\TagRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\TagRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\TagRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:25.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SystemAccountRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\SystemAccountRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\SystemAccountRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\SystemAccountRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\SystemAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:22.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NewsArticleRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\NewsArticleRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\NewsArticleRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\NewsArticleRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\NewsArticleRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:16.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ITagRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ITagRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\ITagRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ITagRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\ITagRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:11.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ISystemAccountRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ISystemAccountRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\ISystemAccountRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ISystemAccountRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\ISystemAccountRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:05.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "INewsArticleRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\INewsArticleRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\INewsArticleRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\INewsArticleRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\INewsArticleRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:43:01.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ICategoryRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ICategoryRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\ICategoryRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\ICategoryRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\ICategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:42:58.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoryRepo.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\CategoryRepo.cs",
+              "RelativeDocumentMoniker": "RepositoriesLayer\\CategoryRepo.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\RepositoriesLayer\\CategoryRepo.cs",
+              "RelativeToolTip": "RepositoriesLayer\\CategoryRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:42:54.179Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
