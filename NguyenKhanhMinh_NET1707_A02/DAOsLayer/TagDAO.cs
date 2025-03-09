@@ -10,71 +10,83 @@ namespace DAOsLayer
 {
     public class TagDAO
     {
-        private readonly FunewsManagementContext _context;
+        private FunewsManagementContext _dbContext;
+        private static TagDAO? instance;
 
-        public TagDAO()
+        private TagDAO()
         {
-            _context = new FunewsManagementContext();
+            _dbContext = new FunewsManagementContext();
+        }
+
+        public static TagDAO Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new TagDAO();
+                }
+                return instance;
+            }
+        }
+
+        private FunewsManagementContext CreateDbContext()
+        {
+            return new FunewsManagementContext();
         }
 
         // Get all tags
-        public async Task<List<Tag>> GetAllTags()
+        public List<Tag> GetTags()
         {
-            return await _context.Tags.ToListAsync();
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.Tags.ToList();
+            }
         }
 
-        // Get a tag by ID
-        public async Task<Tag> GetTagById(int id)
+        // Get tag by ID
+        public Tag? GetTagById(int tagId)
         {
-            return await _context.Tags.FindAsync(id);
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.Tags.Find(tagId);
+            }
         }
 
         // Add a new tag
-        public async Task AddTag(Tag tag)
+        public void AddTag(Tag tag)
         {
-            try
+            using (var dbContext = CreateDbContext())
             {
-                var existingTag = await GetTagById(tag.TagId);
-                if (existingTag != null)
-                {
-                    throw new Exception("Tag already exists");
-                }
-                _context.Tags.Add(tag);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw e;
+                dbContext.Tags.Add(tag);
+                dbContext.SaveChanges();
             }
         }
 
         // Update an existing tag
-        public async Task UpdateTag(Tag tag)
+        public void UpdateTag(Tag tag)
         {
-            var existingTag = await GetTagById(tag.TagId);
-            if (existingTag == null)
+            using (var dbContext = CreateDbContext())
             {
-                throw new Exception("Tag not found");
+                dbContext.Tags.Update(tag);
+                dbContext.SaveChanges();
             }
-
-            existingTag.TagName = tag.TagName;
-            existingTag.Note = tag.Note;
-
-            _context.Tags.Update(existingTag);
-            await _context.SaveChangesAsync();
         }
 
-        // Delete a tag
-        public async Task DeleteTag(int id)
+        // Delete a tag (only if not linked to any news articles)
+        public bool RemoveTag(int tagId)
         {
-            var tag = await _context.Tags.FindAsync(id);
-            if (tag == null)
+            using (var dbContext = CreateDbContext())
             {
-                throw new Exception("Tag not found");
+                var tag = dbContext.Tags.Include(t => t.NewsArticles).FirstOrDefault(t => t.TagId == tagId);
+                if (tag != null && !tag.NewsArticles.Any())
+                {
+                    dbContext.Tags.Remove(tag);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+                return false; // Cannot delete tag if linked to news articles
             }
-
-            _context.Tags.Remove(tag);
-            await _context.SaveChangesAsync();
         }
     }
 }
