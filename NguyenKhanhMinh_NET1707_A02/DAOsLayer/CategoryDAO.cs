@@ -11,113 +11,106 @@ namespace DAOsLayer
 {
     public class CategoryDAO
     {
-        private readonly FunewsManagementContext _context;
+        private FunewsManagementContext _dbContext;
+        private static CategoryDAO? instance;
 
-        public CategoryDAO(FunewsManagementContext context)
+        public CategoryDAO()
         {
-            _context = context;
+            _dbContext = new FunewsManagementContext();
+        }
+
+        public static CategoryDAO Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CategoryDAO();
+                }
+                return instance;
+            }
+        }
+
+        private FunewsManagementContext CreateDbContext()
+        {
+            return new FunewsManagementContext();
+        }
+
+        // Get category by Id
+        public Category? GetCategoryById(short categoryId)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.Categories.AsNoTracking()
+                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.NewsArticles)
+                    .SingleOrDefault(c => c.CategoryId == categoryId);
+            }
         }
 
         // Get all categories
-        public async Task<List<Category>> GetAllCategories()
+        public List<Category> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.Categories.AsNoTracking()
+                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.NewsArticles)
+                    .ToList();
+            }
         }
 
-        //Get by id
-        public async Task<Category> GetCategoryById(int id)
+        // Get active categories only
+        public List<Category> GetActiveCategories()
         {
-            return await _context.Categories
-                         .Include(c => c.ParentCategory)
-                         .Include(c => c.NewsArticles)
-                         .FirstOrDefaultAsync(c => c.CategoryId == id);
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.Categories.AsNoTracking()
+                    .Where(c => c.IsActive == true)
+                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.NewsArticles)
+                    .ToList();
+            }
         }
 
         // Add a new category
-        public async Task AddCategory(CategoryDTO categoryDTO)
+        public void AddCategory(Category category)
         {
-            try
+            using (var dbContext = CreateDbContext())
             {
-                // Check if the category already exists
-                var existingCategory = await _context.Categories
-                                                    .FirstOrDefaultAsync(c => c.CategoryId == categoryDTO.CategoryId);
+                dbContext.Categories.Add(category);
+                dbContext.SaveChanges();
+            }
+        }
 
+        // Update an existing category
+        public void UpdateCategory(short categoryId, Category updatedCategory)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                var existingCategory = GetCategoryById(categoryId);
                 if (existingCategory != null)
                 {
-                    throw new Exception("Category already exists.");
+                    dbContext.Categories.Update(updatedCategory);
+                    dbContext.SaveChanges();
                 }
-
-                // Map DTO to entity
-                var category = new Category
-                {
-                    CategoryName = categoryDTO.CategoryName,
-                    CategoryDescription = categoryDTO.CategoryDescription,
-                    ParentCategoryId = categoryDTO.ParentCategoryId,
-                    IsActive = categoryDTO.IsActive
-                };
-
-                // Add the category to the database
-                _context.Categories.Add(category);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while adding the category.", ex);
             }
         }
 
-        // Update a category
-        public async Task UpdateCategory(CategoryDTO categoryDTO)
+        // Remove a category (only if not linked to any news articles)
+        public bool RemoveCategory(short categoryId)
         {
-            try
+            using (var dbContext = CreateDbContext())
             {
-                // Fetch the existing category
-                var existingCategory = await _context.Categories
-                                                    .FirstOrDefaultAsync(c => c.CategoryId == categoryDTO.CategoryId);
-
-                if (existingCategory == null)
+                var existingCategory = GetCategoryById(categoryId);
+                if (existingCategory != null && !existingCategory.NewsArticles.Any())
                 {
-                    throw new Exception("Category not found.");
+                    dbContext.Categories.Remove(existingCategory);
+                    dbContext.SaveChanges();
+                    return true;
                 }
-
-                // Map DTO to entity
-                existingCategory.CategoryName = categoryDTO.CategoryName;
-                existingCategory.CategoryDescription = categoryDTO.CategoryDescription;
-                existingCategory.ParentCategoryId = categoryDTO.ParentCategoryId;
-                existingCategory.IsActive = categoryDTO.IsActive;
-
-                // Update the category in the database
-                _context.Categories.Update(existingCategory);
-                await _context.SaveChangesAsync();
+                return false;
             }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the category.", ex);
-            }
-        }
-
-        // Delete a category (only if not used by any news article)
-        public async Task DeleteCategory(int id)
-        {
-            // Fetch the category with its related entities
-            var existingCategory = await _context.Categories
-                .Include(c => c.NewsArticles) // Include related news articles
-                .Include(c => c.InverseParentCategory) // Include child categories
-                .FirstOrDefaultAsync(c => c.CategoryId == id);
-
-            if (existingCategory == null)
-            {
-                throw new Exception("Category not found.");
-            }
-
-            if (existingCategory.NewsArticles.Any())
-            {
-                throw new Exception("Category is used by one or more news articles and cannot be deleted.");
-            }
-
-            // If the category is not associated with any news articles, delete it
-            _context.Categories.Remove(existingCategory);
-            await _context.SaveChangesAsync();
         }
     }
 }
