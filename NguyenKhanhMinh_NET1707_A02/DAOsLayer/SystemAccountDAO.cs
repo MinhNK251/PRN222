@@ -61,7 +61,6 @@ namespace DAOsLayer
                 };
             }
 
-            // Otherwise, check the database for other accounts
             using (var dbContext = CreateDbContext())
             {
                 return await dbContext.SystemAccounts

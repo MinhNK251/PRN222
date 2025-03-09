@@ -8,36 +8,22 @@ namespace RepositoriesLayer
 {
     public class CategoryRepo : ICategoryRepo
     {
-        private readonly CategoryDAO _categoryDAO;
+        public async Task<Category?> GetCategoryById(short categoryId)
+            => await CategoryDAO.Instance.GetCategoryById(categoryId);
 
-        // Constructor with dependency injection
-        public CategoryRepo(CategoryDAO categoryDAO)
-        {
-            _categoryDAO = categoryDAO;
-        }
+        public async Task<List<Category>> GetCategories()
+            => await CategoryDAO.Instance.GetCategories();
 
-        public Task<List<Category>> GetAllCategories()
-        {
-            return _categoryDAO.GetAllCategories();
-        }
+        public async Task<List<Category>> GetActiveCategories()
+            => await CategoryDAO.Instance.GetActiveCategories();
 
-        public Task<Category> GetCategoryById(int id)
-        {
-            return _categoryDAO.GetCategoryById(id);
-        }
-        public Task AddCategory(CategoryDTO category)
-        {
-            return _categoryDAO.AddCategory(category);
-        }
+        public async Task AddCategory(Category category)
+            => await CategoryDAO.Instance.AddCategory(category);
 
-        public Task UpdateCategory(CategoryDTO category)
-        {
-            return _categoryDAO.UpdateCategory(category);
-        }
+        public async Task UpdateCategory(short categoryId, Category category)
+            => await CategoryDAO.Instance.UpdateCategory(categoryId, category);
 
-        public Task DeleteCategory(int id)
-        {
-            return _categoryDAO.DeleteCategory(id);
-        }
+        public async Task RemoveCategory(short categoryId)
+            => await CategoryDAO.Instance.RemoveCategory(categoryId);
     }
 }
