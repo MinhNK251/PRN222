@@ -10,122 +10,124 @@ using System.Threading.Tasks;
 
 namespace DAOsLayer
 {
+    using BusinessObjectsLayer.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class SystemAccountDAO
     {
-        private readonly FunewsManagementContext _context;
-        private readonly AdminAccountSettings _adminAccountSettings;
+        private static SystemAccountDAO? instance;
+        private readonly FunewsManagementContext _dbContext;
 
-        // Public constructor for dependency injection
-        public SystemAccountDAO(FunewsManagementContext context, IOptions<AdminAccountSettings> adminAccountSettings)
+        public SystemAccountDAO()
         {
-            _context = context;
-            _adminAccountSettings = adminAccountSettings.Value;
+            _dbContext = new FunewsManagementContext();
         }
 
-        // Login method for authentication
-        public async Task<SystemAccount> Login(string email, string password)
+        public static SystemAccountDAO Instance
         {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SystemAccountDAO();
+                }
+                return instance;
+            }
+        }
+
+        private FunewsManagementContext CreateDbContext()
+        {
+            return new FunewsManagementContext();
+        }
+
+        // Login function (Admin & Regular Users)
+        public async Task<SystemAccount?> Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings)
+        {
+            var adminSettings = adminAccountSettings.Value;
+
             // Check if the provided credentials match the admin account
-            if (email == _adminAccountSettings.Email && password == _adminAccountSettings.Password)
+            if (email == adminSettings.Email && password == adminSettings.Password)
             {
                 return new SystemAccount
                 {
                     AccountId = 0, // Admin ID
                     AccountName = "Admin",
-                    AccountEmail = _adminAccountSettings.Email,
-                    AccountPassword = _adminAccountSettings.Password,
+                    AccountEmail = adminSettings.Email,
+                    AccountPassword = adminSettings.Password,
                     AccountRole = 0 // Admin role
                 };
             }
 
             // Otherwise, check the database for other accounts
-            return await _context.SystemAccounts
-                .FirstOrDefaultAsync(acc => acc.AccountEmail == email && acc.AccountPassword == password);
-        }
-
-        // Get all accounts (for Admin)
-        public async Task<List<SystemAccount>> GetAllAccounts()
-        {
-            return await _context.SystemAccounts.ToListAsync();
-        }
-
-        // Get account by ID (for Admin)
-        public async Task<SystemAccount> GetAccountById(int id)
-        {
-            return await _context.SystemAccounts
-                         .Include(sa => sa.NewsArticleCreatedBies) // Include created articles
-                         .Include(sa => sa.NewsArticleUpdatedBies) // Include updated articles
-                         .FirstOrDefaultAsync(sa => sa.AccountId == id);
-        }
-
-        // Add a new account (for Admin)
-        public async Task AddAccount(SystemAccountDTO accountDTO)
-        {
-            try
+            using (var dbContext = CreateDbContext())
             {
-                var existingAccount = await _context.SystemAccounts
-                                                   .FirstOrDefaultAsync(a => a.AccountId == accountDTO.AccountId);
+                return await dbContext.SystemAccounts
+                    .FirstOrDefaultAsync(acc => acc.AccountEmail == email && acc.AccountPassword == password);
+            }
+        }
 
-                if (existingAccount != null)
+        // Get Account by ID
+        public async Task<SystemAccount?> GetAccountById(short accountId)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return await dbContext.SystemAccounts.FindAsync(accountId);
+            }
+        }
+
+        // Get Account by Email
+        public async Task<SystemAccount?> GetAccountByEmail(string email)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return await dbContext.SystemAccounts.FirstOrDefaultAsync(acc => acc.AccountEmail == email);
+            }
+        }
+
+        // Get All Accounts
+        public async Task<List<SystemAccount>> GetAccounts()
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return await dbContext.SystemAccounts.ToListAsync();
+            }
+        }
+
+        // Add New Account
+        public async Task AddAccount(SystemAccount account)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                await dbContext.SystemAccounts.AddAsync(account);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        // Update Account
+        public async Task UpdateAccount(SystemAccount account)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                dbContext.SystemAccounts.Update(account);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        // Remove Account by ID
+        public async Task RemoveAccount(short accountId)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                var account = await GetAccountById(accountId);
+                if (account != null)
                 {
-                    throw new Exception("Account already exists");
+                    dbContext.SystemAccounts.Remove(account);
+                    await dbContext.SaveChangesAsync();
                 }
-
-                var account = new SystemAccount
-                {
-                    AccountName = accountDTO.AccountName,
-                    AccountEmail = accountDTO.AccountEmail,
-                    AccountPassword = accountDTO.AccountPassword, // Ensure password is hashed before saving
-                    AccountRole = accountDTO.AccountRole
-                };
-
-                _context.SystemAccounts.Add(account);
-                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while adding the account.", ex);
-            }
-        }
-
-        // Update an existing account
-        public async Task UpdateAccount(SystemAccountDTO accountDTO)
-        {
-            try
-            {
-                var existingAccount = await _context.SystemAccounts
-                                                   .FirstOrDefaultAsync(a => a.AccountId == accountDTO.AccountId);
-
-                if (existingAccount == null)
-                {
-                    throw new Exception("Account not found");
-                }
-
-                existingAccount.AccountName = accountDTO.AccountName;
-                existingAccount.AccountEmail = accountDTO.AccountEmail;
-                existingAccount.AccountPassword = accountDTO.AccountPassword;
-                existingAccount.AccountRole = accountDTO.AccountRole;
-
-                _context.SystemAccounts.Update(existingAccount);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the account.", ex);
-            }
-        }
-
-        // Delete an account (for Admin)
-        public async Task DeleteAccount(int id)
-        {
-            var account = await GetAccountById(id);
-            if (account == null)
-            {
-                throw new Exception("Account not found");
-            }
-
-            _context.SystemAccounts.Remove(account);
-            await _context.SaveChangesAsync();
         }
     }
 }
