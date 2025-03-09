@@ -76,7 +76,7 @@
               "RelativeDocumentMoniker": "DAOsLayer\\TagDAO.cs",
               "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\DAOsLayer\\TagDAO.cs",
               "RelativeToolTip": "DAOsLayer\\TagDAO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-09T17:50:03.033Z",
               "EditorCaption": ""
@@ -91,8 +91,7 @@
               "RelativeToolTip": "DAOsLayer\\SystemAccountDAO.cs",
               "ViewState": "AgIAAGkAAAAAAAAAAAAAwIIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T17:49:41.53Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-09T17:49:41.53Z"
             },
             {
               "$type": "Document",
@@ -104,8 +103,7 @@
               "RelativeToolTip": "DAOsLayer\\NewsArticleDAO.cs",
               "ViewState": "AgIAALoAAAAAAAAAAAAAwMEAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T17:49:07.886Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-09T17:49:07.886Z"
             },
             {
               "$type": "Document",
@@ -117,8 +115,7 @@
               "RelativeToolTip": "DAOsLayer\\CategoryDAO.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAkwHoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T17:48:38.439Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-09T17:48:38.439Z"
             },
             {
               "$type": "Document",
@@ -226,8 +223,7 @@
               "RelativeToolTip": "RepositoriesLayer\\CategoryRepo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T17:42:54.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-09T17:42:54.179Z"
             }
           ]
         }
