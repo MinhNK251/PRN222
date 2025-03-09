@@ -77,15 +77,6 @@ namespace DAOsLayer
             }
         }
 
-        // Get Account by Email
-        public async Task<SystemAccount?> GetAccountByEmail(string email)
-        {
-            using (var dbContext = CreateDbContext())
-            {
-                return await dbContext.SystemAccounts.FirstOrDefaultAsync(acc => acc.AccountEmail == email);
-            }
-        }
-
         // Get All Accounts
         public async Task<List<SystemAccount>> GetAccounts()
         {
