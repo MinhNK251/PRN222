@@ -9,57 +9,22 @@ namespace RepositoriesLayer
 {
     public class NewsArticleRepo : INewsArticleRepo
     {
-        private readonly NewsArticleDAO _newsArticleDAO;
+        public async Task<NewsArticle?> GetNewsArticleById(string articleId)
+            => await NewsArticleDAO.Instance.GetNewsArticleById(articleId);
 
-        // Constructor with dependency injection
-        public NewsArticleRepo(NewsArticleDAO newsArticleDAO)
-        {
-            _newsArticleDAO = newsArticleDAO;
-        }
+        public async Task<List<NewsArticle>> GetNewsArticles()
+            => await NewsArticleDAO.Instance.GetNewsArticles();
 
-        public Task<List<NewsArticle>> GetActiveNewsArticles()
-        {
-            return _newsArticleDAO.GetActiveNewsArticles();
-        }
+        public async Task<List<NewsArticle>> GetActiveNewsArticles()
+            => await NewsArticleDAO.Instance.GetActiveNewsArticles();
 
-        public Task<List<NewsArticle>> GetAllNewsArticles()
-        {
-            return _newsArticleDAO.GetAllNewsArticles();
-        }
+        public async Task AddNewsArticle(NewsArticle newsArticle)
+            => await NewsArticleDAO.Instance.AddNewsArticle(newsArticle);
 
-        public Task<List<NewsArticle>> SearchNewsArticles(string searchTerm)
-        {
-            return _newsArticleDAO.SearchNewsArticles(searchTerm);
-        }
+        public async Task UpdateNewsArticle(string articleId, NewsArticle updatedArticle)
+            => await NewsArticleDAO.Instance.UpdateNewsArticle(articleId, updatedArticle);
 
-        public Task<NewsArticle> GetNewsArticleById(int id)
-        {
-            return _newsArticleDAO.GetNewsArticleById(id);
-        }
-
-        public Task<List<NewsArticle>> GenerateReport(DateTime startDate, DateTime endDate)
-        {
-            return _newsArticleDAO.GenerateReport(startDate, endDate);
-        }
-
-        public Task AddNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds)
-        {
-            return _newsArticleDAO.AddNewsArticle(newsArticleDTO, createdBy, updatedBy, selectedTagIds);
-        }
-
-        public Task UpdateNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds)
-        {
-            return _newsArticleDAO.UpdateNewsArticle(newsArticleDTO, createdBy, updatedBy, selectedTagIds);
-        }
-
-        public Task DeleteNewsArticle(int id)
-        {
-            return _newsArticleDAO.DeleteNewsArticle(id);
-        }
-
-        public Task<List<NewsArticle>> GetNewsByCreator(int creatorId)
-        {
-            return _newsArticleDAO.GetNewsByCreator(creatorId);
-        }
+        public async Task RemoveNewsArticle(string articleId)
+            => await NewsArticleDAO.Instance.RemoveNewsArticle(articleId);
     }
 }

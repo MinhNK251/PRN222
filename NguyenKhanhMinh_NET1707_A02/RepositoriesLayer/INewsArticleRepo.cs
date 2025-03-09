@@ -8,14 +8,11 @@ namespace RepositoriesLayer
 {
     public interface INewsArticleRepo
     {
+        Task<NewsArticle?> GetNewsArticleById(string articleId);
+        Task<List<NewsArticle>> GetNewsArticles();
         Task<List<NewsArticle>> GetActiveNewsArticles();
-        Task<List<NewsArticle>> GetAllNewsArticles();
-        Task<List<NewsArticle>> SearchNewsArticles(string searchTerm);
-        Task<NewsArticle> GetNewsArticleById(int id);
-        Task<List<NewsArticle>> GenerateReport(DateTime startDate, DateTime endDate);
-        Task AddNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds);
-        Task UpdateNewsArticle(NewsArticleDTO newsArticleDTO, int createdBy, int updatedBy, int[] selectedTagIds);
-        Task DeleteNewsArticle(int id);
-        Task<List<NewsArticle>> GetNewsByCreator(int creatorId);
+        Task AddNewsArticle(NewsArticle newsArticle);
+        Task UpdateNewsArticle(string articleId, NewsArticle updatedArticle);
+        Task RemoveNewsArticle(string articleId);
     }
 }
