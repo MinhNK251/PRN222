@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A01\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4A4B68E1-D885-483B-A19B-8A815391413B}|DAOsLayer\\DAOsLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a01\\daoslayer\\systemaccountdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A4B68E1-D885-483B-A19B-8A815391413B}|DAOsLayer\\DAOsLayer.csproj|solutionrelative:daoslayer\\systemaccountdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A4B68E1-D885-483B-A19B-8A815391413B}|DAOsLayer\\DAOsLayer.csproj|d:\\college\\prn222\\source code\\nguyenkhanhminh_net1707_a01\\daoslayer\\newsarticledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A4B68E1-D885-483B-A19B-8A815391413B}|DAOsLayer\\DAOsLayer.csproj|solutionrelative:daoslayer\\newsarticledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SystemAccountDAO.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A01\\DAOsLayer\\SystemAccountDAO.cs",
+              "RelativeDocumentMoniker": "DAOsLayer\\SystemAccountDAO.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A01\\DAOsLayer\\SystemAccountDAO.cs",
+              "RelativeToolTip": "DAOsLayer\\SystemAccountDAO.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAH4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:49:43.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NewsArticleDAO.cs",
+              "DocumentMoniker": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A01\\DAOsLayer\\NewsArticleDAO.cs",
+              "RelativeDocumentMoniker": "DAOsLayer\\NewsArticleDAO.cs",
+              "ToolTip": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A01\\DAOsLayer\\NewsArticleDAO.cs",
+              "RelativeToolTip": "DAOsLayer\\NewsArticleDAO.cs",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAAANIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T17:49:09.621Z",
+              "EditorCaption": ""
             }
           ]
         }
