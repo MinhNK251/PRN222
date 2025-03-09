@@ -13,42 +13,22 @@ namespace RepositoriesLayer
 {
     public class SystemAccountRepo : ISystemAccountRepo
     {
-        private readonly SystemAccountDAO _systemAccountDAO;
+        public async Task<SystemAccount?> GetAccountById(short accountId)
+            => await SystemAccountDAO.Instance.GetAccountById(accountId);
 
-        // Public constructor for dependency injection
-        public SystemAccountRepo(SystemAccountDAO systemAccountDAO)
-        {
-            _systemAccountDAO = systemAccountDAO;
-        }
+        public async Task<List<SystemAccount>> GetAccounts()
+            => await SystemAccountDAO.Instance.GetAccounts();
 
-        public Task<SystemAccount> Login(string email, string password)
-        {
-            return _systemAccountDAO.Login(email, password);
-        }
+        public async Task AddAccount(SystemAccount account)
+            => await SystemAccountDAO.Instance.AddAccount(account);
 
-        public Task<List<SystemAccount>> GetAllAccounts()
-        {
-            return _systemAccountDAO.GetAllAccounts();
-        }
+        public async Task UpdateAccount(SystemAccount updatedAccount)
+            => await SystemAccountDAO.Instance.UpdateAccount(updatedAccount);
 
-        public Task<SystemAccount> GetAccountById(int id)
-        {
-            return _systemAccountDAO.GetAccountById(id);
-        }
+        public async Task RemoveAccount(short accountId)
+            => await SystemAccountDAO.Instance.RemoveAccount(accountId);
 
-        public Task AddAccount(SystemAccountDTO account)
-        {
-            return _systemAccountDAO.AddAccount(account);
-        }
-
-        public Task UpdateAccount(SystemAccountDTO account)
-        {
-            return _systemAccountDAO.UpdateAccount(account);
-        }
-
-        public Task DeleteAccount(int id)
-        {
-            return _systemAccountDAO.DeleteAccount(id);
-        }
+        public async Task<SystemAccount?> Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings)
+            => await SystemAccountDAO.Instance.Login(email, password, adminAccountSettings);
     }
 }
