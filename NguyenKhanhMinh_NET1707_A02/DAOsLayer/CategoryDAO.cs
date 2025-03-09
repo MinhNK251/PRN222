@@ -37,54 +37,54 @@ namespace DAOsLayer
         }
 
         // Get category by Id
-        public Category? GetCategoryById(short categoryId)
+        public async Task<Category?> GetCategoryById(short categoryId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Categories.AsNoTracking()
+                return await dbContext.Categories.AsNoTracking()
                     .Include(c => c.InverseParentCategory)
                     .Include(c => c.NewsArticles)
-                    .SingleOrDefault(c => c.CategoryId == categoryId);
+                    .SingleOrDefaultAsync(c => c.CategoryId == categoryId);
             }
         }
 
         // Get all categories
-        public List<Category> GetCategories()
+        public async Task<List<Category>> GetCategories()
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Categories.AsNoTracking()
+                return await dbContext.Categories.AsNoTracking()
                     .Include(c => c.InverseParentCategory)
                     .Include(c => c.NewsArticles)
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
         // Get active categories only
-        public List<Category> GetActiveCategories()
+        public async Task<List<Category>> GetActiveCategories()
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Categories.AsNoTracking()
+                return await dbContext.Categories.AsNoTracking()
                     .Where(c => c.IsActive == true)
                     .Include(c => c.InverseParentCategory)
                     .Include(c => c.NewsArticles)
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
         // Add a new category
-        public void AddCategory(Category category)
+        public async Task AddCategory(Category category)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.Categories.Add(category);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
         // Update an existing category
-        public void UpdateCategory(short categoryId, Category updatedCategory)
+        public async Task UpdateCategory(short categoryId, Category updatedCategory)
         {
             using (var dbContext = CreateDbContext())
             {
@@ -92,24 +92,22 @@ namespace DAOsLayer
                 if (existingCategory != null)
                 {
                     dbContext.Categories.Update(updatedCategory);
-                    dbContext.SaveChanges();
+                    await dbContext.SaveChangesAsync();
                 }
             }
         }
 
         // Remove a category (only if not linked to any news articles)
-        public bool RemoveCategory(short categoryId)
+        public async Task RemoveCategory(short categoryId)
         {
             using (var dbContext = CreateDbContext())
             {
-                var existingCategory = GetCategoryById(categoryId);
+                var existingCategory = await GetCategoryById(categoryId);
                 if (existingCategory != null && !existingCategory.NewsArticles.Any())
                 {
                     dbContext.Categories.Remove(existingCategory);
-                    dbContext.SaveChanges();
-                    return true;
+                    await dbContext.SaveChangesAsync();
                 }
-                return false;
             }
         }
     }

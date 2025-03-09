@@ -36,45 +36,45 @@ namespace DAOsLayer
         }
 
         // Get all tags
-        public List<Tag> GetTags()
+        public async Task<List<Tag>> GetTags()
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Tags.ToList();
+                return await dbContext.Tags.ToListAsync();
             }
         }
 
         // Get tag by ID
-        public Tag? GetTagById(int tagId)
+        public async Task<Tag?> GetTagById(int tagId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Tags.Find(tagId);
+                return await dbContext.Tags.FindAsync(tagId);
             }
         }
 
         // Add a new tag
-        public void AddTag(Tag tag)
+        public async Task AddTag(Tag tag)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.Tags.Add(tag);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
         // Update an existing tag
-        public void UpdateTag(Tag tag)
+        public async Task UpdateTag(Tag tag)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.Tags.Update(tag);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
         // Delete a tag (only if not linked to any news articles)
-        public bool RemoveTag(int tagId)
+        public async Task RemoveTag(int tagId)
         {
             using (var dbContext = CreateDbContext())
             {
@@ -82,10 +82,8 @@ namespace DAOsLayer
                 if (tag != null && !tag.NewsArticles.Any())
                 {
                     dbContext.Tags.Remove(tag);
-                    dbContext.SaveChanges();
-                    return true;
+                    await dbContext.SaveChangesAsync();
                 }
-                return false; // Cannot delete tag if linked to news articles
             }
         }
     }

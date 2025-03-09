@@ -37,79 +37,79 @@ namespace DAOsLayer
         }
 
         // Get NewsArticle by Id
-        public NewsArticle? GetNewsArticleById(string newsArticleId)
+        public async Task<NewsArticle?> GetNewsArticleById(string newsArticleId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.NewsArticles.AsNoTracking()
+                return await dbContext.NewsArticles.AsNoTracking()
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
-                    .SingleOrDefault(n => n.NewsArticleId == newsArticleId);
+                    .SingleOrDefaultAsync(n => n.NewsArticleId == newsArticleId);
             }
         }
 
         // Get all NewsArticles
-        public List<NewsArticle> GetNewsArticles()
+        public async Task<List<NewsArticle>> GetNewsArticles()
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.NewsArticles.AsNoTracking()
+                return await dbContext.NewsArticles.AsNoTracking()
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
         // Get all active NewsArticles
-        public List<NewsArticle> GetActiveNewsArticles()
+        public async Task<List<NewsArticle>> GetActiveNewsArticles()
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.NewsArticles.AsNoTracking()
+                return await dbContext.NewsArticles.AsNoTracking()
                     .Where(n => n.NewsStatus == true)
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
         // Add a new NewsArticle
-        public void AddNewsArticle(NewsArticle newsArticle)
+        public async Task AddNewsArticle(NewsArticle newsArticle)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.NewsArticles.Add(newsArticle);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
         }
 
         // Update an existing NewsArticle
-        public void UpdateNewsArticle(string newsArticleId, NewsArticle updatedNewsArticle)
+        public async Task UpdateNewsArticle(string newsArticleId, NewsArticle updatedNewsArticle)
         {
             using (var dbContext = CreateDbContext())
             {
-                var existingNewsArticle = GetNewsArticleById(newsArticleId);
+                var existingNewsArticle = await GetNewsArticleById(newsArticleId);
                 if (existingNewsArticle != null)
                 {
                     dbContext.NewsArticles.Update(updatedNewsArticle);
-                    dbContext.SaveChanges();
+                    await dbContext.SaveChangesAsync();
                 }
             }
         }
 
         // Remove a NewsArticle by Id
-        public void RemoveNewsArticle(string newsArticleId)
+        public async Task RemoveNewsArticle(string newsArticleId)
         {
             using (var dbContext = CreateDbContext())
             {
-                var existingNewsArticle = GetNewsArticleById(newsArticleId);
+                var existingNewsArticle = await GetNewsArticleById(newsArticleId);
                 if (existingNewsArticle != null)
                 {
                     dbContext.NewsArticles.Remove(existingNewsArticle);
-                    dbContext.SaveChanges();
+                    await dbContext.SaveChangesAsync();
                 }
             }
         }
