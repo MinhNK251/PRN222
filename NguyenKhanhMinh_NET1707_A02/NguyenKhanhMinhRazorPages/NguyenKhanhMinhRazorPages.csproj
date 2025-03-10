@@ -11,9 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\NewsArticle\" />
-    <Folder Include="Pages\Tag\" />
-    <Folder Include="Pages\SystemAccount\" />
+    <Folder Include="Pages\TagPages\" />
+    <Folder Include="Pages\SystemAccountPages\" />
   </ItemGroup>
 
   <ItemGroup>
