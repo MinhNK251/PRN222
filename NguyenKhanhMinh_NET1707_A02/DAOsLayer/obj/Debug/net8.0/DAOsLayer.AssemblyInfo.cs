@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DAOsLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d1269206a61aa22c15f5f890e95f3e5fc6ee5a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c76e4db863167f2494cdc665a4648850200695ca")]
 [assembly: System.Reflection.AssemblyProductAttribute("DAOsLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DAOsLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

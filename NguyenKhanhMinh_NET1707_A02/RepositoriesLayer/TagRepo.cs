@@ -1,5 +1,6 @@
 ﻿using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,37 +8,19 @@ namespace RepositoriesLayer
 {
     public class TagRepo : ITagRepo
     {
-        private readonly TagDAO _tagDAO;
+        public async Task<List<Tag>> GetTags()
+            => await TagDAO.Instance.GetTags();
 
-        // Constructor with dependency injection
-        public TagRepo(TagDAO tagDAO)
-        {
-            _tagDAO = tagDAO;
-        }
+        public async Task<Tag?> GetTagById(int tagId)
+            => await TagDAO.Instance.GetTagById(tagId);
 
-        public Task<List<Tag>> GetAllTags()
-        {
-            return _tagDAO.GetAllTags();
-        }
+        public async Task AddTag(Tag tag)
+            => await TagDAO.Instance.AddTag(tag);
 
-        public Task<Tag> GetTagById(int id)
-        {
-            return _tagDAO.GetTagById(id);
-        }
+        public async Task UpdateTag(Tag tag)
+            => await TagDAO.Instance.UpdateTag(tag);
 
-        public Task AddTag(Tag tag)
-        {
-            return _tagDAO.AddTag(tag);
-        }
-
-        public Task UpdateTag(Tag tag)
-        {
-            return _tagDAO.UpdateTag(tag);
-        }
-
-        public Task DeleteTag(int id)
-        {
-            return _tagDAO.DeleteTag(id);
-        }
+        public async Task RemoveTag(int tagId)
+            => await TagDAO.Instance.RemoveTag(tagId);
     }
 }
