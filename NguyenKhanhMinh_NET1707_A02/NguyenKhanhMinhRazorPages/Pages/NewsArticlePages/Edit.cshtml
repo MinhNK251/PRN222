@@ -15,6 +15,10 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="NewsArticle.NewsArticleId" />
+            <input type="hidden" asp-for="NewsArticle.CreatedBy" />
+            <input type="hidden" asp-for="NewsArticle.UpdatedBy" />
+            <input type="hidden" asp-for="NewsArticle.CreatedDate" />
+            <input type="hidden" asp-for="NewsArticle.ModifiedDate" />
             <div class="form-group">
                 <label asp-for="NewsArticle.NewsTitle" class="control-label">News Title</label>
                 <input asp-for="NewsArticle.NewsTitle" class="form-control" />

@@ -8,12 +8,13 @@ namespace RepositoriesLayer
 {
     public interface INewsArticleRepo
     {
-        Task<NewsArticle?> GetNewsArticleById(string articleId);
-        Task<List<NewsArticle>> GetNewsArticles();
-        Task<List<NewsArticle>> GetActiveNewsArticles();
-        Task AddNewsArticle(NewsArticle newsArticle);
-        Task UpdateNewsArticle(string articleId, NewsArticle updatedArticle);
-        Task RemoveNewsArticle(string articleId);
-        Task RemoveTagsByArticleId(string articleId);
+        NewsArticle? GetNewsArticleById(string articleId);
+        List<NewsArticle> GetNewsArticles();
+        List<NewsArticle> GetActiveNewsArticles();
+        void AddNewsArticle(NewsArticle newsArticle);
+        void UpdateNewsArticle(string articleId, NewsArticle updatedArticle);
+        void RemoveNewsArticle(string articleId);
+        void RemoveTagsByArticleId(string articleId);
+        void AttachTag(Tag tag);
     }
 }

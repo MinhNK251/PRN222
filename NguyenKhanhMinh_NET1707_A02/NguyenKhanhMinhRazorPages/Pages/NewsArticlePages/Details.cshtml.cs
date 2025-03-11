@@ -1,42 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
-using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
     public class DetailsModel : PageModel
     {
-        private readonly FunewsManagementContext _context;
+        private readonly INewsArticleRepo _newsArticleRepo;
+        private readonly ITagRepo _tagRepo;
 
-        public DetailsModel(FunewsManagementContext context)
+        public DetailsModel(INewsArticleRepo newsArticleRepo, ITagRepo tagRepo)
         {
-            _context = context;
+            _newsArticleRepo = newsArticleRepo;
+            _tagRepo = tagRepo;
         }
 
         public NewsArticle NewsArticle { get; set; } = default!;
+        public List<Tag> Tags { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
 
-            var newsarticle = await _context.NewsArticles.FirstOrDefaultAsync(m => m.NewsArticleId == id);
-            if (newsarticle == null)
+            var newsArticle = _newsArticleRepo.GetNewsArticleById(id);
+            if (newsArticle == null)
             {
                 return NotFound();
             }
-            else
-            {
-                NewsArticle = newsarticle;
-            }
+
+            NewsArticle = newsArticle;
+
+            // Fetch related tags
+            Tags = await _tagRepo.GetTagsByNewsArticleIdAsync(id);
+
             return Page();
         }
     }

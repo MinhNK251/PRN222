@@ -39,15 +39,14 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 return NotFound();
             }
 
-            var newsarticle =  await _newsArticleRepo.GetNewsArticleById(id);
-            if (newsarticle == null)
+            var newsArticle =  _newsArticleRepo.GetNewsArticleById(id);
+            if (newsArticle == null)
             {
                 return NotFound();
             }
-            NewsArticle = newsarticle;
-            SelectedTags = newsarticle.Tags.Select(t => t.TagId).ToList();
+            NewsArticle = newsArticle;
+            SelectedTags = newsArticle.Tags.Select(t => t.TagId).ToList();
             ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-            ViewData["CreatedById"] = new SelectList(await _systemAccountRepo.GetAccounts(), "AccountId", "AccountName");
             ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
             return Page();
         }
@@ -57,36 +56,49 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             if (!ModelState.IsValid)
             {
                 ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-                ViewData["CreatedById"] = new SelectList(await _systemAccountRepo.GetAccounts(), "AccountId", "AccountName");
                 ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
                 return Page();
             }
+
             try
             {
-                var existingArticle = await _newsArticleRepo.GetNewsArticleById(NewsArticle.NewsArticleId);
+                // ✅ Avoid reloading NewsArticle
+                var existingArticle = _newsArticleRepo.GetNewsArticleById(NewsArticle.NewsArticleId);
                 if (existingArticle == null)
                 {
                     return NotFound();
                 }
-
-                NewsArticle.CreatedDate = existingArticle.CreatedDate;
-                NewsArticle.CreatedById = existingArticle.CreatedById;
-                NewsArticle.ModifiedDate = DateTime.Now;
-
-                var currentUserEmail = HttpContext.Session.GetString("UserEmail");
-                if (string.IsNullOrEmpty(currentUserEmail))
+                var userEmail = HttpContext.Session.GetString("UserEmail");
+                if (string.IsNullOrEmpty(userEmail))
                 {
-                    return Unauthorized();
+                    return RedirectToPage("/Login"); // Redirect to login if no session exists
                 }
-                SystemAccount account = await _systemAccountRepo.GetAccountByEmail(currentUserEmail);
-                NewsArticle.UpdatedById = account.AccountId;
-                await _newsArticleRepo.RemoveTagsByArticleId(NewsArticle.NewsArticleId);
-                NewsArticle.Tags = await _tagRepo.GetTagsByIds(SelectedTags);
-                await _newsArticleRepo.UpdateNewsArticle(NewsArticle.NewsArticleId, NewsArticle);
+                var currentUser = await _systemAccountRepo.GetAccountByEmail(userEmail);
+                existingArticle.UpdatedById = currentUser.AccountId;
+                existingArticle.NewsTitle = NewsArticle.NewsTitle;
+                existingArticle.Headline = NewsArticle.Headline;
+                existingArticle.NewsContent = NewsArticle.NewsContent;
+                existingArticle.NewsSource = NewsArticle.NewsSource;
+                existingArticle.CategoryId = NewsArticle.CategoryId;
+                existingArticle.NewsStatus = NewsArticle.NewsStatus;
+                existingArticle.ModifiedDate = DateTime.Now;
+
+                //var currentUserEmail = HttpContext.Session.GetString("UserEmail");
+                //if (string.IsNullOrEmpty(currentUserEmail))
+                //{
+                //    return Unauthorized();
+                //}
+                //SystemAccount account = await _systemAccountRepo.GetAccountByEmail(currentUserEmail);
+                //NewsArticle.UpdatedById = account.AccountId;
+
+                // ✅ Update Tags properly
+                _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
+                existingArticle.Tags = await _tagRepo.GetTagsByIds(SelectedTags);
+                _newsArticleRepo.UpdateNewsArticle(existingArticle.NewsArticleId, existingArticle);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (await _newsArticleRepo.GetNewsArticleById(NewsArticle.NewsArticleId) == null)
+                if (_newsArticleRepo.GetNewsArticleById(NewsArticle.NewsArticleId) == null)
                 {
                     return NotFound();
                 }
@@ -97,5 +109,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             }
             return RedirectToPage("./Index");
         }
+
     }
 }

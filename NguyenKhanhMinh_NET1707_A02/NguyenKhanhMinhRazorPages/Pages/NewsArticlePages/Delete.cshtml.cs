@@ -7,38 +7,42 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
     public class DeleteModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly INewsArticleRepo _newsArticleRepo;
+        private readonly ITagRepo _tagRepo;
 
-        public DeleteModel(DAOsLayer.FunewsManagementContext context)
+        public DeleteModel(INewsArticleRepo newsArticleRepo, ITagRepo tagRepo)
         {
-            _context = context;
+            _newsArticleRepo = newsArticleRepo;
+            _tagRepo = tagRepo;
         }
 
-        [BindProperty]
         public NewsArticle NewsArticle { get; set; } = default!;
+        public List<Tag> Tags { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
 
-            var newsarticle = await _context.NewsArticles.FirstOrDefaultAsync(m => m.NewsArticleId == id);
-
-            if (newsarticle == null)
+            var newsArticle = _newsArticleRepo.GetNewsArticleById(id);
+            if (newsArticle == null)
             {
                 return NotFound();
             }
-            else
-            {
-                NewsArticle = newsarticle;
-            }
+
+            NewsArticle = newsArticle;
+
+            // Fetch related tags
+            Tags = await _tagRepo.GetTagsByNewsArticleIdAsync(id);
+
             return Page();
         }
 
@@ -49,12 +53,10 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 return NotFound();
             }
 
-            var newsarticle = await _context.NewsArticles.FindAsync(id);
+            var newsarticle = _newsArticleRepo.GetNewsArticleById(id);
             if (newsarticle != null)
             {
-                NewsArticle = newsarticle;
-                _context.NewsArticles.Remove(NewsArticle);
-                await _context.SaveChangesAsync();
+                _newsArticleRepo.RemoveNewsArticle(newsarticle.NewsArticleId);
             }
 
             return RedirectToPage("./Index");

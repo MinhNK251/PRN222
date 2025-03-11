@@ -58,7 +58,20 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.Tags.Where(t => tagIds.Contains(t.TagId)).ToListAsync();
+                return await dbContext.Tags.AsNoTracking().Where(t => tagIds.Contains(t.TagId)).ToListAsync();
+            }
+        }
+
+        // Get tags by article ID
+        public async Task<List<Tag>> GetTagsByNewsArticleIdAsync(string newsArticleId)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return await dbContext.Tags.AsNoTracking()
+                    .Where(t => dbContext.Set<Dictionary<string, object>>("NewsTag")
+                        .Any(nt => EF.Property<int>(nt, "TagId") == t.TagId &&
+                                   EF.Property<string>(nt, "NewsArticleId") == newsArticleId))
+                    .ToListAsync();
             }
         }
 

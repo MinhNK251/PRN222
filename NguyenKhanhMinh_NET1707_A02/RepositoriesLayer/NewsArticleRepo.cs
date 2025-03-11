@@ -9,25 +9,28 @@ namespace RepositoriesLayer
 {
     public class NewsArticleRepo : INewsArticleRepo
     {
-        public async Task<NewsArticle?> GetNewsArticleById(string articleId)
-            => await NewsArticleDAO.Instance.GetNewsArticleById(articleId);
+        public NewsArticle? GetNewsArticleById(string articleId)
+            => NewsArticleDAO.Instance.GetNewsArticleById(articleId);
 
-        public async Task<List<NewsArticle>> GetNewsArticles()
-            => await NewsArticleDAO.Instance.GetNewsArticles();
+        public List<NewsArticle> GetNewsArticles()
+            => NewsArticleDAO.Instance.GetNewsArticles();
 
-        public async Task<List<NewsArticle>> GetActiveNewsArticles()
-            => await NewsArticleDAO.Instance.GetActiveNewsArticles();
+        public List<NewsArticle> GetActiveNewsArticles()
+            => NewsArticleDAO.Instance.GetActiveNewsArticles();
 
-        public async Task AddNewsArticle(NewsArticle newsArticle)
-            => await NewsArticleDAO.Instance.AddNewsArticle(newsArticle);
+        public void AddNewsArticle(NewsArticle newsArticle)
+            => NewsArticleDAO.Instance.AddNewsArticle(newsArticle);
 
-        public async Task UpdateNewsArticle(string articleId, NewsArticle updatedArticle)
-            => await NewsArticleDAO.Instance.UpdateNewsArticle(articleId, updatedArticle);
+        public void UpdateNewsArticle(string articleId, NewsArticle updatedArticle)
+            => NewsArticleDAO.Instance.UpdateNewsArticle(articleId, updatedArticle);
 
-        public async Task RemoveNewsArticle(string articleId)
-            => await NewsArticleDAO.Instance.RemoveNewsArticle(articleId);
+        public void RemoveNewsArticle(string articleId)
+            => NewsArticleDAO.Instance.RemoveNewsArticle(articleId);
 
-        public async Task RemoveTagsByArticleId(string articleId)
-            => await NewsArticleDAO.Instance.RemoveTagsByArticleId(articleId);
+        public void RemoveTagsByArticleId(string articleId)
+            => NewsArticleDAO.Instance.RemoveTagsByArticleId(articleId);
+
+        public void AttachTag(Tag tag)
+            => NewsArticleDAO.Instance.AttachTag(tag);
     }
 }

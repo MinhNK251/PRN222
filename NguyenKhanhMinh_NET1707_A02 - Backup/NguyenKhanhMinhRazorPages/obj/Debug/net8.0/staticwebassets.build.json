@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9uqAAaLpBLLLWABGVEhyLSLp7zxZVaQDuZuOdWH67N0=",
+  "Hash": "auwcN9JL8blh7b/csxnqYFBYsvp9Fk4lXebJGtiz9uE=",
   "Source": "NguyenKhanhMinhRazorPages",
   "BasePath": "_content/NguyenKhanhMinhRazorPages",
   "Mode": "Default",
@@ -1193,6 +1193,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\NguyenKhanhMinhRazorPages\\wwwroot\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "SourceId": "NguyenKhanhMinhRazorPages",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\NguyenKhanhMinhRazorPages\\wwwroot\\",
+      "BasePath": "_content/NguyenKhanhMinhRazorPages",
+      "RelativePath": "microsoft/signalr/dist/browser/signalr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\microsoft\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Identity": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\NguyenKhanhMinhRazorPages\\wwwroot\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "NguyenKhanhMinhRazorPages",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\College\\PRN222\\Source Code\\NguyenKhanhMinh_NET1707_A02\\NguyenKhanhMinhRazorPages\\wwwroot\\",
+      "BasePath": "_content/NguyenKhanhMinhRazorPages",
+      "RelativePath": "microsoft/signalr/dist/browser/signalr.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
     }
   ]
 }

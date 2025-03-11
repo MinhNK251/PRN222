@@ -24,7 +24,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 
         public async Task OnGetAsync()
         {
-            NewsArticle = await _newsArticleRepo.GetNewsArticles();
+            NewsArticle = _newsArticleRepo.GetNewsArticles();
         }
     }
 }
