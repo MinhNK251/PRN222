@@ -8,6 +8,7 @@ namespace RepositoriesLayer
     {
         Task<List<Tag>> GetTags();
         Task<Tag> GetTagById(int id);
+        Task<List<Tag>> GetTagsByIds(List<int> tagIds);
         Task AddTag(Tag tag);
         Task UpdateTag(Tag tag);
         Task RemoveTag(int id);

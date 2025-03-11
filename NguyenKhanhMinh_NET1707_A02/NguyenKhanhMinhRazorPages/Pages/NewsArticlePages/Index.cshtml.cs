@@ -7,25 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
     public class IndexModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly INewsArticleRepo _newsArticleRepo;
 
-        public IndexModel(DAOsLayer.FunewsManagementContext context)
+        public IndexModel(INewsArticleRepo newsArticleRepo)
         {
-            _context = context;
+            _newsArticleRepo = newsArticleRepo;
         }
 
         public IList<NewsArticle> NewsArticle { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            NewsArticle = await _context.NewsArticles
-                .Include(n => n.Category)
-                .Include(n => n.CreatedBy).ToListAsync();
+            NewsArticle = await _newsArticleRepo.GetNewsArticles();
         }
     }
 }

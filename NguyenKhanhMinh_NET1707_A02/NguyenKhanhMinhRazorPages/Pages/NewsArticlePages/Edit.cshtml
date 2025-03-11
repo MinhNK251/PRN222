@@ -16,19 +16,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="NewsArticle.NewsArticleId" />
             <div class="form-group">
-                <label asp-for="NewsArticle.NewsTitle" class="control-label"></label>
+                <label asp-for="NewsArticle.NewsTitle" class="control-label">News Title</label>
                 <input asp-for="NewsArticle.NewsTitle" class="form-control" />
                 <span asp-validation-for="NewsArticle.NewsTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsArticle.Headline" class="control-label"></label>
+                <label asp-for="NewsArticle.Headline" class="control-label">Headline</label>
                 <input asp-for="NewsArticle.Headline" class="form-control" />
                 <span asp-validation-for="NewsArticle.Headline" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsArticle.CreatedDate" class="control-label"></label>
-                <input asp-for="NewsArticle.CreatedDate" class="form-control" />
-                <span asp-validation-for="NewsArticle.CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NewsArticle.NewsContent" class="control-label"></label>
@@ -41,29 +36,25 @@
                 <span asp-validation-for="NewsArticle.NewsSource" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsArticle.CategoryId" class="control-label"></label>
-                <select asp-for="NewsArticle.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <label asp-for="NewsArticle.CategoryId" class="control-label">Category</label>
+                <select asp-for="NewsArticle.CategoryId" class="form-control" asp-items="ViewBag.CategoryId" required>
+                    <option value="">-- Select Category --</option>
+                </select>
                 <span asp-validation-for="NewsArticle.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsArticle.NewsStatus" class="control-label"></label>
-                <input asp-for="NewsArticle.NewsStatus" class="form-control" />
+                <label asp-for="NewsArticle.NewsStatus" class="control-label">Status</label>
+                <select asp-for="NewsArticle.NewsStatus" class="form-control" required>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
                 <span asp-validation-for="NewsArticle.NewsStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NewsArticle.CreatedById" class="control-label"></label>
-                <select asp-for="NewsArticle.CreatedById" class="form-control" asp-items="ViewBag.CreatedById"></select>
-                <span asp-validation-for="NewsArticle.CreatedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsArticle.UpdatedById" class="control-label"></label>
-                <input asp-for="NewsArticle.UpdatedById" class="form-control" />
-                <span asp-validation-for="NewsArticle.UpdatedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewsArticle.ModifiedDate" class="control-label"></label>
-                <input asp-for="NewsArticle.ModifiedDate" class="form-control" />
-                <span asp-validation-for="NewsArticle.ModifiedDate" class="text-danger"></span>
+                <label asp-for="SelectedTags" class="control-label">Tags</label>
+                <select asp-for="SelectedTags" class="form-control" asp-items="ViewBag.Tags" multiple>
+                </select>
+                <span asp-validation-for="SelectedTags" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

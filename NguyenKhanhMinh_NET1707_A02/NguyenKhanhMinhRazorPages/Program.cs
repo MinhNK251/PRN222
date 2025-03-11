@@ -1,4 +1,6 @@
 using BusinessObjectsLayer.Models;
+using DAOsLayer;
+using Microsoft.EntityFrameworkCore;
 using NguyenKhanhMinhRazorPages;
 using RepositoriesLayer;
 
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<FunewsManagementContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStringDB")));
 builder.Services.Configure<AdminAccountSettings>(builder.Configuration.GetSection("AdminAccount"));
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<INewsArticleRepo, NewsArticleRepo>();

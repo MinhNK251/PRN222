@@ -14,5 +14,6 @@ namespace RepositoriesLayer
         Task AddNewsArticle(NewsArticle newsArticle);
         Task UpdateNewsArticle(string articleId, NewsArticle updatedArticle);
         Task RemoveNewsArticle(string articleId);
+        Task RemoveTagsByArticleId(string articleId);
     }
 }

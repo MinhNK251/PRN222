@@ -12,6 +12,7 @@ namespace RepositoriesLayer
     public interface ISystemAccountRepo
     {
         Task<SystemAccount?> GetAccountById(short accountId);
+        Task<SystemAccount?> GetAccountByEmail(string email);
         Task<List<SystemAccount>> GetAccounts();
         Task AddAccount(SystemAccount account);
         Task UpdateAccount(SystemAccount updatedAccount);

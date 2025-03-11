@@ -45,6 +45,7 @@ namespace DAOsLayer
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
                     .SingleOrDefaultAsync(n => n.NewsArticleId == newsArticleId);
             }
         }
@@ -58,6 +59,7 @@ namespace DAOsLayer
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
                     .ToListAsync();
             }
         }
@@ -72,6 +74,7 @@ namespace DAOsLayer
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
                     .ToListAsync();
             }
         }
@@ -109,6 +112,22 @@ namespace DAOsLayer
                 if (existingNewsArticle != null)
                 {
                     dbContext.NewsArticles.Remove(existingNewsArticle);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
+        }
+
+        // Remove NewsArticle Tags By NewsArticle Id
+        public async Task RemoveTagsByArticleId(string articleId)
+        {
+            using (var dbContext = new FunewsManagementContext())
+            {
+                var article = await dbContext.NewsArticles
+                                             .Include(a => a.Tags)
+                                             .FirstOrDefaultAsync(a => a.NewsArticleId == articleId);
+                if (article != null)
+                {
+                    article.Tags.Clear();
                     await dbContext.SaveChangesAsync();
                 }
             }

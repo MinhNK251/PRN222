@@ -12,9 +12,9 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
     public class DetailsModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly FunewsManagementContext _context;
 
-        public DetailsModel(DAOsLayer.FunewsManagementContext context)
+        public DetailsModel(FunewsManagementContext context)
         {
             _context = context;
         }

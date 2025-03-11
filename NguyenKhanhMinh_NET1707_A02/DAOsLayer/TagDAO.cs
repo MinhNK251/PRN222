@@ -53,6 +53,15 @@ namespace DAOsLayer
             }
         }
 
+        // Get tags by a list of IDs
+        public async Task<List<Tag>> GetTagsByIds(List<int> tagIds)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return await dbContext.Tags.Where(t => tagIds.Contains(t.TagId)).ToListAsync();
+            }
+        }
+
         // Add a new tag
         public async Task AddTag(Tag tag)
         {

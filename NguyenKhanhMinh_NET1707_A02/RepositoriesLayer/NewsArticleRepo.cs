@@ -26,5 +26,8 @@ namespace RepositoriesLayer
 
         public async Task RemoveNewsArticle(string articleId)
             => await NewsArticleDAO.Instance.RemoveNewsArticle(articleId);
+
+        public async Task RemoveTagsByArticleId(string articleId)
+            => await NewsArticleDAO.Instance.RemoveTagsByArticleId(articleId);
     }
 }

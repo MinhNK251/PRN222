@@ -16,6 +16,9 @@ namespace RepositoriesLayer
         public async Task<SystemAccount?> GetAccountById(short accountId)
             => await SystemAccountDAO.Instance.GetAccountById(accountId);
 
+        public async Task<SystemAccount?> GetAccountByEmail(string email)
+            => await SystemAccountDAO.Instance.GetAccountByEmail(email);
+
         public async Task<List<SystemAccount>> GetAccounts()
             => await SystemAccountDAO.Instance.GetAccounts();
 

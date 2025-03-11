@@ -14,6 +14,9 @@ namespace RepositoriesLayer
         public async Task<Tag?> GetTagById(int tagId)
             => await TagDAO.Instance.GetTagById(tagId);
 
+        public async Task<List<Tag>> GetTagsByIds(List<int> tagIds)
+            => await TagDAO.Instance.GetTagsByIds(tagIds);
+
         public async Task AddTag(Tag tag)
             => await TagDAO.Instance.AddTag(tag);
 
