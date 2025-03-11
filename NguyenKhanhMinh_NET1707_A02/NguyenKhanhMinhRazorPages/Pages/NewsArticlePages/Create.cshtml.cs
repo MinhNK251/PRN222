@@ -56,14 +56,8 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             }
             SystemAccount account = await _systemAccountRepo.GetAccountByEmail(currentUserEmail);
             NewsArticle.CreatedById = account.AccountId;
+            NewsArticle.UpdatedById = account.AccountId;
             var existingTags = await _tagRepo.GetTagsByIds(SelectedTags);
-
-            // Ensure EF Core does not try to insert new Tags
-            foreach (var tag in existingTags)
-            {
-                _newsArticleRepo.AttachTag(tag); // Explicitly attach the tag to avoid re-insertion
-            }
-
             NewsArticle.Tags = existingTags;
 
             _newsArticleRepo.AddNewsArticle(NewsArticle);

@@ -82,6 +82,12 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
+                // Attach existing tags to the context to prevent re-insertion
+                foreach (var tag in newsArticle.Tags)
+                {
+                    dbContext.Tags.Attach(tag);
+                }
+
                 dbContext.NewsArticles.Add(newsArticle);
                 dbContext.SaveChanges();
             }

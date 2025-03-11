@@ -82,16 +82,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 existingArticle.CategoryId = NewsArticle.CategoryId;
                 existingArticle.NewsStatus = NewsArticle.NewsStatus;
                 existingArticle.ModifiedDate = DateTime.Now;
-
-                //var currentUserEmail = HttpContext.Session.GetString("UserEmail");
-                //if (string.IsNullOrEmpty(currentUserEmail))
-                //{
-                //    return Unauthorized();
-                //}
-                //SystemAccount account = await _systemAccountRepo.GetAccountByEmail(currentUserEmail);
-                //NewsArticle.UpdatedById = account.AccountId;
-
-                // ✅ Update Tags properly
                 _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
                 existingArticle.Tags = await _tagRepo.GetTagsByIds(SelectedTags);
                 _newsArticleRepo.UpdateNewsArticle(existingArticle.NewsArticleId, existingArticle);
