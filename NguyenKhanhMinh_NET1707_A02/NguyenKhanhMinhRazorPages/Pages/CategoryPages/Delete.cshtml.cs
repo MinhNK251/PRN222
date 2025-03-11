@@ -7,54 +7,39 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
 {
     public class DeleteModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ICategoryRepo _categoryRepo;
 
-        public DeleteModel(DAOsLayer.FunewsManagementContext context)
+        public DeleteModel(ICategoryRepo categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         [BindProperty]
         public Category Category { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
-
+            var category = _categoryRepo.GetCategoryById(id);
             if (category == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Category = category;
-            }
+            Category = category;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(short? id)
+        public async Task<IActionResult> OnPostAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.FindAsync(id);
+            var category = _categoryRepo.GetCategoryById(id);
             if (category != null)
             {
-                Category = category;
-                _context.Categories.Remove(Category);
-                await _context.SaveChangesAsync();
+                _categoryRepo.RemoveCategory(id);
             }
 
             return RedirectToPage("./Index");

@@ -42,7 +42,7 @@ namespace DAOsLayer
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.Categories.AsNoTracking()
-                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.ParentCategory)
                     .Include(c => c.NewsArticles)
                     .SingleOrDefault(c => c.CategoryId == categoryId);
             }
@@ -54,8 +54,7 @@ namespace DAOsLayer
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.Categories.AsNoTracking()
-                    .Include(c => c.InverseParentCategory)
-                    .Include(c => c.NewsArticles)
+                    .Include(c => c.ParentCategory)
                     .ToList();
             }
         }
@@ -67,8 +66,7 @@ namespace DAOsLayer
             {
                 return dbContext.Categories.AsNoTracking()
                     .Where(c => c.IsActive == true)
-                    .Include(c => c.InverseParentCategory)
-                    .Include(c => c.NewsArticles)
+                    .Include(c => c.ParentCategory)
                     .ToList();
             }
         }

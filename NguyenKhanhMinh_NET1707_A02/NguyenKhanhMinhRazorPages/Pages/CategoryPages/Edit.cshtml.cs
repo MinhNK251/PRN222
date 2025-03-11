@@ -8,35 +8,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
 {
     public class EditModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ICategoryRepo _categoryRepo;
 
-        public EditModel(DAOsLayer.FunewsManagementContext context)
+        public EditModel(ICategoryRepo categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         [BindProperty]
         public Category Category { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category =  await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _categoryRepo.GetCategoryById(id);
             if (category == null)
             {
                 return NotFound();
             }
             Category = category;
-           ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption");
+            ViewData["ParentCategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
             return Page();
         }
 
@@ -46,18 +47,17 @@ namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ParentCategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
                 return Page();
             }
 
-            _context.Attach(Category).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _categoryRepo.UpdateCategory(Category.CategoryId, Category);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(Category.CategoryId))
+                if (_categoryRepo.GetCategoryById(Category.CategoryId) == null)
                 {
                     return NotFound();
                 }
@@ -68,11 +68,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool CategoryExists(short id)
-        {
-            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

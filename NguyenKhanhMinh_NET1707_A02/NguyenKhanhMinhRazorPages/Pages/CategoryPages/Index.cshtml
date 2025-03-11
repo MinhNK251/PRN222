@@ -6,10 +6,13 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Category Management</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New</a> |
+    <a asp-page="/NewsArticlePages/Index">Manage Article</a> |
+    <a asp-page="/TagPages/Index">Manage Tag</a> |
+    <a asp-page="/Logout">Log out</a>
 </p>
 <table class="table">
     <thead>
@@ -42,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentCategory.CategoryDesciption)
+                @Html.DisplayFor(modelItem => item.ParentCategory.CategoryName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.CategoryId">Edit</a> |

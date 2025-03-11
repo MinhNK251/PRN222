@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.TagPages
 {
     public class IndexModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ITagRepo _tagRepo;
 
-        public IndexModel(DAOsLayer.FunewsManagementContext context)
+        public IndexModel(ITagRepo tagRepo)
         {
-            _context = context;
+            _tagRepo = tagRepo;
         }
 
         public IList<Tag> Tag { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Tag = await _context.Tags.ToListAsync();
+            Tag = _tagRepo.GetTags();
         }
     }
 }

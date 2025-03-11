@@ -6,10 +6,13 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Tag Management</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New</a> |
+    <a asp-page="/NewsArticlePages/Index">Manage Article</a> |
+    <a asp-page="/CategoryPages/Index">Manage Category</a> |
+    <a asp-page="/Logout">Log out</a>
 </p>
 <table class="table">
     <thead>

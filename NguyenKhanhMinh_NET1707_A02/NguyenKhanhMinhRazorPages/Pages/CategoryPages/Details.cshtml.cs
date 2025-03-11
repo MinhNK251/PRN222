@@ -7,36 +7,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
 {
     public class DetailsModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ICategoryRepo _categoryRepo;
 
-        public DetailsModel(DAOsLayer.FunewsManagementContext context)
+        public DetailsModel(ICategoryRepo categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         public Category Category { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _categoryRepo.GetCategoryById(id);
             if (category == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Category = category;
-            }
+            Category = category;
             return Page();
         }
     }

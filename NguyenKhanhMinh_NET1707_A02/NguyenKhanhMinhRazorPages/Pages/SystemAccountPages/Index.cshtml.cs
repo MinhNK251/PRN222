@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
 {
     public class IndexModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ISystemAccountRepo _systemAccountRepo;
 
-        public IndexModel(DAOsLayer.FunewsManagementContext context)
+        public IndexModel(ISystemAccountRepo systemAccountRepo)
         {
-            _context = context;
+            _systemAccountRepo = systemAccountRepo;
         }
 
         public IList<SystemAccount> SystemAccount { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            SystemAccount = await _context.SystemAccounts.ToListAsync();
+            SystemAccount = _systemAccountRepo.GetAccounts();
         }
     }
 }

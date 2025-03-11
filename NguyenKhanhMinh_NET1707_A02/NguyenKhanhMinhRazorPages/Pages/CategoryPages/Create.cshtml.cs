@@ -7,37 +7,37 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
 {
     public class CreateModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ICategoryRepo _categoryRepo;
 
-        public CreateModel(DAOsLayer.FunewsManagementContext context)
+        public CreateModel(ICategoryRepo categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["ParentCategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryDesciption");
+            ViewData["ParentCategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
             return Page();
         }
 
         [BindProperty]
         public Category Category { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ParentCategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
                 return Page();
             }
 
-            _context.Categories.Add(Category);
-            await _context.SaveChangesAsync();
+            _categoryRepo.AddCategory(Category);
 
             return RedirectToPage("./Index");
         }

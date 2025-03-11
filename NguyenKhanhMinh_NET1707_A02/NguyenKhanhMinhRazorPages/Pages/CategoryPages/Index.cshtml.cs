@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
 {
     public class IndexModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ICategoryRepo _categoryRepo;
 
-        public IndexModel(DAOsLayer.FunewsManagementContext context)
+        public IndexModel(ICategoryRepo categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         public IList<Category> Category { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Category = await _context.Categories
-                .Include(c => c.ParentCategory).ToListAsync();
+            Category = _categoryRepo.GetCategories();
         }
     }
 }
