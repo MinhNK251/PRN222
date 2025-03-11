@@ -53,10 +53,11 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 return NotFound();
             }
 
-            var newsarticle = _newsArticleRepo.GetNewsArticleById(id);
-            if (newsarticle != null)
+            var existingArticle = _newsArticleRepo.GetNewsArticleById(id);
+            if (existingArticle != null)
             {
-                _newsArticleRepo.RemoveNewsArticle(newsarticle.NewsArticleId);
+                _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
+                _newsArticleRepo.RemoveNewsArticle(existingArticle.NewsArticleId);
             }
 
             return RedirectToPage("./Index");
