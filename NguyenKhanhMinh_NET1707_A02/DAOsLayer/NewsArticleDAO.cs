@@ -136,10 +136,5 @@ namespace DAOsLayer
                 }
             }
         }
-
-        public void AttachTag(Tag tag)
-        {
-            _dbContext.Tags.Attach(tag);
-        }
     }
 }

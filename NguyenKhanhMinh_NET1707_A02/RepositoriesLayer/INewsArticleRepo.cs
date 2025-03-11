@@ -15,6 +15,5 @@ namespace RepositoriesLayer
         void UpdateNewsArticle(string articleId, NewsArticle updatedArticle);
         void RemoveNewsArticle(string articleId);
         void RemoveTagsByArticleId(string articleId);
-        void AttachTag(Tag tag);
     }
 }

@@ -8,22 +8,22 @@ namespace RepositoriesLayer
 {
     public class CategoryRepo : ICategoryRepo
     {
-        public async Task<Category?> GetCategoryById(short categoryId)
-            => await CategoryDAO.Instance.GetCategoryById(categoryId);
+        public Category? GetCategoryById(short categoryId)
+            => CategoryDAO.Instance.GetCategoryById(categoryId);
 
-        public async Task<List<Category>> GetCategories()
-            => await CategoryDAO.Instance.GetCategories();
+        public List<Category> GetCategories()
+            => CategoryDAO.Instance.GetCategories();
 
-        public async Task<List<Category>> GetActiveCategories()
-            => await CategoryDAO.Instance.GetActiveCategories();
+        public List<Category> GetActiveCategories()
+            => CategoryDAO.Instance.GetActiveCategories();
 
-        public async Task AddCategory(Category category)
-            => await CategoryDAO.Instance.AddCategory(category);
+        public void AddCategory(Category category)
+            => CategoryDAO.Instance.AddCategory(category);
 
-        public async Task UpdateCategory(short categoryId, Category category)
-            => await CategoryDAO.Instance.UpdateCategory(categoryId, category);
+        public void UpdateCategory(short categoryId, Category category)
+            => CategoryDAO.Instance.UpdateCategory(categoryId, category);
 
-        public async Task RemoveCategory(short categoryId)
-            => await CategoryDAO.Instance.RemoveCategory(categoryId);
+        public void RemoveCategory(short categoryId)
+            => CategoryDAO.Instance.RemoveCategory(categoryId);
     }
 }

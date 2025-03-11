@@ -11,12 +11,12 @@ namespace RepositoriesLayer
 {
     public interface ISystemAccountRepo
     {
-        Task<SystemAccount?> GetAccountById(short accountId);
-        Task<SystemAccount?> GetAccountByEmail(string email);
-        Task<List<SystemAccount>> GetAccounts();
-        Task AddAccount(SystemAccount account);
-        Task UpdateAccount(SystemAccount updatedAccount);
-        Task RemoveAccount(short accountId);
-        Task<SystemAccount?> Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings);
+        SystemAccount? GetAccountById(short accountId);
+        SystemAccount? GetAccountByEmail(string email);
+        List<SystemAccount> GetAccounts();
+        void AddAccount(SystemAccount account);
+        void UpdateAccount(SystemAccount updatedAccount);
+        void RemoveAccount(short accountId);
+        SystemAccount? Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings);
     }
 }

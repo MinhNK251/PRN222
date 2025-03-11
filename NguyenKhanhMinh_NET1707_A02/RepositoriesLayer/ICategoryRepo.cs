@@ -7,11 +7,11 @@ namespace RepositoriesLayer
 {
     public interface ICategoryRepo
     {
-        Task<Category?> GetCategoryById(short categoryId);
-        Task<List<Category>> GetCategories();
-        Task<List<Category>> GetActiveCategories();
-        Task AddCategory(Category category);
-        Task UpdateCategory(short categoryId, Category category);
-        Task RemoveCategory(short categoryId);
+        Category? GetCategoryById(short categoryId);
+        List<Category> GetCategories();
+        List<Category> GetActiveCategories();
+        void AddCategory(Category category);
+        void UpdateCategory(short categoryId, Category category);
+        void RemoveCategory(short categoryId);
     }
 }

@@ -37,7 +37,7 @@ namespace NguyenKhanhMinhRazorPages.Pages
                 return Page();
             }
 
-            var account = await _accountRepo.Login(Email, Password, _adminAccountSettings);
+            var account = _accountRepo.Login(Email, Password, _adminAccountSettings);
 
             if (account != null)
             {

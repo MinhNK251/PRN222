@@ -32,8 +32,8 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-            ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
+            ViewData["CategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
+            ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
             return Page();
         }
 
@@ -41,23 +41,23 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         {
             if (!ModelState.IsValid)
             {
-                ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-                ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
+                ViewData["CategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
+                ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
                 return Page();
             }
 
             // Set Created Date and Created By
             NewsArticle.CreatedDate = DateTime.Now;
             NewsArticle.ModifiedDate = DateTime.Now;
-            var currentUserEmail = HttpContext.Session.GetString("UserEmail");
-            if (string.IsNullOrEmpty(currentUserEmail))
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrEmpty(userEmail))
             {
-                return Unauthorized();
+                return RedirectToPage("/Login"); // Redirect to login if no session exists
             }
-            SystemAccount account = await _systemAccountRepo.GetAccountByEmail(currentUserEmail);
+            SystemAccount account = _systemAccountRepo.GetAccountByEmail(userEmail);
             NewsArticle.CreatedById = account.AccountId;
             NewsArticle.UpdatedById = account.AccountId;
-            var existingTags = await _tagRepo.GetTagsByIds(SelectedTags);
+            var existingTags = _tagRepo.GetTagsByIds(SelectedTags);
             NewsArticle.Tags = existingTags;
 
             _newsArticleRepo.AddNewsArticle(NewsArticle);

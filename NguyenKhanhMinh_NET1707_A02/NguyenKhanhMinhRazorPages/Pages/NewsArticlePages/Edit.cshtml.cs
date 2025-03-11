@@ -46,8 +46,8 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             }
             NewsArticle = newsArticle;
             SelectedTags = newsArticle.Tags.Select(t => t.TagId).ToList();
-            ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-            ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
+            ViewData["CategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
+            ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
             return Page();
         }
 
@@ -55,8 +55,8 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         {
             if (!ModelState.IsValid)
             {
-                ViewData["CategoryId"] = new SelectList(await _categoryRepo.GetCategories(), "CategoryId", "CategoryName");
-                ViewData["Tags"] = new MultiSelectList(await _tagRepo.GetTags(), "TagId", "TagName");
+                ViewData["CategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
+                ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
                 return Page();
             }
 
@@ -73,7 +73,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 {
                     return RedirectToPage("/Login"); // Redirect to login if no session exists
                 }
-                var currentUser = await _systemAccountRepo.GetAccountByEmail(userEmail);
+                var currentUser = _systemAccountRepo.GetAccountByEmail(userEmail);
                 existingArticle.UpdatedById = currentUser.AccountId;
                 existingArticle.NewsTitle = NewsArticle.NewsTitle;
                 existingArticle.Headline = NewsArticle.Headline;
@@ -83,7 +83,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 existingArticle.NewsStatus = NewsArticle.NewsStatus;
                 existingArticle.ModifiedDate = DateTime.Now;
                 _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
-                existingArticle.Tags = await _tagRepo.GetTagsByIds(SelectedTags);
+                existingArticle.Tags = _tagRepo.GetTagsByIds(SelectedTags);
                 _newsArticleRepo.UpdateNewsArticle(existingArticle.NewsArticleId, existingArticle);
             }
             catch (DbUpdateConcurrencyException)

@@ -6,12 +6,12 @@ namespace RepositoriesLayer
 {
     public interface ITagRepo
     {
-        Task<List<Tag>> GetTags();
-        Task<Tag> GetTagById(int id);
-        Task<List<Tag>> GetTagsByIds(List<int> tagIds);
-        Task<List<Tag>> GetTagsByNewsArticleIdAsync(string newsArticleId);
-        Task AddTag(Tag tag);
-        Task UpdateTag(Tag tag);
-        Task RemoveTag(int id);
+        List<Tag> GetTags();
+        Tag GetTagById(int id);
+        List<Tag> GetTagsByIds(List<int> tagIds);
+        List<Tag> GetTagsByNewsArticleIdAsync(string newsArticleId);
+        void AddTag(Tag tag);
+        void UpdateTag(Tag tag);
+        void RemoveTag(int id);
     }
 }

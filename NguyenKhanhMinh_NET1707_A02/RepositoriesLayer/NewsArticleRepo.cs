@@ -29,8 +29,5 @@ namespace RepositoriesLayer
 
         public void RemoveTagsByArticleId(string articleId)
             => NewsArticleDAO.Instance.RemoveTagsByArticleId(articleId);
-
-        public void AttachTag(Tag tag)
-            => NewsArticleDAO.Instance.AttachTag(tag);
     }
 }

@@ -36,67 +36,67 @@ namespace DAOsLayer
         }
 
         // Get all tags
-        public async Task<List<Tag>> GetTags()
+        public List<Tag> GetTags()
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.Tags.ToListAsync();
+                return dbContext.Tags.ToList();
             }
         }
 
         // Get tag by ID
-        public async Task<Tag?> GetTagById(int tagId)
+        public Tag? GetTagById(int tagId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.Tags.FindAsync(tagId);
+                return dbContext.Tags.Find(tagId);
             }
         }
 
         // Get tags by a list of IDs
-        public async Task<List<Tag>> GetTagsByIds(List<int> tagIds)
+        public List<Tag> GetTagsByIds(List<int> tagIds)
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.Tags.AsNoTracking().Where(t => tagIds.Contains(t.TagId)).ToListAsync();
+                return dbContext.Tags.AsNoTracking().Where(t => tagIds.Contains(t.TagId)).ToList();
             }
         }
 
         // Get tags by article ID
-        public async Task<List<Tag>> GetTagsByNewsArticleIdAsync(string newsArticleId)
+        public List<Tag> GetTagsByNewsArticleIdAsync(string newsArticleId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.Tags.AsNoTracking()
+                return dbContext.Tags.AsNoTracking()
                     .Where(t => dbContext.Set<Dictionary<string, object>>("NewsTag")
                         .Any(nt => EF.Property<int>(nt, "TagId") == t.TagId &&
                                    EF.Property<string>(nt, "NewsArticleId") == newsArticleId))
-                    .ToListAsync();
+                    .ToList();
             }
         }
 
         // Add a new tag
-        public async Task AddTag(Tag tag)
+        public void AddTag(Tag tag)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.Tags.Add(tag);
-                await dbContext.SaveChangesAsync();
+                dbContext.SaveChanges();
             }
         }
 
         // Update an existing tag
-        public async Task UpdateTag(Tag tag)
+        public void UpdateTag(Tag tag)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.Tags.Update(tag);
-                await dbContext.SaveChangesAsync();
+                dbContext.SaveChanges();
             }
         }
 
         // Delete a tag (only if not linked to any news articles)
-        public async Task RemoveTag(int tagId)
+        public void RemoveTag(int tagId)
         {
             using (var dbContext = CreateDbContext())
             {
@@ -104,7 +104,7 @@ namespace DAOsLayer
                 if (tag != null && !tag.NewsArticles.Any())
                 {
                     dbContext.Tags.Remove(tag);
-                    await dbContext.SaveChangesAsync();
+                    dbContext.SaveChanges();
                 }
             }
         }

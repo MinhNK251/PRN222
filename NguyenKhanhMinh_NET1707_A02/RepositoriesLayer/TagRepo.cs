@@ -8,25 +8,25 @@ namespace RepositoriesLayer
 {
     public class TagRepo : ITagRepo
     {
-        public async Task<List<Tag>> GetTags()
-            => await TagDAO.Instance.GetTags();
+        public List<Tag> GetTags()
+            => TagDAO.Instance.GetTags();
 
-        public async Task<Tag?> GetTagById(int tagId)
-            => await TagDAO.Instance.GetTagById(tagId);
+        public Tag? GetTagById(int tagId)
+            => TagDAO.Instance.GetTagById(tagId);
 
-        public async Task<List<Tag>> GetTagsByIds(List<int> tagIds)
-            => await TagDAO.Instance.GetTagsByIds(tagIds);
+        public List<Tag> GetTagsByIds(List<int> tagIds)
+            => TagDAO.Instance.GetTagsByIds(tagIds);
 
-        public async Task<List<Tag>> GetTagsByNewsArticleIdAsync(string newsArticleId)
-            => await TagDAO.Instance.GetTagsByNewsArticleIdAsync(newsArticleId);
+        public List<Tag> GetTagsByNewsArticleIdAsync(string newsArticleId)
+            => TagDAO.Instance.GetTagsByNewsArticleIdAsync(newsArticleId);
 
-        public async Task AddTag(Tag tag)
-            => await TagDAO.Instance.AddTag(tag);
+        public void AddTag(Tag tag)
+            => TagDAO.Instance.AddTag(tag);
 
-        public async Task UpdateTag(Tag tag)
-            => await TagDAO.Instance.UpdateTag(tag);
+        public void UpdateTag(Tag tag)
+            => TagDAO.Instance.UpdateTag(tag);
 
-        public async Task RemoveTag(int tagId)
-            => await TagDAO.Instance.RemoveTag(tagId);
+        public void RemoveTag(int tagId)
+            => TagDAO.Instance.RemoveTag(tagId);
     }
 }

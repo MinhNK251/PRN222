@@ -44,7 +44,7 @@ namespace DAOsLayer
         }
 
         // Login function (Admin & Regular Users)
-        public async Task<SystemAccount?> Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings)
+        public SystemAccount? Login(string email, string password, IOptions<AdminAccountSettings> adminAccountSettings)
         {
             var adminSettings = adminAccountSettings.Value;
 
@@ -63,69 +63,69 @@ namespace DAOsLayer
 
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.SystemAccounts
-                    .FirstOrDefaultAsync(acc => acc.AccountEmail == email && acc.AccountPassword == password);
+                return dbContext.SystemAccounts
+                    .FirstOrDefault(acc => acc.AccountEmail == email && acc.AccountPassword == password);
             }
         }
 
         // Get Account by Email
-        public async Task<SystemAccount?> GetAccountByEmail(string email)
+        public SystemAccount? GetAccountByEmail(string email)
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.SystemAccounts
-                    .FirstOrDefaultAsync(acc => acc.AccountEmail == email);
+                return dbContext.SystemAccounts
+                    .FirstOrDefault(acc => acc.AccountEmail == email);
             }
         }
 
         // Get Account by ID
-        public async Task<SystemAccount?> GetAccountById(short accountId)
+        public SystemAccount? GetAccountById(short accountId)
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.SystemAccounts.FindAsync(accountId);
+                return dbContext.SystemAccounts.Find(accountId);
             }
         }
 
         // Get All Accounts
-        public async Task<List<SystemAccount>> GetAccounts()
+        public List<SystemAccount> GetAccounts()
         {
             using (var dbContext = CreateDbContext())
             {
-                return await dbContext.SystemAccounts.ToListAsync();
+                return dbContext.SystemAccounts.ToList();
             }
         }
 
         // Add New Account
-        public async Task AddAccount(SystemAccount account)
+        public void AddAccount(SystemAccount account)
         {
             using (var dbContext = CreateDbContext())
             {
-                await dbContext.SystemAccounts.AddAsync(account);
-                await dbContext.SaveChangesAsync();
+                dbContext.SystemAccounts.Add(account);
+                dbContext.SaveChanges();
             }
         }
 
         // Update Account
-        public async Task UpdateAccount(SystemAccount account)
+        public void UpdateAccount(SystemAccount account)
         {
             using (var dbContext = CreateDbContext())
             {
                 dbContext.SystemAccounts.Update(account);
-                await dbContext.SaveChangesAsync();
+                dbContext.SaveChanges();
             }
         }
 
         // Remove Account by ID
-        public async Task RemoveAccount(short accountId)
+        public void RemoveAccount(short accountId)
         {
             using (var dbContext = CreateDbContext())
             {
-                var account = await GetAccountById(accountId);
+                var account = GetAccountById(accountId);
                 if (account != null)
                 {
                     dbContext.SystemAccounts.Remove(account);
-                    await dbContext.SaveChangesAsync();
+                    dbContext.SaveChanges();
                 }
             }
         }
