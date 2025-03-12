@@ -1,5 +1,4 @@
-﻿using BusinessObjectsLayer.DTOs;
-using BusinessObjectsLayer.Models;
+﻿using BusinessObjectsLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
