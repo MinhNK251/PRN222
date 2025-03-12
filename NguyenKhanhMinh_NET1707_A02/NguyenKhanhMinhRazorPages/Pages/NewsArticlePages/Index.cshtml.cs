@@ -14,17 +14,23 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
     public class IndexModel : PageModel
     {
         private readonly INewsArticleRepo _newsArticleRepo;
+        private readonly ISystemAccountRepo _systemAccountRepo;
 
-        public IndexModel(INewsArticleRepo newsArticleRepo)
+        public IndexModel(INewsArticleRepo newsArticleRepo, ISystemAccountRepo systemAccountRepo)
         {
             _newsArticleRepo = newsArticleRepo;
+            _systemAccountRepo = systemAccountRepo;
         }
 
         public IList<NewsArticle> NewsArticle { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            NewsArticle = _newsArticleRepo.GetNewsArticles();
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole.Equals("2"))
+                NewsArticle = _newsArticleRepo.GetActiveNewsArticles();
+            else NewsArticle = _newsArticleRepo.GetNewsArticles();
+            return Page();
         }
     }
 }

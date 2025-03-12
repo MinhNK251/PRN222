@@ -4,6 +4,11 @@
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    String role = HttpContext.Session.GetString("UserRole");
+    if (!("1").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
 }
 
 <h1>Delete</h1>

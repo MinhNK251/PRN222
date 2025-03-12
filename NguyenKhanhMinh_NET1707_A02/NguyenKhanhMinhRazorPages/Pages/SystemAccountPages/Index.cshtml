@@ -4,6 +4,11 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    String role = HttpContext.Session.GetString("UserRole");
+    if (!("0").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
 }
 
 <h1>System Account Management</h1>
