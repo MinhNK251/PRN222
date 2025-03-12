@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" onsubmit="confirmUpdate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Tag.TagId" />
             <div class="form-group">
@@ -35,6 +35,12 @@
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>
+
+<script>
+    function confirmUpdate() {
+        return confirm("Are you sure you want to update this tag?");
+    }
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

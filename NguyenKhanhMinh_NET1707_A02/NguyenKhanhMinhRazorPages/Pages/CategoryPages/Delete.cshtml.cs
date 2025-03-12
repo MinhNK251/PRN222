@@ -39,9 +39,13 @@ namespace NguyenKhanhMinhRazorPages.Pages.CategoryPages
             var category = _categoryRepo.GetCategoryById(id);
             if (category != null)
             {
+                if (category.NewsArticles.Any())
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this category because it is associated with news articles.";
+                    return Page();
+                }
                 _categoryRepo.RemoveCategory(id);
             }
-
             return RedirectToPage("./Index");
         }
     }

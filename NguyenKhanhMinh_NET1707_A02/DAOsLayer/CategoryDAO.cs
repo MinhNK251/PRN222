@@ -42,6 +42,7 @@ namespace DAOsLayer
             {
                 return dbContext.Categories.AsNoTracking()
                     .Include(c => c.ParentCategory)
+                    .Include(c => c.InverseParentCategory)
                     .Include(c => c.NewsArticles)
                     .SingleOrDefault(c => c.CategoryId == categoryId);
             }
@@ -54,6 +55,8 @@ namespace DAOsLayer
             {
                 return dbContext.Categories.AsNoTracking()
                     .Include(c => c.ParentCategory)
+                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.NewsArticles)
                     .ToList();
             }
         }

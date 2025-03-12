@@ -12,6 +12,10 @@
 <div>
     <h4>Category</h4>
     <hr />
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category.CategoryId)
@@ -45,9 +49,15 @@
         </dd>
     </dl>
     
-    <form method="post">
+    <form method="post" onsubmit="return confirmDelete()">
         <input type="hidden" asp-for="Category.CategoryId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>
+
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this category?");
+        }
+    </script>
 </div>
