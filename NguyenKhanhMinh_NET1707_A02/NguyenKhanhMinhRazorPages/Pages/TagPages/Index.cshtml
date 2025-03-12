@@ -23,6 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Tag[0].Note)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag[0].NewsArticles)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,6 +37,21 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+            @if (item.NewsArticles != null && item.NewsArticles.Any())
+                {
+                    <ul>
+                        @foreach (var news in item.NewsArticles)
+                        {
+                            <li>@news.NewsTitle</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No News Article available</p>
+                }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.TagId">Edit</a> |

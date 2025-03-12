@@ -7,36 +7,33 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.TagPages
 {
     public class DetailsModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ITagRepo _tagRepo;
+        private readonly INewsArticleRepo _newsArticleRepo;
 
-        public DetailsModel(DAOsLayer.FunewsManagementContext context)
+        public DetailsModel(ITagRepo tagRepo, INewsArticleRepo newsArticleRepo)
         {
-            _context = context;
+            _tagRepo = tagRepo;
+            _newsArticleRepo = newsArticleRepo;
         }
 
         public Tag Tag { get; set; } = default!;
+        public List<NewsArticle> NewsArticles { get; set; } = new();
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tag = await _context.Tags.FirstOrDefaultAsync(m => m.TagId == id);
+            var tag = _tagRepo.GetTagById(id);
             if (tag == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Tag = tag;
-            }
+            Tag = tag;
+            NewsArticles = _newsArticleRepo.GetArticlesByTagId(id);
             return Page();
         }
     }

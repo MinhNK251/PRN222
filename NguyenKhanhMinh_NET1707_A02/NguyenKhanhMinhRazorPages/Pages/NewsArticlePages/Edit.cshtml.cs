@@ -74,7 +74,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                     return RedirectToPage("/Login"); // Redirect to login if no session exists
                 }
                 var currentUser = _systemAccountRepo.GetAccountByEmail(userEmail);
-                existingArticle.UpdatedById = currentUser.AccountId;
+                existingArticle.UpdatedBy = currentUser;
                 existingArticle.NewsTitle = NewsArticle.NewsTitle;
                 existingArticle.Headline = NewsArticle.Headline;
                 existingArticle.NewsContent = NewsArticle.NewsContent;

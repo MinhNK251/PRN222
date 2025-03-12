@@ -17,8 +17,8 @@ namespace RepositoriesLayer
         public List<Tag> GetTagsByIds(List<int> tagIds)
             => TagDAO.Instance.GetTagsByIds(tagIds);
 
-        public List<Tag> GetTagsByNewsArticleIdAsync(string newsArticleId)
-            => TagDAO.Instance.GetTagsByNewsArticleIdAsync(newsArticleId);
+        public List<Tag> GetTagsByNewsArticleId(string newsArticleId)
+            => TagDAO.Instance.GetTagsByNewsArticleId(newsArticleId);
 
         public void AddTag(Tag tag)
             => TagDAO.Instance.AddTag(tag);
@@ -28,5 +28,8 @@ namespace RepositoriesLayer
 
         public void RemoveTag(int tagId)
             => TagDAO.Instance.RemoveTag(tagId);
+
+        public void RemoveArticlesByTagId(int tagId)
+            => TagDAO.Instance.RemoveArticlesByTagId(tagId);
     }
 }

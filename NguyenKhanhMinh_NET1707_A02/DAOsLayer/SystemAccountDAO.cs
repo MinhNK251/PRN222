@@ -63,7 +63,7 @@ namespace DAOsLayer
 
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.SystemAccounts
+                return dbContext.SystemAccounts.AsNoTracking()
                     .FirstOrDefault(acc => acc.AccountEmail == email && acc.AccountPassword == password);
             }
         }
@@ -73,7 +73,7 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.SystemAccounts
+                return dbContext.SystemAccounts.AsNoTracking()
                     .FirstOrDefault(acc => acc.AccountEmail == email);
             }
         }
@@ -83,7 +83,8 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.SystemAccounts.Find(accountId);
+                return dbContext.SystemAccounts.AsNoTracking()
+                    .SingleOrDefault(a => a.AccountId == accountId);
             }
         }
 
@@ -92,7 +93,7 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.SystemAccounts.ToList();
+                return dbContext.SystemAccounts.AsNoTracking().ToList();
             }
         }
 

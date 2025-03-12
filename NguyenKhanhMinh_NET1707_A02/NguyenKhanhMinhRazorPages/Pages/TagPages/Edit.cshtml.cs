@@ -8,29 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.TagPages
 {
     public class EditModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ITagRepo _tagRepo;
 
-        public EditModel(DAOsLayer.FunewsManagementContext context)
+        public EditModel(ITagRepo tagRepo)
         {
-            _context = context;
+            _tagRepo = tagRepo;
         }
 
         [BindProperty]
         public Tag Tag { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tag =  await _context.Tags.FirstOrDefaultAsync(m => m.TagId == id);
+            var tag =  _tagRepo.GetTagById(id);
             if (tag == null)
             {
                 return NotFound();
@@ -39,8 +35,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,15 +42,13 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
                 return Page();
             }
 
-            _context.Attach(Tag).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _tagRepo.UpdateTag(Tag);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TagExists(Tag.TagId))
+                if (_tagRepo.GetTagById(Tag.TagId) == null)
                 {
                     return NotFound();
                 }
@@ -67,11 +59,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool TagExists(int id)
-        {
-            return _context.Tags.Any(e => e.TagId == id);
         }
     }
 }

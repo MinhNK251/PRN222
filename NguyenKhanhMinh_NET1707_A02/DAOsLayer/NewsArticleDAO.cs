@@ -34,6 +34,20 @@ namespace DAOsLayer
             return new FunewsManagementContext();
         }
 
+        // Get all NewsArticles
+        public List<NewsArticle> GetNewsArticles()
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
+                    .ToList();
+            }
+        }
+
         // Get NewsArticle by Id
         public NewsArticle? GetNewsArticleById(string newsArticleId)
         {
@@ -48,16 +62,15 @@ namespace DAOsLayer
             }
         }
 
-        // Get all NewsArticles
-        public List<NewsArticle> GetNewsArticles()
+        // Get articles by tag ID
+        public List<NewsArticle> GetArticlesByTagId(int tagId)
         {
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.NewsArticles.AsNoTracking()
-                    .Include(n => n.Category)
-                    .Include(n => n.Tags)
-                    .Include(n => n.CreatedBy)
-                    .Include(n => n.UpdatedBy)
+                    .Where(n => dbContext.Set<Dictionary<string, object>>("NewsTag")
+                        .Any(nt => EF.Property<int>(nt, "TagId") == tagId && 
+                                   EF.Property<string>(nt, "NewsArticleId") == n.NewsArticleId))
                     .ToList();
             }
         }

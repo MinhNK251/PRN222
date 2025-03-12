@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.TagPages
 {
     public class CreateModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ITagRepo _tagRepo;
 
-        public CreateModel(DAOsLayer.FunewsManagementContext context)
+        public CreateModel(ITagRepo tagRepo)
         {
-            _context = context;
+            _tagRepo = tagRepo;
         }
 
         public IActionResult OnGet()
@@ -27,17 +28,13 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
         [BindProperty]
         public Tag Tag { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            _context.Tags.Add(Tag);
-            await _context.SaveChangesAsync();
-
+            _tagRepo.AddTag(Tag);
             return RedirectToPage("./Index");
         }
     }

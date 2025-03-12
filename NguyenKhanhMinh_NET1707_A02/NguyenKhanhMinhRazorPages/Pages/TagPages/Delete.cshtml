@@ -25,6 +25,24 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tag.Note)
         </dd>
+        <dt class="col-sm-2">
+            NewsArticles
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.NewsArticles.Any())
+            {
+                <ul>
+                    @foreach (var article in Model.NewsArticles)
+                    {
+                        <li>@article.NewsTitle</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No News Article available</p>
+            }
+        </dd>
     </dl>
     
     <form method="post">

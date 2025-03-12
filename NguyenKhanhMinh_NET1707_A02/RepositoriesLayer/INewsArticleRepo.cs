@@ -8,8 +8,9 @@ namespace RepositoriesLayer
 {
     public interface INewsArticleRepo
     {
-        NewsArticle? GetNewsArticleById(string articleId);
         List<NewsArticle> GetNewsArticles();
+        NewsArticle? GetNewsArticleById(string articleId);
+        List<NewsArticle> GetArticlesByTagId(int tagId);
         List<NewsArticle> GetActiveNewsArticles();
         void AddNewsArticle(NewsArticle newsArticle);
         void UpdateNewsArticle(string articleId, NewsArticle updatedArticle);

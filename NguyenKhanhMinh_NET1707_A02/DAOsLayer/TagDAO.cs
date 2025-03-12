@@ -40,7 +40,9 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Tags.ToList();
+                return dbContext.Tags.AsNoTracking()
+                    .Include(t => t.NewsArticles)
+                    .ToList();
             }
         }
 
@@ -49,7 +51,9 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
-                return dbContext.Tags.Find(tagId);
+                return dbContext.Tags.AsNoTracking()
+                    .Include(t => t.NewsArticles)
+                    .SingleOrDefault(t => t.TagId == tagId);
             }
         }
 
@@ -63,7 +67,7 @@ namespace DAOsLayer
         }
 
         // Get tags by article ID
-        public List<Tag> GetTagsByNewsArticleIdAsync(string newsArticleId)
+        public List<Tag> GetTagsByNewsArticleId(string newsArticleId)
         {
             using (var dbContext = CreateDbContext())
             {
@@ -104,6 +108,22 @@ namespace DAOsLayer
                 if (tag != null && !tag.NewsArticles.Any())
                 {
                     dbContext.Tags.Remove(tag);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+
+        // Remove NewsArticle Tags By NewsArticle Id
+        public void RemoveArticlesByTagId(int tagId)
+        {
+            using (var dbContext = new FunewsManagementContext())
+            {
+                var tag = dbContext.Tags
+                    .Include(a => a.NewsArticles)
+                    .FirstOrDefault(a => a.TagId == tagId);
+                if (tag != null)
+                {
+                    tag.NewsArticles.Clear();
                     dbContext.SaveChanges();
                 }
             }

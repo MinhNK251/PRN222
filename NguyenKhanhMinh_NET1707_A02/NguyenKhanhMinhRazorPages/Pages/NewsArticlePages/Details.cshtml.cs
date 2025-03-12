@@ -37,7 +37,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             NewsArticle = newsArticle;
 
             // Fetch related tags
-            Tags = _tagRepo.GetTagsByNewsArticleIdAsync(id);
+            Tags = _tagRepo.GetTagsByNewsArticleId(id);
 
             return Page();
         }

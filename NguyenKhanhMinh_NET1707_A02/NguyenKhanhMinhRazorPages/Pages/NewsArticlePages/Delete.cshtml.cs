@@ -41,7 +41,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             NewsArticle = newsArticle;
 
             // Fetch related tags
-            Tags = _tagRepo.GetTagsByNewsArticleIdAsync(id);
+            Tags = _tagRepo.GetTagsByNewsArticleId(id);
 
             return Page();
         }
@@ -56,8 +56,8 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
             var existingArticle = _newsArticleRepo.GetNewsArticleById(id);
             if (existingArticle != null)
             {
-                _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
-                _newsArticleRepo.RemoveNewsArticle(existingArticle.NewsArticleId);
+                _newsArticleRepo.RemoveTagsByArticleId(id);
+                _newsArticleRepo.RemoveNewsArticle(id);
             }
 
             return RedirectToPage("./Index");

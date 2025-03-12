@@ -9,11 +9,14 @@ namespace RepositoriesLayer
 {
     public class NewsArticleRepo : INewsArticleRepo
     {
-        public NewsArticle? GetNewsArticleById(string articleId)
-            => NewsArticleDAO.Instance.GetNewsArticleById(articleId);
-
         public List<NewsArticle> GetNewsArticles()
             => NewsArticleDAO.Instance.GetNewsArticles();
+
+        public NewsArticle? GetNewsArticleById(string articleId)
+           => NewsArticleDAO.Instance.GetNewsArticleById(articleId);
+
+        public List<NewsArticle> GetArticlesByTagId(int tagId)
+            => NewsArticleDAO.Instance.GetArticlesByTagId(tagId);
 
         public List<NewsArticle> GetActiveNewsArticles()
             => NewsArticleDAO.Instance.GetActiveNewsArticles();

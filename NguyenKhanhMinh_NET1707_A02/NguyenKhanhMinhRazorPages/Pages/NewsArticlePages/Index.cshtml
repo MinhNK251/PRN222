@@ -22,9 +22,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].Headline)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.NewsArticle[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NewsArticle[0].CreatedDate)
+                @Html.DisplayNameFor(model => model.NewsArticle[0].Tags)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].NewsSource)
@@ -33,11 +36,11 @@
                 @Html.DisplayNameFor(model => model.NewsArticle[0].NewsStatus)
             </th>            
             <th>
-                @Html.DisplayNameFor(model => model.NewsArticle[0].ModifiedDate)
+                @Html.DisplayNameFor(model => model.NewsArticle[0].CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NewsArticle[0].Category)
-            </th>
+                @Html.DisplayNameFor(model => model.NewsArticle[0].ModifiedDate)
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].CreatedBy)
             </th>
@@ -58,19 +61,34 @@
                     @Html.DisplayFor(modelItem => item.Headline)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @if (item.Tags != null && item.Tags.Any())
+                    {
+                        <ul>
+                            @foreach (var tag in item.Tags)
+                            {
+                                <li>@tag.TagName</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No Tag available</p>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NewsSource)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NewsStatus)
-                </td>                
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedBy.AccountName)
