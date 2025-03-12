@@ -7,36 +7,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
 {
     public class DetailsModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ISystemAccountRepo _systemAccountRepo;
 
-        public DetailsModel(DAOsLayer.FunewsManagementContext context)
+        public DetailsModel(ISystemAccountRepo systemAccountRepo)
         {
-            _context = context;
+            _systemAccountRepo = systemAccountRepo;
         }
 
         public SystemAccount SystemAccount { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemaccount = await _context.SystemAccounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            var systemaccount = _systemAccountRepo.GetAccountById(id);
             if (systemaccount == null)
             {
                 return NotFound();
             }
-            else
-            {
-                SystemAccount = systemaccount;
-            }
+            SystemAccount = systemaccount;
             return Page();
         }
     }

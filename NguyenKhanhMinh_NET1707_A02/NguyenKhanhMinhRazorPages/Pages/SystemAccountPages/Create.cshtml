@@ -31,7 +31,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="SystemAccount.AccountRole" class="control-label"></label>
-                <input asp-for="SystemAccount.AccountRole" class="form-control" />
+                <select asp-for="SystemAccount.AccountRole" class="form-control" required>
+                    <option value="1">Staff</option>
+                    <option value="2">Lecturer</option>
+                </select>
                 <span asp-validation-for="SystemAccount.AccountRole" class="text-danger"></span>
             </div>
             <div class="form-group">

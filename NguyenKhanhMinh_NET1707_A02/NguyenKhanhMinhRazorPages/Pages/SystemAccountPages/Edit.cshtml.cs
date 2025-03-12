@@ -8,29 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
 {
     public class EditModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ISystemAccountRepo _systemAccountRepo;
 
-        public EditModel(DAOsLayer.FunewsManagementContext context)
+        public EditModel(ISystemAccountRepo systemAccountRepo)
         {
-            _context = context;
+            _systemAccountRepo = systemAccountRepo;
         }
 
         [BindProperty]
         public SystemAccount SystemAccount { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemaccount =  await _context.SystemAccounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            var systemaccount = _systemAccountRepo.GetAccountById(id);
             if (systemaccount == null)
             {
                 return NotFound();
@@ -39,8 +35,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,15 +42,13 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
                 return Page();
             }
 
-            _context.Attach(SystemAccount).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _systemAccountRepo.UpdateAccount(SystemAccount);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SystemAccountExists(SystemAccount.AccountId))
+                if (_systemAccountRepo.GetAccountById(SystemAccount.AccountId) == null)
                 {
                     return NotFound();
                 }
@@ -67,11 +59,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool SystemAccountExists(short id)
-        {
-            return _context.SystemAccounts.Any(e => e.AccountId == id);
         }
     }
 }

@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.AccountEmail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountRole)
+                @(item.AccountRole == 1 ? "Staff" : item.AccountRole == 2 ? "Lecturer" : "Unknown")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccountPassword)

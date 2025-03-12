@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
 {
     public class CreateModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ISystemAccountRepo _systemAccountRepo;
 
-        public CreateModel(DAOsLayer.FunewsManagementContext context)
+        public CreateModel(ISystemAccountRepo systemAccountRepo)
         {
-            _context = context;
+            _systemAccountRepo = systemAccountRepo;
         }
 
         public IActionResult OnGet()
@@ -27,7 +28,6 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
         [BindProperty]
         public SystemAccount SystemAccount { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -35,8 +35,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
                 return Page();
             }
 
-            _context.SystemAccounts.Add(SystemAccount);
-            await _context.SaveChangesAsync();
+            _systemAccountRepo.AddAccount(SystemAccount);
 
             return RedirectToPage("./Index");
         }

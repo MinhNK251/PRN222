@@ -124,6 +124,7 @@ namespace DAOsLayer
         {
             using (var dbContext = CreateDbContext())
             {
+                RemoveTagsByArticleId(newsArticleId);
                 var existingNewsArticle = GetNewsArticleById(newsArticleId);
                 if (existingNewsArticle != null)
                 {
@@ -136,14 +137,27 @@ namespace DAOsLayer
         // Remove NewsArticle Tags By NewsArticle Id
         public void RemoveTagsByArticleId(string articleId)
         {
+            //using (var dbContext = new FunewsManagementContext())
+            //{
+            //    var article = dbContext.NewsArticles
+            //                           .Include(a => a.Tags)
+            //                           .FirstOrDefault(a => a.NewsArticleId == articleId);
+            //    if (article != null)
+            //    {
+            //        article.Tags.Clear();
+            //        dbContext.SaveChanges();
+            //    }
+            //}
             using (var dbContext = new FunewsManagementContext())
             {
-                var article = dbContext.NewsArticles
-                                       .Include(a => a.Tags)
-                                       .FirstOrDefault(a => a.NewsArticleId == articleId);
-                if (article != null)
+                // Get all NewsTag records linked to the article
+                var tags = dbContext.Set<Dictionary<string, object>>("NewsTag")
+                                    .Where(nt => EF.Property<string>(nt, "NewsArticleId") == articleId)
+                                    .ToList();
+
+                if (tags.Any())
                 {
-                    article.Tags.Clear();
+                    dbContext.RemoveRange(tags);  // Explicitly remove NewsTag entries
                     dbContext.SaveChanges();
                 }
             }

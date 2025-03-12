@@ -13,6 +13,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SystemAccount.AccountId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SystemAccount.AccountId)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SystemAccount.AccountName)
         </dt>
         <dd class="col-sm-10">
@@ -28,13 +34,7 @@
             @Html.DisplayNameFor(model => model.SystemAccount.AccountRole)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SystemAccount.AccountRole)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SystemAccount.AccountPassword)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SystemAccount.AccountPassword)
+            @(Model.SystemAccount.AccountRole == 1 ? "Staff" : Model.SystemAccount.AccountRole == 2 ? "Lecturer" : "Unknown")
         </dd>
     </dl>
 </div>

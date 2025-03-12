@@ -7,54 +7,47 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
+using RepositoriesLayer;
 
 namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
 {
     public class DeleteModel : PageModel
     {
-        private readonly DAOsLayer.FunewsManagementContext _context;
+        private readonly ISystemAccountRepo _systemAccountRepo;
+        private readonly INewsArticleRepo _newsArticleRepo;
 
-        public DeleteModel(DAOsLayer.FunewsManagementContext context)
+        public DeleteModel(ISystemAccountRepo systemAccountRepo, INewsArticleRepo newsArticleRepo)
         {
-            _context = context;
+            _systemAccountRepo = systemAccountRepo;
+            _newsArticleRepo = newsArticleRepo;
         }
 
         [BindProperty]
         public SystemAccount SystemAccount { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(short? id)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemaccount = await _context.SystemAccounts.FirstOrDefaultAsync(m => m.AccountId == id);
-
+            var systemaccount = _systemAccountRepo.GetAccountById(id);
             if (systemaccount == null)
             {
                 return NotFound();
             }
-            else
-            {
-                SystemAccount = systemaccount;
-            }
+            SystemAccount = systemaccount;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(short? id)
+        public async Task<IActionResult> OnPostAsync(short id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var systemaccount = await _context.SystemAccounts.FindAsync(id);
+            var systemaccount = _systemAccountRepo.GetAccountById(id);
             if (systemaccount != null)
             {
                 SystemAccount = systemaccount;
-                _context.SystemAccounts.Remove(SystemAccount);
-                await _context.SaveChangesAsync();
+                foreach (var article in systemaccount.NewsArticles)
+                {
+                    _newsArticleRepo.RemoveTagsByArticleId(article.NewsArticleId);
+                    _newsArticleRepo.RemoveNewsArticle(article.NewsArticleId);
+                }
+                _systemAccountRepo.RemoveAccount(id);
             }
 
             return RedirectToPage("./Index");

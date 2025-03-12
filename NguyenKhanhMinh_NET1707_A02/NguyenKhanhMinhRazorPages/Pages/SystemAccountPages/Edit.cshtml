@@ -15,6 +15,8 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="SystemAccount.AccountId" />
+            <input type="hidden" asp-for="SystemAccount.AccountPassword" />
+            <input type="hidden" asp-for="SystemAccount.AccountEmail" />
             <div class="form-group">
                 <label asp-for="SystemAccount.AccountName" class="control-label"></label>
                 <input asp-for="SystemAccount.AccountName" class="form-control" />
@@ -22,18 +24,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="SystemAccount.AccountEmail" class="control-label"></label>
-                <input asp-for="SystemAccount.AccountEmail" class="form-control" />
+                <input asp-for="SystemAccount.AccountEmail" class="form-control" disabled/>
                 <span asp-validation-for="SystemAccount.AccountEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SystemAccount.AccountRole" class="control-label"></label>
-                <input asp-for="SystemAccount.AccountRole" class="form-control" />
-                <span asp-validation-for="SystemAccount.AccountRole" class="text-danger"></span>
+                <label asp-for="SystemAccount.AccountPassword" class="control-label"></label>
+                <input asp-for="SystemAccount.AccountPassword" class="form-control" disabled />
+                <span asp-validation-for="SystemAccount.AccountPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SystemAccount.AccountPassword" class="control-label"></label>
-                <input asp-for="SystemAccount.AccountPassword" class="form-control" />
-                <span asp-validation-for="SystemAccount.AccountPassword" class="text-danger"></span>
+                <label asp-for="SystemAccount.AccountRole" class="control-label"></label>
+                <select asp-for="SystemAccount.AccountRole" class="form-control" required>
+                    <option value="1">Staff</option>
+                    <option value="2">Lecturer</option>
+                </select>
+                <span asp-validation-for="SystemAccount.AccountRole" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

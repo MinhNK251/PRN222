@@ -83,6 +83,7 @@ namespace DAOsLayer
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.SystemAccounts.AsNoTracking()
+                    .Include(acc => acc.NewsArticles)
                     .SingleOrDefault(a => a.AccountId == accountId);
             }
         }
