@@ -28,7 +28,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         [BindProperty]
         public NewsArticle NewsArticle { get; set; } = default!;
         [BindProperty]
-        public List<int> SelectedTags { get; set; } = [];
+        public List<int>? SelectedTags { get; set; } = [];
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -45,23 +45,34 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
                 return Page();
             }
-
-            // Set Created Date and Created By
+            var existingArticle = _newsArticleRepo.GetNewsArticleById(NewsArticle.NewsArticleId);
+            if (existingArticle != null)
+            {
+                ModelState.AddModelError("NewsArticle.NewsArticleId", "This NewsArticle ID already exists. Please enter a unique ID.");
+                ViewData["CategoryId"] = new SelectList(_categoryRepo.GetCategories(), "CategoryId", "CategoryName");
+                ViewData["Tags"] = new MultiSelectList(_tagRepo.GetTags(), "TagId", "TagName");
+                return Page();
+            }
             NewsArticle.CreatedDate = DateTime.Now;
             NewsArticle.ModifiedDate = DateTime.Now;
             var userEmail = HttpContext.Session.GetString("UserEmail");
             if (string.IsNullOrEmpty(userEmail))
             {
-                return RedirectToPage("/Login"); // Redirect to login if no session exists
+                return RedirectToPage("/Login");
             }
             SystemAccount account = _systemAccountRepo.GetAccountByEmail(userEmail);
             NewsArticle.CreatedById = account.AccountId;
             NewsArticle.UpdatedById = account.AccountId;
-            var existingTags = _tagRepo.GetTagsByIds(SelectedTags);
-            NewsArticle.Tags = existingTags;
-
+            if (SelectedTags != null && SelectedTags.Any())
+            {
+                var existingTags = _tagRepo.GetTagsByIds(SelectedTags);
+                NewsArticle.Tags = existingTags;
+            }
+            else
+            {
+                NewsArticle.Tags = new List<Tag>();
+            }
             _newsArticleRepo.AddNewsArticle(NewsArticle);
-
             return RedirectToPage("./Index");
         }
     }

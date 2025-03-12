@@ -34,6 +34,11 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
             {
                 return Page();
             }
+            if (_tagRepo.GetTagById(Tag.TagId) != null)
+            {
+                ModelState.AddModelError("Tag.TagId", "This Tag ID already exists. Please enter a unique ID.");
+                return Page();
+            }
             _tagRepo.AddTag(Tag);
             return RedirectToPage("./Index");
         }

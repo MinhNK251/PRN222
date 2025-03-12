@@ -34,7 +34,16 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
             {
                 return Page();
             }
-
+            if (_systemAccountRepo.GetAccountById(SystemAccount.AccountId) != null)
+            {
+                ModelState.AddModelError("SystemAccount.AccountId", "This Account ID already exists. Please enter a unique ID.");
+                return Page();
+            }
+            if (_systemAccountRepo.GetAccountByEmail(SystemAccount.AccountEmail) != null)
+            {
+                ModelState.AddModelError("SystemAccount.AccountEmail", "This Email already exists. Please enter another Email.");
+                return Page();
+            }
             _systemAccountRepo.AddAccount(SystemAccount);
 
             return RedirectToPage("./Index");
