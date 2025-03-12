@@ -1,0 +1,59 @@
+﻿@page
+@model NguyenKhanhMinhRazorPages.Pages.SystemAccountPages.ProfileModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    String role = HttpContext.Session.GetString("UserRole");
+    if (!("1").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+
+<h1>Manage Profile</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" onsubmit="confirmUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+            <input type="hidden" asp-for="SystemAccount.AccountId" />
+            <input type="hidden" asp-for="SystemAccount.AccountEmail" />
+            <input type="hidden" asp-for="SystemAccount.AccountRole" />
+            <div class="form-group">
+                <label asp-for="SystemAccount.AccountName" class="control-label"></label>
+                <input asp-for="SystemAccount.AccountName" class="form-control" />
+                <span asp-validation-for="SystemAccount.AccountName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemAccount.AccountEmail" class="control-label"></label>
+                <input asp-for="SystemAccount.AccountEmail" class="form-control" disabled />
+                <span asp-validation-for="SystemAccount.AccountEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemAccount.AccountPassword" class="control-label"></label>
+                <input asp-for="SystemAccount.AccountPassword" class="form-control" />
+                <span asp-validation-for="SystemAccount.AccountPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="@ViewData["ReturnUrl"]">Back to List</a>
+</div>
+
+<script>
+    function confirmUpdate() {
+        return confirm("Are you sure you want to update your account?");
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

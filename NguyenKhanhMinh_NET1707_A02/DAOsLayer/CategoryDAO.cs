@@ -69,6 +69,8 @@ namespace DAOsLayer
                 return dbContext.Categories.AsNoTracking()
                     .Where(c => c.IsActive == true)
                     .Include(c => c.ParentCategory)
+                    .Include(c => c.InverseParentCategory)
+                    .Include(c => c.NewsArticles)
                     .ToList();
             }
         }

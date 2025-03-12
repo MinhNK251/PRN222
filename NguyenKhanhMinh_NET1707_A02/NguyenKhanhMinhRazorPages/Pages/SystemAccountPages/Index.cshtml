@@ -4,13 +4,14 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    String userName = HttpContext.Session.GetString("UserName") ?? "Guest";
     String role = HttpContext.Session.GetString("UserRole");
     if (!("0").Equals(role))
     {
         Response.Redirect("/NotPermission");
     }
 }
-
+<h2>Welcome, @userName!</h2>
 <h1>System Account Management</h1>
 
 <p>

@@ -44,7 +44,7 @@ namespace NguyenKhanhMinhRazorPages.Pages
                 // Store session data
                 HttpContext.Session.SetString("UserEmail", account.AccountEmail);
                 HttpContext.Session.SetString("UserRole", account.AccountRole.ToString());
-
+                HttpContext.Session.SetString("UserName", account.AccountName.ToString());
                 return account.AccountRole == 0
                     ? RedirectToPage("/SystemAccountPages/Index")
                     : RedirectToPage("/NewsArticlePages/Index");

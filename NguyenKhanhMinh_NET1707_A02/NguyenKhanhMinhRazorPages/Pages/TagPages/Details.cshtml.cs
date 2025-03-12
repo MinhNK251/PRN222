@@ -23,7 +23,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
         }
 
         public Tag Tag { get; set; } = default!;
-        public List<NewsArticle> NewsArticles { get; set; } = new();
+        //public List<NewsArticle> NewsArticles { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -33,7 +33,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.TagPages
                 return NotFound();
             }
             Tag = tag;
-            NewsArticles = _newsArticleRepo.GetArticlesByTagId(id);
+            //NewsArticles = _newsArticleRepo.GetArticlesByTagId(id);
             return Page();
         }
     }

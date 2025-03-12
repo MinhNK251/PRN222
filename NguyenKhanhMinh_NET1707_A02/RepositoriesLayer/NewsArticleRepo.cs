@@ -11,6 +11,9 @@ namespace RepositoriesLayer
         public List<NewsArticle> GetNewsArticles()
             => NewsArticleDAO.Instance.GetNewsArticles();
 
+        public List<NewsArticle> GetNewsArticlesByCreatedBy(int createdById)
+            => NewsArticleDAO.Instance.GetNewsArticlesByCreatedBy(createdById);
+
         public NewsArticle? GetNewsArticleById(string articleId)
            => NewsArticleDAO.Instance.GetNewsArticleById(articleId);
 

@@ -1,35 +1,18 @@
 ﻿@page
-@model NguyenKhanhMinhRazorPages.Pages.NewsArticlePages.IndexModel
+@model NguyenKhanhMinhRazorPages.Pages.NewsArticlePages.HistoryModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "History";
     Layout = "~/Pages/Shared/_Layout.cshtml";
-    String userName = HttpContext.Session.GetString("UserName") ?? "Guest";
     String role = HttpContext.Session.GetString("UserRole");
-    if (("1").Equals(role))
+    if (!("1").Equals(role))
     {
-        <h2>Welcome, @userName!</h2>
-        <h1>News Article Management</h1>
-        <p>
-            <a asp-page="Create">Create New</a> |
-            <a asp-page="/CategoryPages/Index">Manage Category</a> |
-            <a asp-page="/TagPages/Index">Manage Tag</a>            
-        </p>
-        <p>
-            <a asp-page="/SystemAccountPages/Profile" asp-route-returnUrl="/NewsArticlePages/Index">Go to Profile</a> |
-            <a asp-page="./History">View Created History</a> |
-            <a asp-page="/Logout">Log out</a>
-        </p>
-    }
-    else
-    {
-        <h2>Welcome, @userName!</h2>
-        <h1>News Article List</h1>
-        <p>
-            <a asp-page="/Logout">Log out</a>
-        </p>
+        Response.Redirect("/NotPermission");
     }
 }
+
+<h1>News History</h1>
+
 <table class="table">
     <thead>
         <tr>
@@ -38,7 +21,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].Headline)
-            </th>            
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].Category)
             </th>
@@ -50,24 +33,23 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].NewsStatus)
-            </th>            
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].CreatedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].ModifiedDate)
-            </th>            
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].CreatedBy)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NewsArticle[0].UpdatedBy)
             </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody id ="tableBody">
-        @foreach (var item in Model.NewsArticle) 
+    <tbody id="tableBody">
+        @foreach (var item in Model.NewsArticle)
         {
             <tr>
                 <td>
@@ -112,21 +94,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UpdatedBy.AccountName)
                 </td>
-                @if (("1").Equals(role))
-                {
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.NewsArticleId">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.NewsArticleId">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.NewsArticleId">Delete</a>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <a asp-page="./Details" asp-route-id="@item.NewsArticleId">Details</a>
-                    </td>
-                }
             </tr>
         }
     </tbody>
 </table>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>

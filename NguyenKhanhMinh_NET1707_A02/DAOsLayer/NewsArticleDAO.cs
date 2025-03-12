@@ -47,6 +47,21 @@ namespace DAOsLayer
             }
         }
 
+        // Get all NewsArticles by CreatedById
+        public List<NewsArticle> GetNewsArticlesByCreatedBy(int createdById)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
+                    .Where(n => n.CreatedById == createdById)
+                    .ToList();
+            }
+        }
+
         // Get NewsArticle by Id
         public NewsArticle? GetNewsArticleById(string newsArticleId)
         {
@@ -137,17 +152,6 @@ namespace DAOsLayer
         // Remove NewsArticle Tags By NewsArticle Id
         public void RemoveTagsByArticleId(string articleId)
         {
-            //using (var dbContext = new FunewsManagementContext())
-            //{
-            //    var article = dbContext.NewsArticles
-            //                           .Include(a => a.Tags)
-            //                           .FirstOrDefault(a => a.NewsArticleId == articleId);
-            //    if (article != null)
-            //    {
-            //        article.Tags.Clear();
-            //        dbContext.SaveChanges();
-            //    }
-            //}
             using (var dbContext = new FunewsManagementContext())
             {
                 // Get all NewsTag records linked to the article
@@ -157,7 +161,7 @@ namespace DAOsLayer
 
                 if (tags.Any())
                 {
-                    dbContext.RemoveRange(tags);  // Explicitly remove NewsTag entries
+                    dbContext.RemoveRange(tags);
                     dbContext.SaveChanges();
                 }
             }
