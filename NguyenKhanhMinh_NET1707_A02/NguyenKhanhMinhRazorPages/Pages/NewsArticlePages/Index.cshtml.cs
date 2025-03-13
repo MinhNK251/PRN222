@@ -23,13 +23,22 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         }
 
         public IList<NewsArticle> NewsArticle { get;set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTitle { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var userRole = HttpContext.Session.GetString("UserRole");
-            if (userRole.Equals("2"))
-                NewsArticle = _newsArticleRepo.GetActiveNewsArticles();
-            else NewsArticle = _newsArticleRepo.GetNewsArticles();
+            var articles = string.IsNullOrEmpty(userRole) || userRole.Equals("2")
+                ? _newsArticleRepo.GetActiveNewsArticles()
+                : _newsArticleRepo.GetNewsArticles();
+
+            if (!string.IsNullOrEmpty(SearchTitle))
+            {
+                articles = _newsArticleRepo.GetNewsArticlesByTitle(SearchTitle);
+            }
+
+            NewsArticle = articles;
             return Page();
         }
     }

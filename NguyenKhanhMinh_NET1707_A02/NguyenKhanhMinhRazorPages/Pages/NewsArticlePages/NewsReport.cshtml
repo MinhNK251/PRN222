@@ -1,0 +1,128 @@
+﻿@page
+@model NguyenKhanhMinhRazorPages.Pages.NewsArticlePages.NewsReportModel
+@{
+    ViewData["Title"] = "News Report";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    String userName = HttpContext.Session.GetString("UserName") ?? "Guest";
+    String role = HttpContext.Session.GetString("UserRole");
+    if (!("0").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+<h2>Welcome, @userName!</h2>
+<h1>News Report</h1>
+<p>
+    <a asp-page="/SystemAccountPages/Index">Manage System Account</a> |
+    <a asp-page="/Logout">Log out</a>
+</p>
+<form method="post">
+    <div class="row">
+        <div class="col-md-3">
+            <label>Start Date:</label>
+            <input type="date" asp-for="StartDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>End Date:</label>
+            <input type="date" asp-for="EndDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.NewsArticles.Count > 0)
+{
+    <h3>Results</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].NewsTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].Headline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].Tags)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].NewsSource)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].NewsStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NewsArticles[0].UpdatedBy)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model.NewsArticles)
+            {
+                <tr>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.NewsTitle)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.Headline)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.Category.CategoryName)
+                    </td>
+                    <td>
+                            @if (article.Tags != null && article.Tags.Any())
+                            {
+                            <ul>
+                                    @foreach (var tag in article.Tags)
+                                    {
+                                    <li>@tag.TagName</li>
+                                    }
+                            </ul>
+                            }
+                            else
+                            {
+                            <p>No Tag available</p>
+                            }
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.NewsSource)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.NewsStatus)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.CreatedDate)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.ModifiedDate)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.CreatedBy.AccountName)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => article.UpdatedBy.AccountName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.NewsArticles != null)
+{
+    <p>No articles found for the selected period.</p>
+}

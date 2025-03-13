@@ -39,6 +39,26 @@ namespace DAOsLayer
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.NewsArticles.AsNoTracking()
+                    //.OrderByDescending(n => n.NewsArticleId.Length) // Longer IDs first
+                    //.ThenByDescending(n => n.NewsArticleId) // Then order lexicographically
+                    .OrderByDescending(n => n.NewsArticleId)
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
+                    .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
+                    .ToList();
+            }
+        }
+
+        // Search NewsArticles by Title
+        public List<NewsArticle> GetNewsArticlesByTitle(string searchTitle)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles
+                    .Where(a => a.NewsTitle != null &&
+                                a.NewsTitle.ToLower().Contains(searchTitle.ToLower()))
+                    .OrderByDescending(n => n.NewsArticleId)
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
@@ -53,6 +73,7 @@ namespace DAOsLayer
             using (var dbContext = CreateDbContext())
             {
                 return dbContext.NewsArticles.AsNoTracking()
+                    .OrderByDescending(n => n.NewsArticleId)
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
@@ -85,6 +106,7 @@ namespace DAOsLayer
                     .Where(n => dbContext.Set<Dictionary<string, object>>("NewsTag")
                         .Any(nt => EF.Property<int>(nt, "TagId") == tagId && 
                                    EF.Property<string>(nt, "NewsArticleId") == n.NewsArticleId))
+                    .OrderByDescending(n => n.NewsArticleId)
                     .ToList();
             }
         }
@@ -96,6 +118,7 @@ namespace DAOsLayer
             {
                 return dbContext.NewsArticles.AsNoTracking()
                     .Where(n => n.NewsStatus == true)
+                    .OrderByDescending(n => n.NewsArticleId)
                     .Include(n => n.Category)
                     .Include(n => n.Tags)
                     .Include(n => n.CreatedBy)
@@ -164,6 +187,20 @@ namespace DAOsLayer
                     dbContext.RemoveRange(tags);
                     dbContext.SaveChanges();
                 }
+            }
+        }
+
+        public List<NewsArticle> GetNewsArticlesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            using (var dbContext = CreateDbContext())
+            {
+                return dbContext.NewsArticles.AsNoTracking()
+                    .Where(n => n.CreatedDate >= startDate && n.CreatedDate <= endDate.AddDays(1))
+                    .OrderByDescending(n => n.NewsArticleId)
+                    .Include(n => n.Category)
+                    .Include(n => n.CreatedBy)
+                    .Include(n => n.UpdatedBy)
+                    .ToList();
             }
         }
     }

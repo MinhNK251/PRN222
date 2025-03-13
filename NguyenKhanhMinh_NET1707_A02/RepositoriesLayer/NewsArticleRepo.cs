@@ -11,6 +11,9 @@ namespace RepositoriesLayer
         public List<NewsArticle> GetNewsArticles()
             => NewsArticleDAO.Instance.GetNewsArticles();
 
+        public List<NewsArticle> GetNewsArticlesByTitle(string searchTitle)
+            => NewsArticleDAO.Instance.GetNewsArticlesByTitle(searchTitle);
+
         public List<NewsArticle> GetNewsArticlesByCreatedBy(int createdById)
             => NewsArticleDAO.Instance.GetNewsArticlesByCreatedBy(createdById);
 
@@ -34,5 +37,8 @@ namespace RepositoriesLayer
 
         public void RemoveTagsByArticleId(string articleId)
             => NewsArticleDAO.Instance.RemoveTagsByArticleId(articleId);
+
+        public List<NewsArticle> GetNewsArticlesByDateRange(DateTime startDate, DateTime endDate)
+            => NewsArticleDAO.Instance.GetNewsArticlesByDateRange(startDate, endDate);
     }
 }

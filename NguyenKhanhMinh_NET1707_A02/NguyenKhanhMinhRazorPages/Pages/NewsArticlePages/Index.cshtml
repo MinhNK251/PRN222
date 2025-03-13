@@ -6,7 +6,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
     String userName = HttpContext.Session.GetString("UserName") ?? "Guest";
     String role = HttpContext.Session.GetString("UserRole");
-    if (("1").Equals(role))
+    if (role != null && ("1").Equals(role))
     {
         <h2>Welcome, @userName!</h2>
         <h1>News Article Management</h1>
@@ -30,6 +30,12 @@
         </p>
     }
 }
+
+<form method="get">
+    <input type="text" name="SearchTitle" placeholder="Search by title" value="@Model.SearchTitle" />
+    <button type="submit">Search</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
