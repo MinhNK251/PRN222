@@ -56,7 +56,7 @@ namespace DAOsLayer
                     AccountName = "Admin",
                     AccountEmail = adminSettings.Email,
                     AccountPassword = adminSettings.Password,
-                    AccountRole = 0 // Admin role
+                    AccountRole = adminSettings.Role,
                 };
             }
 

@@ -50,23 +50,6 @@ namespace DAOsLayer
             }
         }
 
-        // Search NewsArticles by Title
-        public List<NewsArticle> GetNewsArticlesByTitle(string searchTitle)
-        {
-            using (var dbContext = CreateDbContext())
-            {
-                return dbContext.NewsArticles
-                    .Where(a => a.NewsTitle != null &&
-                                a.NewsTitle.ToLower().Contains(searchTitle.ToLower()))
-                    .OrderByDescending(n => n.NewsArticleId)
-                    .Include(n => n.Category)
-                    .Include(n => n.Tags)
-                    .Include(n => n.CreatedBy)
-                    .Include(n => n.UpdatedBy)
-                    .ToList();
-            }
-        }
-
         // Get all NewsArticles by CreatedById
         public List<NewsArticle> GetNewsArticlesByCreatedBy(int createdById)
         {

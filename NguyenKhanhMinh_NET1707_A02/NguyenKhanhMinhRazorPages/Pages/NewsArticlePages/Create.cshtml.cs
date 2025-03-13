@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjectsLayer.Models;
 using RepositoriesLayer;
+using Microsoft.AspNetCore.SignalR;
 
 namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
@@ -16,13 +17,15 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         private readonly ICategoryRepo _categoryRepo;
         private readonly ISystemAccountRepo _systemAccountRepo;
         private readonly ITagRepo _tagRepo;
+        private readonly IHubContext<SignalrServer> _hubContext;
 
-        public CreateModel(INewsArticleRepo newsArticleRepo, ICategoryRepo categoryRepo, ISystemAccountRepo systemAccountRepo, ITagRepo tagRepo)
+        public CreateModel(INewsArticleRepo newsArticleRepo, ICategoryRepo categoryRepo, ISystemAccountRepo systemAccountRepo, ITagRepo tagRepo, IHubContext<SignalrServer> hubContext)
         {
             _newsArticleRepo = newsArticleRepo;
             _categoryRepo = categoryRepo;
             _systemAccountRepo = systemAccountRepo;
             _tagRepo = tagRepo;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -73,6 +76,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 NewsArticle.Tags = new List<Tag>();
             }
             _newsArticleRepo.AddNewsArticle(NewsArticle);
+            await _hubContext.Clients.All.SendAsync("LoadData");
             return RedirectToPage("./Index");
         }
     }

@@ -20,9 +20,14 @@
             <a asp-page="./History">View Created History</a> |
             <a asp-page="/Logout">Log out</a>
         </p>
+        <form method="get">
+            <input type="text" id="searchTitle" name="searchTitle" placeholder="Search by title" value="@Model.SearchTitle" />
+            <button type="submit">Search</button>
+        </form>
     }
     else
     {
+        <input type="hidden" id="searchTitle" name="searchTitle" placeholder="Search by title" value="@Model.SearchTitle" />
         <h2>Welcome, @userName!</h2>
         <h1>News Article List</h1>
         <p>
@@ -30,12 +35,7 @@
         </p>
     }
 }
-
-<form method="get">
-    <input type="text" name="SearchTitle" placeholder="Search by title" value="@Model.SearchTitle" />
-    <button type="submit">Search</button>
-</form>
-
+<input type="hidden" id="userRole" value="@role" />
 <table class="table">
     <thead>
         <tr>

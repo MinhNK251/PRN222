@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjectsLayer.Models;
 using DAOsLayer;
 using RepositoriesLayer;
+using Microsoft.AspNetCore.SignalR;
 
 namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
 {
@@ -18,13 +19,15 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
         private readonly ICategoryRepo _categoryRepo;
         private readonly ISystemAccountRepo _systemAccountRepo;
         private readonly ITagRepo _tagRepo;
+        private readonly IHubContext<SignalrServer> _hubContext;
 
-        public EditModel(INewsArticleRepo newsArticleRepo, ICategoryRepo categoryRepo, ISystemAccountRepo systemAccountRepo, ITagRepo tagRepo)
+        public EditModel(INewsArticleRepo newsArticleRepo, ICategoryRepo categoryRepo, ISystemAccountRepo systemAccountRepo, ITagRepo tagRepo, IHubContext<SignalrServer> hubContext)
         {
             _newsArticleRepo = newsArticleRepo;
             _categoryRepo = categoryRepo;
             _systemAccountRepo = systemAccountRepo;
             _tagRepo = tagRepo;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -85,6 +88,7 @@ namespace NguyenKhanhMinhRazorPages.Pages.NewsArticlePages
                 _newsArticleRepo.RemoveTagsByArticleId(existingArticle.NewsArticleId);
                 existingArticle.Tags = _tagRepo.GetTagsByIds(SelectedTags);
                 _newsArticleRepo.UpdateNewsArticle(existingArticle.NewsArticleId, existingArticle);
+                await _hubContext.Clients.All.SendAsync("LoadData");
             }
             catch (DbUpdateConcurrencyException)
             {

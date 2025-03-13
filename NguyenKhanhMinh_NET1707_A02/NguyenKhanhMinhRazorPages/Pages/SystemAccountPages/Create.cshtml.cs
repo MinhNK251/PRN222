@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,6 +33,11 @@ namespace NguyenKhanhMinhRazorPages.Pages.SystemAccountPages
         {
             if (!ModelState.IsValid)
             {
+                return Page();
+            }
+            if (!new EmailAddressAttribute().IsValid(SystemAccount.AccountEmail))
+            {
+                ModelState.AddModelError("SystemAccount.AccountEmail", "Invalid email format.");
                 return Page();
             }
             if (_systemAccountRepo.GetAccountById(SystemAccount.AccountId) != null)
