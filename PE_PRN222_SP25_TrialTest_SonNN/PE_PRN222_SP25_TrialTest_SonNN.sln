@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmaceuticalManagement_SonNN", "PharmaceuticalManagement_SonNN\PharmaceuticalManagement_SonNN.csproj", "{68642C3B-AB43-448A-B574-FC256FCD37BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C} = {08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sp25PharmaceuticalDB_BusinessObjects", "BusinessObject\Sp25PharmaceuticalDB_BusinessObjects.csproj", "{B15E2C0B-DE89-4C60-848A-C811930BC58B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sp25PharmaceuticalDB_DAO", "DAO\Sp25PharmaceuticalDB_DAO.csproj", "{0BFFCE06-9373-4707-8D3F-B7D282C87516}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B15E2C0B-DE89-4C60-848A-C811930BC58B} = {B15E2C0B-DE89-4C60-848A-C811930BC58B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sp25PharmaceuticalDB_Repository", "Repository\Sp25PharmaceuticalDB_Repository.csproj", "{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0BFFCE06-9373-4707-8D3F-B7D282C87516} = {0BFFCE06-9373-4707-8D3F-B7D282C87516}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68642C3B-AB43-448A-B574-FC256FCD37BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68642C3B-AB43-448A-B574-FC256FCD37BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68642C3B-AB43-448A-B574-FC256FCD37BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68642C3B-AB43-448A-B574-FC256FCD37BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15E2C0B-DE89-4C60-848A-C811930BC58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15E2C0B-DE89-4C60-848A-C811930BC58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15E2C0B-DE89-4C60-848A-C811930BC58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15E2C0B-DE89-4C60-848A-C811930BC58B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BFFCE06-9373-4707-8D3F-B7D282C87516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFFCE06-9373-4707-8D3F-B7D282C87516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFFCE06-9373-4707-8D3F-B7D282C87516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFFCE06-9373-4707-8D3F-B7D282C87516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08AA4F72-BBF4-4C8F-99A3-55C65E6CF66C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
