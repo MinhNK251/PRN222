@@ -1,0 +1,100 @@
+﻿@page
+@model PharmaceuticalManagement_NguyenKhanhMinh.Pages.MedicineInformationPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    String email = HttpContext.Session.GetString("Email") ?? "Guest";
+    String role = HttpContext.Session.GetString("Role");
+    if (role == null)
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+
+<script>
+    const userRole = "@role";
+</script>
+
+<h2>Welcome, @email!</h2>
+
+<h1>Medicine Information</h1>
+
+<p>
+    <a asp-page="/Logout">Log out</a>
+</p>
+
+@{
+    if (("3").Equals(role) || ("2").Equals(role))
+    {
+        <!-- Search Section -->
+        <form method="get">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="searchActiveIngredients" class="form-label">Active Ingredients</label>
+                    <input type="text" class="form-control" id="searchActiveIngredients" name="searchActiveIngredients" value="@Model.SearchActiveIngredients" placeholder="Search Active Ingredients">
+                </div>
+                <div class="col-md-3">
+                    <label for="searchExpirationDate" class="form-label">Expiration Date</label>
+                    <input type="text" class="form-control" id="searchExpirationDate" name="searchExpirationDate" value="@Model.SearchExpirationDate" placeholder="Search Expiration Date">
+                </div>
+                <div class="col-md-3">
+                    <label for="searchWarnings" class="form-label">Warnings & Precautions</label>
+                    <input type="text" class="form-control" id="searchWarnings" name="searchWarnings" value="@Model.SearchWarnings" placeholder="Search Warnings & Precautions">
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    }
+}
+
+<p><b>Search, Pagination and Signalr may be slow, please be patient for the page to reload</b></p>
+
+@{
+    if (("2").Equals(role))
+    {
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+    }
+}
+
+<!-- Results Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].MedicineName)</th>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].ActiveIngredients)</th>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].ExpirationDate)</th>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].DosageForm)</th>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].WarningsAndPrecautions)</th>
+            <th>@Html.DisplayNameFor(model => model.MedicineInformation[0].Manufacturer)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        @foreach (var item in Model.MedicineInformation)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MedicineName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ActiveIngredients)</td>
+                <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.DosageForm)</td>
+                <td>@Html.DisplayFor(modelItem => item.WarningsAndPrecautions)</td>
+                <td>@Html.DisplayFor(modelItem => item.Manufacturer!.ManufacturerName)</td>
+                <td>
+                    @{
+                        if (("2").Equals(role))
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.MedicineId">Edit</a>
+                            <a asp-page="./Delete" asp-route-id="@item.MedicineId">Delete</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="paginationControls" class="d-flex justify-content-center mt-4"></div>
