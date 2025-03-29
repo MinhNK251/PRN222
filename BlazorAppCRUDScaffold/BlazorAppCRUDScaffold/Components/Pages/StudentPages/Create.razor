@@ -1,0 +1,44 @@
+﻿@page "/students/create"
+@using Microsoft.EntityFrameworkCore
+@using BlazorAppCRUDScaffold
+@inject IDbContextFactory<BlazorAppCRUDScaffold.Data.BlazorAppCRUDScaffoldContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Student</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Student" OnValidSubmit="AddStudent" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="Student.Name" class="form-control" /> 
+                <ValidationMessage For="() => Student.Name" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/students">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Student Student { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddStudent()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Student.Add(Student);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/students");
+    }
+}
