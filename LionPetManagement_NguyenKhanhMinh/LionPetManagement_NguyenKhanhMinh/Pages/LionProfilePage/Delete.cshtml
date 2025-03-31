@@ -1,0 +1,70 @@
+﻿@page
+@model LionPetManagement_NguyenKhanhMinh.Pages.LionProfilePage.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    String email = HttpContext.Session.GetString("Email");
+    String role = HttpContext.Session.GetString("Role");
+    if (!("2").Equals(role))
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Lion Profile</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.LionName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.LionName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.Weight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.Weight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.Characteristics)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.Characteristics)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.Warning)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.Warning)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.ModifiedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.ModifiedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LionProfile.LionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LionProfile.LionType.LionTypeName)
+        </dd>
+    </dl>
+    
+    <form method="post" onsubmit="return confirmDelete()">
+        <input type="hidden" asp-for="LionProfile.LionProfileId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this Lion Profile?");
+        }
+    </script>
+</div>

@@ -1,0 +1,100 @@
+﻿@page
+@model LionPetManagement_NguyenKhanhMinh.Pages.LionProfilePage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    String email = HttpContext.Session.GetString("Email") ?? "Guest";
+    String role = HttpContext.Session.GetString("Role");
+    if (role == null)
+    {
+        Response.Redirect("/NotPermission");
+    }
+}
+
+<script>
+    const userRole = "@role";
+</script>
+
+<h2>Welcome, @email!</h2>
+
+<h1>Lion Profile</h1>
+
+<p>
+    <a asp-page="/Logout">Log out</a>
+</p>
+
+@{
+    if (("3").Equals(role) || ("2").Equals(role))
+    {
+        <!-- Search Section -->
+        <form method="get">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="lionName" class="form-label">Lion Name</label>
+                    <input type="text" class="form-control" id="lionName" name="lionName" value="@Model.LionName" placeholder="Search LionName">
+                </div>
+                <div class="col-md-3">
+                    <label for="lionTypeName" class="form-label">Lion Type Name</label>
+                    <input type="text" class="form-control" id="lionTypeName" name="lionTypeName" value="@Model.LionTypeName" placeholder="Search LionTypeName">
+                </div>
+                <div class="col-md-3">
+                    <label for="weight" class="form-label">Weight</label>
+                    <input type="number" class="form-control" id="weight" name="weight" value="@Model.Weight" placeholder="Search Weight">
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    }
+}
+
+<p><b>Search, Pagination and Signalr may be slow, please be patient for the page to reload</b></p>
+
+@{
+    if (("2").Equals(role))
+    {
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+    }
+}
+
+<!-- Results Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].LionName)</th>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].Weight)</th>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].Characteristics)</th>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].Warning)</th>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].ModifiedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.LionProfile[0].LionType)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        @foreach (var item in Model.LionProfile)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.LionName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Weight)</td>
+                <td>@Html.DisplayFor(modelItem => item.Characteristics)</td>
+                <td>@Html.DisplayFor(modelItem => item.Warning)</td>
+                <td>@Html.DisplayFor(modelItem => item.ModifiedDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.LionType!.LionTypeName)</td>
+                <td>
+                    @{
+                        if (("2").Equals(role))
+                        {
+                            <a asp-page="./Edit" asp-route-id="@item.LionProfileId">Edit</a>
+                            <a asp-page="./Delete" asp-route-id="@item.LionProfileId">Delete</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="paginationControls" class="d-flex justify-content-center mt-4"></div>
