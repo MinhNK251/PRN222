@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Assignment3_Blazor.Authentication
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Assignment3</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        <AuthorizeView Context="outerAuth">
+            <Authorized>
+                <AuthorizeView Roles="Admin" Context="adminAuth">
+                    <Authorized>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="admin/dashboard">
+                                <span class="bi bi-speedometer2" aria-hidden="true"></span> Dashboard
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="admin/members">
+                                <span class="bi bi-people-fill" aria-hidden="true"></span> Members
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="admin/products">
+                                <span class="bi bi-box-seam-fill" aria-hidden="true"></span> Products
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="admin/orders">
+                                <span class="bi bi-cart-fill" aria-hidden="true"></span> Orders
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <button class="nav-link" @onclick="Logout">
+                                <span class="bi bi-box-arrow-right" aria-hidden="true"></span> Logout
+                            </button>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+
+                <AuthorizeView Roles="Member" Context="memberAuth">
+                    <Authorized>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="member/profile">
+                                <span class="bi bi-person-fill" aria-hidden="true"></span> My Profile
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="member/orders">
+                                <span class="bi bi-bag-fill" aria-hidden="true"></span> My Orders
+                            </NavLink>
+                        </div>
+                        <div class="nav-item px-3">
+                            <button class="nav-link" @onclick="Logout">
+                                <span class="bi bi-box-arrow-right" aria-hidden="true"></span> Logout
+                            </button>
+                        </div>
+
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="products">
+                                <span class="bi bi-box-seam" aria-hidden="true"></span> Products
+                            </NavLink>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="login">
+                        <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        NavigationManager.NavigateTo("/");
+    }
+}
