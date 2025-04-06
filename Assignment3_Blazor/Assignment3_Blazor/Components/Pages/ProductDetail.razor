@@ -1,0 +1,203 @@
+@page "/products/{ProductId:int}"
+@using Service.DTO
+@using Service.Interface
+@using Microsoft.AspNetCore.Components.Authorization
+@using Assignment3_Blazor.Authentication
+@inject IProductService ProductService
+@inject IOrderService OrderService
+@inject IMemberService MemberService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject AuthenticationStateProvider AuthStateProvider
+
+<PageTitle>Product Details</PageTitle>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert @(isError ? "alert-danger" : "alert-success") alert-dismissible fade show" role="alert">
+        @message
+        <button type="button" class="btn-close" @onclick="() => message = string.Empty"></button>
+    </div>
+}
+
+@if (product == null)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">@product.ProductName</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-3">Category</dt>
+                        <dd class="col-sm-9">@product.CategoryName</dd>
+
+                        <dt class="col-sm-3">Weight</dt>
+                        <dd class="col-sm-9">@product.Weight</dd>
+
+                        <dt class="col-sm-3">Unit Price</dt>
+                        <dd class="col-sm-9">$@product.UnitPrice.ToString("F2")</dd>
+
+                        <dt class="col-sm-3">Units In Stock</dt>
+                        <dd class="col-sm-9">@product.UnitsInStock</dd>
+                    </dl>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Purchase Options</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Price:</strong> $@product.UnitPrice.ToString("F2")
+                            </p>
+                            <p class="card-text">
+                                <strong>Availability:</strong> 
+                                @if (product.UnitsInStock > 0)
+                                {
+                                    <span class="text-success">In Stock (@product.UnitsInStock available)</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger">Out of Stock</span>
+                                }
+                            </p>
+                            
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity" min="1" max="@product.UnitsInStock" @bind="quantity" />
+                            </div>
+                            
+                            <AuthorizeView>
+                                <Authorized>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-success" disabled="@(product.UnitsInStock <= 0)" @onclick="BuyNow">
+                                            <i class="bi bi-bag-check"></i> Buy Now
+                                        </button>
+                                    </div>
+                                </Authorized>
+                                <NotAuthorized>
+                                    <div class="alert alert-info">
+                                        Please <a href="/login">login</a> to purchase this product.
+                                    </div>
+                                </NotAuthorized>
+                            </AuthorizeView>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-secondary" @onclick="GoBack">
+                <i class="bi bi-arrow-left"></i> Back to Products
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    private ProductDTO? product;
+    private string message = string.Empty;
+    private bool isError = false;
+    private int quantity = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProduct();
+    }
+
+    private async Task LoadProduct()
+    {
+        try
+        {
+            product = await ProductService.GetProductByIdAsync(ProductId);
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading product: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+
+    private async Task BuyNow()
+    {
+        try
+        {
+            if (product == null)
+                return;
+
+            if (quantity <= 0 || quantity > product.UnitsInStock)
+            {
+                message = "Please enter a valid quantity";
+                isError = true;
+                return;
+            }
+
+            var authState = await authenticationState;
+            if (!authState.User.Identity!.IsAuthenticated)
+            {
+                NavigationManager.NavigateTo("/login");
+                return;
+            }
+
+            // Get member information
+            var memberEmail = authState.User.Identity.Name;
+            var member = await MemberService.GetMemberByEmailAsync(memberEmail!);
+
+            // Create new order
+            var newOrder = new OrderDTO
+            {
+                MemberId = member.MemberId,
+                OrderDate = DateTime.Now,
+                RequiredDate = DateTime.Now.AddDays(7),
+                ShippedDate = null,
+                Freight = 0,
+                OrderDetails = new List<OrderDetailDTO>
+                {
+                    new OrderDetailDTO
+                    {
+                        ProductId = product.ProductId,
+                        UnitPrice = product.UnitPrice,
+                        Quantity = quantity,
+                        Discount = 0
+                    }
+                }
+            };
+
+            // Sử dụng phương thức CreateOrderAsync mới
+            var createdOrder = await OrderService.CreateOrderAsync(newOrder);
+
+            message = "Order placed successfully!";
+            isError = false;
+
+            // Redirect to order history after a short delay
+            await Task.Delay(1500);
+            NavigationManager.NavigateTo("/member/orders");
+        }
+        catch (Exception ex)
+        {
+            message = $"Error placing order: {ex.Message}";
+            isError = true;
+        }
+    }
+}
