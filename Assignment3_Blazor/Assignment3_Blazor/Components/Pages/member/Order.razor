@@ -1,0 +1,262 @@
+@page "/member/orders"
+@attribute [Authorize(Roles = "Member")]
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Service.DTO
+@using Service.Interface
+@using Assignment3_Blazor.Authentication
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+@inject IOrderService OrderService
+@inject IMemberService MemberService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>My Orders</PageTitle>
+
+<AuthorizeView Roles="Member" Context="auth">
+    <Authorized>
+        <h1>My Order History</h1>
+
+        <div class="alert alert-success">
+            Welcome, @auth.User.Identity?.Name!
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-secondary" @onclick='() => NavigationManager.NavigateTo("/products")'>
+                <i class="bi bi-box-seam"></i> Browse Products
+            </button>
+            <button class="btn btn-secondary ms-2" @onclick='() => NavigationManager.NavigateTo("/member/profile")'>
+                <i class="bi bi-person"></i> My Profile
+            </button>
+            <button class="btn btn-primary ms-2" @onclick="Logout">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert @(isError ? "alert-danger" : "alert-success") alert-dismissible fade show" role="alert">
+                @message
+                <button type="button" class="btn-close" @onclick="() => message = string.Empty"></button>
+            </div>
+        }
+
+        @if (isLoading)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        else if (orders == null || !orders.Any())
+        {
+            <div class="alert alert-info">
+                You don't have any orders yet. <a href="/products">Browse products</a> to place an order.
+            </div>
+        }
+        else
+        {
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>My Orders</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Required Date</th>
+                                    <th>Shipped Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in orders)
+                                {
+                                    <tr>
+                                        <td>@order.OrderId</td>
+                                        <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                        <td>@(order.RequiredDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                                        <td>@(order.ShippedDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                                        <td>
+                                            @if (order.ShippedDate.HasValue)
+                                            {
+                                                <span class="badge bg-success">Shipped</span>
+                                            }
+                                            else if (order.RequiredDate.HasValue)
+                                            {
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">Processing</span>
+                                            }
+                                        </td>
+                                        <td>@order.OrderDetails.Sum(od => od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)).ToString("C")</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" @onclick="() => ViewOrderDetails(order.OrderId)">
+                                                <i class="bi bi-eye"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            @if (selectedOrder != null)
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Order #@selectedOrder.OrderId Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong>Order Date:</strong> @selectedOrder.OrderDate.ToString("yyyy-MM-dd")
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Required Date:</strong> @(selectedOrder.RequiredDate?.ToString("yyyy-MM-dd") ?? "-")
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Shipped Date:</strong> @(selectedOrder.ShippedDate?.ToString("yyyy-MM-dd") ?? "-")
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Discount</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in selectedOrder.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>@item.ProductName</td>
+                                            <td>@item.UnitPrice.ToString("C")</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@(item.Discount * 100)%</td>
+                                            <td>@((item.Quantity * item.UnitPrice * (1 - (decimal)item.Discount)).ToString("C"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Subtotal:</strong></td>
+                                        <td>@selectedOrder.OrderDetails.Sum(od => od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)).ToString("C")</td>
+                                    </tr>
+                                    @if (selectedOrder.Freight.HasValue)
+                                    {
+                                        <tr>
+                                            <td colspan="4" class="text-end"><strong>Freight:</strong></td>
+                                            <td>@selectedOrder.Freight.Value.ToString("C")</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                                            <td>@(selectedOrder.OrderDetails.Sum(od => od.Quantity * od.UnitPrice * (1 - (decimal)od.Discount)) + selectedOrder.Freight.Value).ToString("C")</td>
+                                        </tr>
+                                    }
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="alert alert-warning">
+            You are not authorized to view this page. Please <a href="/login">login</a> as a member.
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    private List<OrderDTO> orders = new();
+    private OrderDTO? selectedOrder;
+    private string message = string.Empty;
+    private bool isError = false;
+    private bool isLoading = true;
+    private int memberId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+
+        if (!authState.User.Identity!.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else if (!authState.User.IsInRole("Member"))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            await LoadMemberOrders(authState.User.Identity.Name!);
+        }
+    }
+
+    private async Task LoadMemberOrders(string email)
+    {
+        try
+        {
+            isLoading = true;
+            
+            // Get member ID from email
+            var member = await MemberService.GetMemberByEmailAsync(email);
+            memberId = member.MemberId;
+            
+            // Get all orders
+            var allOrders = await OrderService.GetAllOrdersAsync();
+            
+            // Filter orders for this member
+            orders = allOrders.Where(o => o.MemberId == memberId).ToList();
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading orders: {ex.Message}";
+            isError = true;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task ViewOrderDetails(int orderId)
+    {
+        try
+        {
+            selectedOrder = await OrderService.GetOrderByIdAsync(orderId);
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading order details: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        NavigationManager.NavigateTo("/");
+    }
+}
