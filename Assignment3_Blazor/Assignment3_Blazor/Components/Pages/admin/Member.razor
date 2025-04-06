@@ -1,0 +1,327 @@
+﻿@page "/admin/members"
+@attribute [Authorize(Roles = "Admin")]
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Service.DTO
+@using Service.Interface
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+@inject IMemberService MemberService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Member Management</PageTitle>
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h1>Member Management</h1>
+
+        <div class="alert alert-success">
+            Welcome, @auth.User.Identity?.Name!
+        </div>
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert @(isError ? "alert-danger" : "alert-success") alert-dismissible fade show" role="alert">
+                @message
+                <button type="button" class="btn-close" @onclick="() => message = string.Empty"></button>
+            </div>
+        }
+
+        @if (showAddEditForm)
+        {
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>@(isNewMember ? "Add New Member" : "Edit Member")</h5>
+                </div>
+                <div class="card-body">
+                    @if (isNewMember)
+                    {
+                        <EditForm Model="@newMember" OnValidSubmit="HandleCreateSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <InputText id="email" @bind-Value="newMember.Email" class="form-control" />
+                                <ValidationMessage For="@(() => newMember.Email)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="companyName">Company Name</label>
+                                <InputText id="companyName" @bind-Value="newMember.CompanyName" class="form-control" />
+                                <ValidationMessage For="@(() => newMember.CompanyName)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="city">City</label>
+                                <InputText id="city" @bind-Value="newMember.City" class="form-control" />
+                                <ValidationMessage For="@(() => newMember.City)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="country">Country</label>
+                                <InputText id="country" @bind-Value="newMember.Country" class="form-control" />
+                                <ValidationMessage For="@(() => newMember.Country)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="password">Password</label>
+                                <InputText id="password" @bind-Value="newMember.Password" type="password" class="form-control" />
+                                <ValidationMessage For="@(() => newMember.Password)" />
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary ms-2" @onclick="CancelEdit">Cancel</button>
+                            </div>
+                        </EditForm>
+                    }
+                    else
+                    {
+                        <EditForm Model="@updateMember" OnValidSubmit="HandleUpdateSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <InputText id="email" @bind-Value="updateMember.Email" class="form-control" />
+                                <ValidationMessage For="@(() => updateMember.Email)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="companyName">Company Name</label>
+                                <InputText id="companyName" @bind-Value="updateMember.CompanyName" class="form-control" />
+                                <ValidationMessage For="@(() => updateMember.CompanyName)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="city">City</label>
+                                <InputText id="city" @bind-Value="updateMember.City" class="form-control" />
+                                <ValidationMessage For="@(() => updateMember.City)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="country">Country</label>
+                                <InputText id="country" @bind-Value="updateMember.Country" class="form-control" />
+                                <ValidationMessage For="@(() => updateMember.Country)" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="password">Password (leave blank to keep current)</label>
+                                <InputText id="password" @bind-Value="updateMember.Password" type="password" class="form-control" />
+                                <ValidationMessage For="@(() => updateMember.Password)" />
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-secondary ms-2" @onclick="CancelEdit">Cancel</button>
+                            </div>
+                        </EditForm>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Members List</h5>
+                    <button class="btn btn-primary btn-sm" @onclick="AddNewMember">Add New Member</button>
+                </div>
+                <div class="card-body">
+                    @if (members == null)
+                    {
+                        <p><em>Loading...</em></p>
+                    }
+                    else if (!members.Any())
+                    {
+                        <p>No members found.</p>
+                    }
+                    else
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Company</th>
+                                    <th>City</th>
+                                    <th>Country</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var member in members)
+                                {
+                                    <tr>
+                                        <td>@member.MemberId</td>
+                                        <td>@member.Email</td>
+                                        <td>@member.CompanyName</td>
+                                        <td>@member.City</td>
+                                        <td>@member.Country</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" @onclick="() => EditMember(member.MemberId)">Edit</button>
+                                            <button class="btn btn-sm btn-danger" @onclick="() => DeleteMember(member.MemberId)">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="mt-3">
+            <a href="/admin/Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+            <button class="btn btn-danger ms-2" @onclick="Logout">Logout</button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<MemberDTO>? members;
+    private MemberDTO newMember = new MemberDTO();
+    private MemberUpdateDTO updateMember = new MemberUpdateDTO();
+    private bool showAddEditForm = false;
+    private bool isNewMember = true;
+    private string message = string.Empty;
+    private bool isError = false;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+
+        if (!authState.User.Identity!.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else if (!authState.User.IsInRole("Admin"))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            await LoadMembers();
+        }
+    }
+
+    private async Task LoadMembers()
+    {
+        try
+        {
+            members = await MemberService.GetAllMembersAsync();
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading members: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private void AddNewMember()
+    {
+        newMember = new MemberDTO();
+        isNewMember = true;
+        showAddEditForm = true;
+        message = string.Empty;
+    }
+
+    private async Task EditMember(int id)
+    {
+        try
+        {
+            var member = await MemberService.GetMemberByIdAsync(id);
+            updateMember = new MemberUpdateDTO
+            {
+                MemberId = member.MemberId,
+                Email = member.Email,
+                CompanyName = member.CompanyName,
+                City = member.City,
+                Country = member.Country,
+                Password = null // Không hiển thị mật khẩu
+            };
+            isNewMember = false;
+            showAddEditForm = true;
+            message = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading member: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private async Task DeleteMember(int id)
+    {
+        try
+        {
+            if (!await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this member?"))
+                return;
+
+            await MemberService.DeleteMemberAsync(id);
+            await LoadMembers();
+            message = "Member deleted successfully";
+            isError = false;
+        }
+        catch (Exception ex)
+        {
+            message = $"Error deleting member: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private async Task HandleCreateSubmit()
+    {
+        try
+        {
+            await MemberService.CreateMemberAsync(newMember);
+            message = "Member added successfully";
+            isError = false;
+            showAddEditForm = false;
+            await LoadMembers();
+        }
+        catch (Exception ex)
+        {
+            message = $"Error saving member: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private async Task HandleUpdateSubmit()
+    {
+        try
+        {
+            await MemberService.UpdateMemberAsync(updateMember);
+            message = "Member updated successfully";
+            isError = false;
+            showAddEditForm = false;
+            await LoadMembers();
+        }
+        catch (Exception ex)
+        {
+            message = $"Error updating member: {ex.Message}";
+            isError = true;
+        }
+    }
+
+    private void CancelEdit()
+    {
+        showAddEditForm = false;
+        message = string.Empty;
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        NavigationManager.NavigateTo("/");
+    }
+}
