@@ -1,0 +1,108 @@
+﻿@page "/register"
+@using DataAccess.DTO
+@using Service.Services.Interfaces
+@inject IMemberService MemberService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Register</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Register</h3>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(message))
+                {
+                    <div class="alert @(isError ? "alert-danger" : "alert-success")">
+                        @message
+                    </div>
+                }
+
+                <EditForm Model="@registerModel" OnValidSubmit="HandleRegister">
+                    <DataAnnotationsValidator />
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <InputText id="email" @bind-Value="registerModel.Email" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.Email)" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="companyName">Company Name</label>
+                        <InputText id="companyName" @bind-Value="registerModel.CompanyName" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.CompanyName)" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="city">City</label>
+                        <InputText id="city" @bind-Value="registerModel.City" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.City)" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="country">Country</label>
+                        <InputText id="country" @bind-Value="registerModel.Country" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.Country)" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password">Password</label>
+                        <InputText id="password" type="password" @bind-Value="registerModel.Password" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.Password)" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <InputText id="confirmPassword" type="password" @bind-Value="registerModel.ConfirmPassword" class="form-control" />
+                        <ValidationMessage For="@(() => registerModel.ConfirmPassword)" />
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </EditForm>
+
+                <div class="mt-3 text-center">
+                    <p>Already have an account? <a href="/login">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterDTO registerModel = new RegisterDTO();    
+    private string message = string.Empty;
+    private bool isError = false;
+
+    private async Task HandleRegister()
+    {
+        try
+        {
+            if (registerModel.Password != registerModel.ConfirmPassword)
+            {
+                message = "Passwords do not match.";
+                isError = true;
+                return;
+            }
+            MemberDTO newMember = new MemberDTO()
+                {
+                    Email = registerModel.Email,
+                    CompanyName = registerModel.CompanyName,
+                    City = registerModel.City,
+                    Country = registerModel.Country,
+                    Password = registerModel.Password
+                };
+            await MemberService.AddMemberAsync(newMember);
+            message = "Registration successful! You can now login.";
+            isError = false;
+        }
+        catch (Exception ex)
+        {
+            message = $"Registration failed: {ex.Message}";
+            isError = true;
+        }
+    }
+}
