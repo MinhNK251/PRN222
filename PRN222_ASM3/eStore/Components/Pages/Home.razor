@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using eStore.Authentication
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+
+        if (!authState.User.Identity!.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else if (!authState.User.IsInRole("Admin"))
+        {
+            Navigation.NavigateTo("/");
+        }
+    }
+
+}
