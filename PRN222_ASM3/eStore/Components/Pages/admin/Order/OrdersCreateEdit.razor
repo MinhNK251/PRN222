@@ -1,0 +1,119 @@
+﻿@page "/admin/orders/create"
+@page "/admin/orders/edit/{OrderId:int}"
+
+@inject IOrderService OrderService
+@inject NavigationManager Navigation
+@inject IMemberService MemberService
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>@(OrderId == null ? "Create" : "Edit") Order</h3>
+
+        @if (order == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <EditForm Model="order" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+        <div class="form-group">
+            <label>Member</label>
+                    <InputSelect disabled @bind-Value="order.MemberId" class="form-control">
+                <option value="0">Select a member</option>
+                @if (members.Any() && members!=null)
+                {
+                    @foreach (var member in members)
+                    {
+                                <option  value="@member.MemberId">@member.CompanyName (@member.MemberId) </option>
+                    }
+                }
+                else
+                {
+                    <option value="0">No members available</option>
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => order.MemberId)" />
+        </div>
+
+        <div class="form-group">
+            <label>Order Date</label>
+            <InputDate @bind-Value="order.OrderDate" class="form-control"  readonly/>
+        </div>
+
+        <div class="form-group">
+            <label>Required Date</label>
+            <InputDate readonly  @bind-Value="order.RequiredDate" class="form-control" />
+        </div>
+
+                <div class="form-group">
+                    <label>Shipped Date</label>
+                    <InputDate @bind-Value="order.ShippedDate" class="form-control" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    [Parameter]
+    public int? OrderId { get; set; }
+
+    private Order order = new Order();
+    private List<Member> members = new List<Member>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        members = await MemberService.GetAllsAsync() ?? new List<Member>();
+        if (OrderId.HasValue)
+        {
+            order = await OrderService.GetOrderByIdAsync(OrderId.Value) ?? new Order();
+        }
+        else
+        {
+            order = new Order
+                {
+                    OrderDate = DateTime.Now,
+                    MemberId = 0
+                };
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            if (order.MemberId == 0)
+            {
+                Console.WriteLine("Please select a valid member.");
+                return;
+            }
+            if (OrderId.HasValue)
+            {
+                await OrderService.UpdateOrderAsync(order);
+            }
+            else
+            {
+                await OrderService.AddOrderAsync(order);
+            }
+            Navigation.NavigateTo("/admin/orders");
+        }
+        catch (Exception ex)
+        {
+            // Handle error
+            Console.WriteLine($"Error saving order: {ex.Message}");
+        }
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo("/admin/orders");
+    }
+}

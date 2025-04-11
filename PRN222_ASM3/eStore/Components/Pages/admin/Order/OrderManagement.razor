@@ -1,0 +1,329 @@
+﻿@page "/admin/orders"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IOrderService OrderService
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+@implements IAsyncDisposable
+
+<!-- Existing styles remain unchanged -->
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <div class="order-history-container">
+            <h3>Order Management</h3>
+            @if (orders == null)
+            {
+                <p>Loading...</p>
+            }
+            else
+            {
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Member</th>
+                                <th>Country</th>
+                                <th>Order Date</th>
+                                <th>Required Date</th>
+                                <th>Shipped Date</th>
+                                <th>Freight</th>
+                                <th>Total Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in currentPageOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderId</td>
+                                    <td>@order.Member.CompanyName</td>
+                                    <td>@order.Member.Country</td>
+                                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@(order?.RequiredDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                                    <td>@(order?.ShippedDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                                    <td>@(order.Freight?.ToString("C") ?? "$0.00")</td>
+                                    <td>@CalculateTotal(order).ToString("C")</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary"
+                                                @onclick="() => EditOrder(order.OrderId)">
+                                            Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger"
+                                                @onclick="() => DeleteOrder(order.OrderId)">
+                                            Delete
+                                        </button>
+                                        <NavLink class="btn btn-sm btn-outline-danger"
+                                                 href="@($"/admin/orders/{order.OrderId}/details")">
+                                            <i class="bi bi-trash"></i>View
+                                        </NavLink>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="pagination-container">
+                        <button class="btn btn-outline-primary"
+                                disabled="@(currentPage == 1)"
+                                @onclick="PreviousPage">
+                            Previous
+                        </button>
+
+                        <span class="page-info">
+                            Page @currentPage of @TotalPages
+                        </span>
+
+                        <button class="btn btn-outline-primary"
+                                disabled="@(currentPage == TotalPages)"
+                                @onclick="NextPage">
+                            Next
+                        </button>
+
+                        @* <select class="form-select page-size-select" *@
+                        @*         @onchange="ChangePageSize"> *@
+                        @*     <option value="5" selected="@(pageSize == 5)">5</option> *@
+                        @*     <option value="10" selected="@(pageSize == 10)">10</option> *@
+                        @*     <option value="20" selected="@(pageSize == 20)">20</option> *@
+                        @*     <option value="50" selected="@(pageSize == 50)">50</option> *@
+                        @* </select> *@
+                    </div>
+                </div>
+            }
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<Order> orders;
+    private List<Order> currentPageOrders => orders
+        .Skip((currentPage - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+    private int currentPage = 1;
+    private int pageSize = 6;
+    private int TotalPages => (int)Math.Ceiling((double)(orders?.Count ?? 0) / pageSize);
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await OrderService.GetAllOrdersAsync();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/productcategoryhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<int>("OrderDeleted", id =>
+        {
+            var p = orders?.FirstOrDefault(p => p.OrderId == id);
+            if (p != null)
+            {
+                orders?.Remove(p);
+                AdjustCurrentPage();
+                InvokeAsync(StateHasChanged);
+            }
+        });
+
+        try
+        {
+            await hubConnection.StartAsync();
+            Console.WriteLine("SignalR connection started");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"SignalR failed: {ex.Message}");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    private void CreateNewOrder()
+    {
+        Navigation.NavigateTo("/admin/orders/create");
+    }
+
+    private void EditOrder(int orderId)
+    {
+        Navigation.NavigateTo($"/admin/orders/edit/{orderId}");
+    }
+
+    private async Task DeleteOrder(int orderId)
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete Order #{orderId}?");
+
+        if (confirmed)
+        {
+            await OrderService.DeleteOrderAsync(orderId);
+            orders = await OrderService.GetAllOrdersAsync();
+            AdjustCurrentPage();
+            StateHasChanged();
+        }
+    }
+
+    private decimal CalculateTotal(Order order)
+    {
+        return order.OrderDetails?.Sum(od => od.UnitPrice * od.Quantity * (1 - (decimal)od.Discount)) ?? 0;
+    }
+
+    private void PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            StateHasChanged();
+        }
+    }
+
+    private void NextPage()
+    {
+        if (currentPage < TotalPages)
+        {
+            currentPage++;
+            StateHasChanged();
+        }
+    }
+
+    private void ChangePageSize(ChangeEventArgs e)
+    {
+        pageSize = int.Parse(e.Value.ToString());
+        currentPage = 1;
+        AdjustCurrentPage();
+        StateHasChanged();
+    }
+
+    private void AdjustCurrentPage()
+    {
+        if (orders?.Count > 0)
+        {
+            if (currentPage > TotalPages)
+            {
+                currentPage = TotalPages;
+            }
+        }
+        else
+        {
+            currentPage = 1;
+        }
+    }
+}
+<style>
+    .order-history-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .order-history-container h3 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        .table td {
+            padding: 12px 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+    .btn-view {
+        padding: 6px 12px;
+        font-size: 14px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn-view:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+    .loading-text {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .no-orders {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .page-info {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .page-size-select {
+        width: 80px;
+        display: inline-block;
+    }
+
+    .btn-outline-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+</style>
