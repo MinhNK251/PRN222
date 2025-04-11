@@ -1,0 +1,143 @@
+﻿@page "/admin/orders/{OrderId:int}/details/create"
+@page "/admin/orders/{OrderId:int}/details/edit/{ProductId:int}"
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+@inject IOrderDetailService OrderDetailService
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+<h3>@(ProductId.HasValue ? "Edit" : "Create") Order Detail</h3>
+
+<EditForm Model="detail" OnValidSubmit="HandleSubmit" formname="orderDetailForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Product</label>
+        @if (ProductId.HasValue)
+        {
+            <InputText @bind-Value="SelectedProductName" class="form-control" disabled="true" />
+        }
+        else
+        {
+            <InputSelect @bind-Value="detail.ProductId" class="form-control" @onchange="OnProductChanged">
+                <option value="0">Select a product...</option>
+                @foreach (var product in products)
+                {
+                    <option value="@product.ProductId">@product.ProductName (Price: @product.UnitPrice)</option>
+                }
+            </InputSelect>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Unit Price</label>
+        <InputNumber @bind-Value="detail.UnitPrice" class="form-control" readonly="true" />
+    </div>
+
+    <div class="form-group">
+        <label>Quantity</label>
+        <InputNumber @bind-Value="detail.Quantity" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Discount %</label>
+        <InputNumber @bind-Value="discountPercentage" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+</EditForm>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    private double discountPercentage;
+    [Parameter]
+    public int OrderId { get; set; }
+
+    [Parameter]
+    public int? ProductId { get; set; }
+
+    private OrderDetail detail = new OrderDetail();
+    private List<Product> products = new List<Product>();
+    private string SelectedProductName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Lấy danh sách sản phẩm
+        products = await ProductService.GetAllProductsAsync();
+
+        if (ProductId.HasValue)
+        {
+            // Nếu là edit, lấy thông tin chi tiết đơn hàng
+            detail = await OrderDetailService.GetOrderDetailAsync(OrderId, ProductId.Value) ?? new OrderDetail();
+            var selectedProduct = products.FirstOrDefault(p => p.ProductId == detail.ProductId);
+            SelectedProductName = selectedProduct?.ProductName ?? "Unknown Product";
+            discountPercentage = detail.Discount * 100;
+        }
+        else
+        {
+            detail.OrderId = OrderId;
+            detail.UnitPrice = 0;
+            detail.ProductId = 0;
+        }
+    }
+    private async Task HandleSubmit()
+    {
+        // Add this debugging line
+        Console.WriteLine($"Submitting order detail - ProductId: {detail.ProductId}, UnitPrice: {detail.UnitPrice}, Quantity: {detail.Quantity}");
+
+        // Ensure UnitPrice is set correctly before submission
+        if (detail.ProductId > 0)
+        {
+            var selectedProduct = products.FirstOrDefault(p => p.ProductId == detail.ProductId);
+            if (selectedProduct != null)
+            {
+                detail.UnitPrice = selectedProduct.UnitPrice;
+
+
+            }
+            detail.Discount = discountPercentage / 100;
+        }
+
+        if (ProductId.HasValue)
+        {
+            await OrderDetailService.UpdateOrderDetailAsync(detail);
+        }
+        else
+        {
+            await OrderDetailService.AddOrderDetailAsync(detail);
+        }
+        Navigation.NavigateTo($"/admin/orders/{OrderId}/details");
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo($"/admin/orders/{OrderId}/details");
+    }
+
+    private void OnProductChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int selectedProductId) && selectedProductId > 0)
+        {
+            var selectedProduct = products.FirstOrDefault(p => p.ProductId == selectedProductId);
+            if (selectedProduct != null)
+            {
+                detail.ProductId = selectedProduct.ProductId;
+                detail.UnitPrice = selectedProduct.UnitPrice; // Cập nhật giá
+            }
+        }
+        else
+        {
+            detail.UnitPrice = 0;
+        }
+
+        StateHasChanged(); // Cập nhật giao diện
+    }
+}
