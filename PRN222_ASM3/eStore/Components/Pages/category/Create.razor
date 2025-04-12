@@ -1,0 +1,49 @@
+﻿@page "/categories/create"
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Create Category</h3>
+
+        <EditForm Model="newCategory" OnValidSubmit="CreateCategory" FormName="CreateCategoryForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label>Category Name</label>
+                <InputText class="form-control" @bind-Value="newCategory.CategoryName" />
+                <ValidationMessage For="() => newCategory.CategoryName" />
+            </div>
+
+            <div class="mb-3">
+                <label>Description</label>
+                <InputText class="form-control" @bind-Value="newCategory.Description" />
+                <ValidationMessage For="() => newCategory.Description" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a class="btn btn-secondary" href="/categories">Cancel</a>
+        </EditForm>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private CategoryCreateDTO newCategory = new();
+
+    private async Task CreateCategory()
+    {
+        var category = new Category
+            {
+                CategoryName = newCategory.CategoryName,
+                Description = newCategory.Description
+            };
+
+        await CategoryService.AddCategoryAsync(category);
+        NavigationManager.NavigateTo("/categories");
+    }
+}
