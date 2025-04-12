@@ -1,0 +1,77 @@
+﻿@page "/categories/edit"
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Edit Category</h3>
+
+        @if (editContext == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <EditForm EditContext="editContext" OnValidSubmit="UpdateCategory">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label>Category Name</label>
+                    <InputText class="form-control" @bind-Value="editableCategory.CategoryName" />
+                    <ValidationMessage For="() => editableCategory.CategoryName" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Description</label>
+                    <InputText class="form-control" @bind-Value="editableCategory.Description" />
+                    <ValidationMessage For="() => editableCategory.Description" />
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a class="btn btn-secondary" href="/categories">Back to List</a>
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery]
+    public int CategoryId { get; set; }
+
+    private CategoryUpdateDTO editableCategory = new();
+    private EditContext? editContext;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var category = await CategoryService.GetCategoryByIdAsync(CategoryId);
+        if (category == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+            return;
+        }
+
+        editableCategory.CategoryId = category.CategoryId;
+        editableCategory.CategoryName = category.CategoryName;
+        editableCategory.Description = category.Description;
+
+        editContext = new EditContext(editableCategory);
+    }
+
+    private async Task UpdateCategory()
+    {
+        var updated = new Category
+            {
+                CategoryId = editableCategory.CategoryId,
+                CategoryName = editableCategory.CategoryName,
+                Description = editableCategory.Description
+            };
+
+        await CategoryService.UpdateCategoryAsync(updated);
+        NavigationManager.NavigateTo("/categories");
+    }
+}
