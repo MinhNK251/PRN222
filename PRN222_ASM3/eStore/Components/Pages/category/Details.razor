@@ -1,0 +1,40 @@
+﻿@page "/categories/details"
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Category Details</h3>
+
+        @if (category == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div>
+                <p><strong>Category Name:</strong> @category.CategoryName</p>
+                <p><strong>Description:</strong> @category.Description</p>
+                <a class="btn btn-secondary" href="/categories">Back to List</a>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery] public int CategoryId { get; set; }
+    private Category? category;
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await CategoryService.GetCategoryByIdAsync(CategoryId);
+        if (category == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+        }
+    }
+}
