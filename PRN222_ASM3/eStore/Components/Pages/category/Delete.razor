@@ -1,0 +1,61 @@
+﻿@page "/categories/delete"
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Delete Category</h3>
+
+        @if (category == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div>
+
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">@errorMessage</div>
+                }
+
+                <p>Are you sure you want to delete <strong>@category.CategoryName</strong>?</p>
+                <button class="btn btn-danger" @onclick="DeleteCategory">Delete</button>
+                <a class="btn btn-secondary" href="/categories">Cancel</a>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery] public int CategoryId { get; set; }
+    private Category? category;
+
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await CategoryService.GetCategoryByIdAsync(CategoryId);
+        if (category == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+        }
+    }
+
+    private async Task DeleteCategory()
+    {
+        try
+        {
+            await CategoryService.DeleteCategoryAsync(CategoryId);
+            NavigationManager.NavigateTo("/categories");
+        }
+        catch (InvalidOperationException ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}
