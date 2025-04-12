@@ -1,0 +1,529 @@
+﻿@page "/categories"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Category List</PageTitle>
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Category List</h3>
+
+        <p>
+            <button class="btn btn-success" @onclick="CreateCategory">Create New</button>
+        </p>
+
+        @if (categories == null)
+        {
+            <p><em>Loading categories...</em></p>
+        }
+        else if (!categories.Any())
+        {
+            <p>No categories found.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in GetPagedCategories())
+                    {
+                        <tr>
+                            <td>@category.CategoryName</td>
+                            <td>@category.Description</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="@($"/categories/edit?CategoryId={category.CategoryId}")">Edit</a>
+                                <a class="btn btn-sm btn-secondary" href="@($"/categories/details?CategoryId={category.CategoryId}")">Details</a>
+                                <a class="btn btn-sm btn-danger" href="@($"/categories/delete?CategoryId={category.CategoryId}")">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (totalPages > 1)
+            {
+                <div class="pagination-container">
+                    <button class="btn btn-outline-primary"
+                            disabled="@(@currentPage == 1)"
+                            @onclick="@(() => ChangePage(currentPage - 1))">
+                        Previous
+                    </button>
+
+                    <span class="page-info">Page @currentPage of @totalPages</span>
+
+                    <button class="btn btn-outline-primary"
+                            disabled="@(@currentPage == totalPages)"
+                            @onclick="@(() => ChangePage(currentPage + 1))">
+                        Next
+                    </button>
+                </div>
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<Category>? categories;
+    private HubConnection? hubConnection;
+
+    private int currentPage = 1;
+    private int pageSize = 5;
+    private int totalPages => (int)Math.Ceiling((double)(categories?.Count ?? 0) / pageSize);
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await CategoryService.GetAllCategoriesAsync();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/productcategoryhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<CategorySignalRDTO>("CategoryCreated", dto =>
+        {
+            categories ??= new();
+            categories.Add(new Category
+                {
+                    CategoryId = dto.CategoryId,
+                    CategoryName = dto.CategoryName,
+                    Description = dto.Description
+                });
+
+            currentPage = 1; // Quay lại trang đầu
+            InvokeAsync(StateHasChanged);
+        });
+
+        hubConnection.On<CategorySignalRDTO>("CategoryUpdated", dto =>
+        {
+            var index = categories?.FindIndex(c => c.CategoryId == dto.CategoryId) ?? -1;
+            if (index >= 0)
+            {
+                categories![index] = new Category
+                    {
+                        CategoryId = dto.CategoryId,
+                        CategoryName = dto.CategoryName,
+                        Description = dto.Description
+                    };
+                InvokeAsync(StateHasChanged);
+            }
+        });
+
+        hubConnection.On<int>("CategoryDeleted", id =>
+        {
+            var c = categories?.FirstOrDefault(c => c.CategoryId == id);
+            if (c != null)
+            {
+                categories!.Remove(c);
+                if (currentPage > totalPages) currentPage = totalPages;
+                InvokeAsync(StateHasChanged);
+            }
+        });
+
+        try
+        {
+            await hubConnection.StartAsync();
+            Console.WriteLine("SignalR connection started for Category");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"SignalR for Category failed: {ex.Message}");
+        }
+    }
+
+    private void CreateCategory()
+    {
+        NavigationManager.NavigateTo("/categories/create");
+    }
+
+    private void ChangePage(int newPage)
+    {
+        if (newPage >= 1 && newPage <= totalPages)
+        {
+            currentPage = newPage;
+            StateHasChanged();
+        }
+    }
+
+    private IEnumerable<Category> GetPagedCategories()
+    {
+        return categories?
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            ?? Enumerable.Empty<Category>();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}
+
+<style>
+    /* Main layout and container styles */
+    :root {
+        --primary-color: #3498db;
+        --primary-dark: #2980b9;
+        --success-color: #2ecc71;
+        --success-dark: #27ae60;
+        --danger-color: #e74c3c;
+        --danger-dark: #c0392b;
+        --secondary-color: #95a5a6;
+        --secondary-dark: #7f8c8d;
+        --info-color: #1abc9c;
+        --info-dark: #16a085;
+        --text-color: #2c3e50;
+        --light-gray: #f8f9fa;
+        --border-color: #eaeaea;
+        --white: #ffffff;
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+    }
+
+    .admin-container {
+        padding: 25px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--text-color);
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+    }
+
+    /* Alert styling */
+    .alert {
+        border-radius: 8px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    /* Card styling */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-header {
+        background-color: var(--white);
+        border-bottom: 1px solid var(--border-color);
+        padding: 15px 20px;
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        padding: 20px;
+        background-color: var(--white);
+    }
+
+    /* Dashboard-specific card styling */
+    .row .col-md-3 .card .card-header {
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-align: center;
+    }
+
+    .row .col-md-3 .card .card-body {
+        display: flex;
+        flex-direction: column;
+        height: 130px;
+    }
+
+        .row .col-md-3 .card .card-body p {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .row .col-md-3 .card .card-body .btn {
+            margin-top: auto;
+        }
+
+    /* Button styling */
+    .btn {
+        border-radius: 6px;
+        font-weight: 500;
+        padding: 8px 16px;
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+    .btn-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            border-color: var(--secondary-dark);
+        }
+
+    .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+    }
+
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
+            border-color: var(--danger-dark);
+        }
+
+    .btn-info {
+        background-color: var(--info-color);
+        border-color: var(--info-color);
+        color: var(--white);
+    }
+
+        .btn-info:hover {
+            background-color: var(--info-dark);
+            border-color: var(--info-dark);
+            color: var(--white);
+        }
+
+    .btn-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+    }
+
+        .btn-success:hover {
+            background-color: var(--success-dark);
+            border-color: var(--success-dark);
+        }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-outline-primary:disabled {
+            color: #6c757d;
+            border-color: #6c757d;
+            background-color: transparent;
+            opacity: 0.65;
+        }
+
+    /* Form styling */
+    .form-control {
+        border-radius: 6px;
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        transition: border-color 0.2s;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-weight: 500;
+        color: #444;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .validation-message {
+        color: var(--danger-color);
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+
+    /* Table styling */
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-bordered {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px 15px;
+        vertical-align: middle;
+    }
+
+    .table th {
+        border-bottom: 2px solid #ddd;
+        background-color: var(--light-gray);
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid var(--border-color);
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    /* Actions column */
+    .table td:last-child {
+        white-space: nowrap;
+    }
+
+    .table .btn {
+        margin-right: 5px;
+    }
+
+        .table .btn:last-child {
+            margin-right: 0;
+        }
+
+    /* Pagination styling */
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .page-info {
+        color: var(--secondary-dark);
+        font-weight: 500;
+    }
+
+    /* Loading states */
+    .spinner-border {
+        color: var(--primary-color);
+    }
+
+    /* NotAuthorized section */
+    .not-authorized {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: var(--light-gray);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 50px auto;
+    }
+
+        .not-authorized p {
+            color: var(--danger-color);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+    /* Add subtle icon styles */
+    .bi {
+        margin-right: 5px;
+    }
+
+    /* Report card styles - for dashboard */
+    .bg-primary, .bg-success, .bg-info {
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .bg-primary {
+        background-color: var(--primary-color) !important;
+    }
+
+    .bg-success {
+        background-color: var(--success-color) !important;
+    }
+
+    .bg-info {
+        background-color: var(--info-color) !important;
+    }
+
+    .text-white h5 {
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        opacity: 0.9;
+    }
+
+    .text-white h2 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+  
+</style>
