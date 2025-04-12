@@ -1,0 +1,187 @@
+﻿@page "/member/profile"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using DataAccess.DTO
+@using Service.Services.Interfaces
+@using eStore.Authentication
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+@inject IMemberService MemberService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>My Profile</PageTitle>
+
+<AuthorizeView Roles="Member, Admin" Context="auth">
+    <Authorized>
+        <h1>My Profile</h1>
+
+        <div class="alert alert-success">
+            Welcome, @auth.User.Identity?.Name!
+        </div>
+
+        @* <div class="mb-3">
+            <button class="btn btn-secondary" @onclick='() => NavigationManager.NavigateTo("/products")'>
+                <i class="bi bi-box-seam"></i> Browse Products
+            </button>
+            <button class="btn btn-secondary ms-2" @onclick='() => NavigationManager.NavigateTo("/member/orders")'>
+                <i class="bi bi-bag"></i> My Orders
+            </button>
+            <button class="btn btn-primary ms-2" @onclick="Logout">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div> *@
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert @(isError ? "alert-danger" : "alert-success") alert-dismissible fade show" role="alert">
+                @message
+                <button type="button" class="btn-close" @onclick="() => message = string.Empty"></button>
+            </div>
+        }
+
+        @if (isLoading)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Update Profile</h5>
+                        </div>
+                        <div class="card-body">
+                            <EditForm Model="@memberUpdate" OnValidSubmit="HandleValidSubmit">
+                                <DataAnnotationsValidator />
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <InputText id="email" class="form-control" @bind-Value="memberUpdate.Email" readonly />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="companyName" class="form-label">Company Name</label>
+                                    <InputText id="companyName" class="form-control" @bind-Value="memberUpdate.CompanyName" />
+                                    <ValidationMessage For="@(() => memberUpdate.CompanyName)" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <InputText id="city" class="form-control" @bind-Value="memberUpdate.City" />
+                                    <ValidationMessage For="@(() => memberUpdate.City)" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="country" class="form-label">Country</label>
+                                    <InputText id="country" class="form-control" @bind-Value="memberUpdate.Country" />
+                                    <ValidationMessage For="@(() => memberUpdate.Country)" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">New Password (leave blank to keep current)</label>
+                                    <InputText id="password" type="password" class="form-control" @bind-Value="memberUpdate.Password" />
+                                    <ValidationMessage For="@(() => memberUpdate.Password)" />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <InputText id="confirmPassword" type="password" @bind-Value="confirmPassword" class="form-control"/>
+                                    <ValidationMessage For="@(() => confirmPassword)" />
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </EditForm>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="alert alert-warning">
+            You are not authorized to view this page. Please <a href="/login">login</a> as a member.
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    private MemberUpdateDTO memberUpdate = new();
+    private string message = string.Empty;
+    private string confirmPassword = string.Empty;
+    private bool isError = false;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+
+        if (!authState.User.Identity!.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            await LoadMemberProfile(authState.User.Identity.Name!);
+        }
+    }
+
+    private async Task LoadMemberProfile(string email)
+    {
+        try
+        {
+            isLoading = true;
+            var member = await MemberService.GetMemberByEmailAsync(email);
+
+            memberUpdate = new MemberUpdateDTO
+                {
+                    MemberId = member.MemberId,
+                    Email = member.Email,
+                    CompanyName = member.CompanyName,
+                    City = member.City,
+                    Country = member.Country,
+                    Password = null
+                };
+        }
+        catch (Exception ex)
+        {
+            message = $"Error loading profile: {ex.Message}";
+            isError = true;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(memberUpdate.Password) && memberUpdate.Password != confirmPassword)
+            {
+                message = "Passwords do not match.";
+                isError = true;
+                return;
+            }
+            var authState = await authenticationState;
+            await MemberService.UpdateMemberAsync(memberUpdate);
+            message = "Profile updated successfully";
+            isError = false;
+            confirmPassword = string.Empty;
+            await LoadMemberProfile(authState.User.Identity.Name!);
+        }
+        catch (Exception ex)
+        {
+            message = $"Error updating profile: {ex.Message}";
+            isError = true;
+        }
+    }
+}
