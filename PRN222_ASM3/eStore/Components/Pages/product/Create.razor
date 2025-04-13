@@ -1,0 +1,90 @@
+﻿@page "/products/create"
+@inject IProductService ProductService
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Create Product</h3>
+
+        @if (categories == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <EditForm Model="newProduct" OnValidSubmit="CreateProduct" FormName="CreateProductForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label>Product Name</label>
+                    <InputText class="form-control" @bind-Value="newProduct.ProductName" />
+                    <ValidationMessage For="() => newProduct.ProductName" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Category</label>
+                    <InputSelect class="form-control" @bind-Value="newProduct.CategoryId">
+                        <option value="">-- Select Category --</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.CategoryId">@category.CategoryName</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="() => newProduct.CategoryId" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Weight</label>
+                    <InputText class="form-control" @bind-Value="newProduct.Weight" />
+                    <ValidationMessage For="() => newProduct.Weight" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Unit Price</label>
+                    <InputNumber class="form-control" @bind-Value="newProduct.UnitPrice" />
+                    <ValidationMessage For="() => newProduct.UnitPrice" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Units In Stock</label>
+                    <InputNumber class="form-control" @bind-Value="newProduct.UnitsInStock" />
+                    <ValidationMessage For="() => newProduct.UnitsInStock" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a class="btn btn-secondary" href="/products">Cancel</a>
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private ProductCreateDTO newProduct = new();
+    private List<Category>? categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await CategoryService.GetAllCategoriesAsync();
+    }
+
+    private async Task CreateProduct()
+    {
+        var product = new Product
+            {
+                CategoryId = newProduct.CategoryId,
+                ProductName = newProduct.ProductName,
+                Weight = newProduct.Weight,
+                UnitPrice = newProduct.UnitPrice,
+                UnitsInStock = newProduct.UnitsInStock
+            };
+
+        await ProductService.AddProductAsync(product);
+        NavigationManager.NavigateTo("/products");
+    }
+}
