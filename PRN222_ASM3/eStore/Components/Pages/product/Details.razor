@@ -1,0 +1,43 @@
+﻿@page "/products/details"
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Product Details</h3>
+
+        @if (product == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div>
+                <p><strong>Product Name:</strong> @product.ProductName</p>
+                <p><strong>Category Name:</strong> @product.Category.CategoryName</p>
+                <p><strong>Weight:</strong> @product.Weight</p>
+                <p><strong>Unit Price:</strong> @product.UnitPrice</p>
+                <p><strong>Units In Stock:</strong> @product.UnitsInStock</p>
+                <a class="btn btn-secondary" href="/products">Back to List</a>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery] public int ProductId { get; set; }
+    private Product? product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(ProductId);
+        if (product == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+        }
+    }
+}
