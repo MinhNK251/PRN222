@@ -1,0 +1,46 @@
+﻿@page "/products/delete"
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Delete Product</h3>
+
+        @if (product == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div>
+                <p>Are you sure you want to delete <strong>@product.ProductName</strong>?</p>
+                <button class="btn btn-danger" @onclick="DeleteProduct">Delete</button>
+                <a class="btn btn-secondary" href="/products">Cancel</a>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery] public int ProductId { get; set; }
+    private Product? product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(ProductId);
+        if (product == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+        }
+    }
+
+    private async Task DeleteProduct()
+    {
+        await ProductService.DeleteProductAsync(ProductId);
+        NavigationManager.NavigateTo("/products");
+    }
+}
