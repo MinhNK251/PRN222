@@ -1,0 +1,130 @@
+﻿@page "/products/edit"
+@using BusinessObject.Entities
+@using DataAccess.DTO
+@using Service.Services.Interfaces
+@inject IProductService ProductService
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit Product</PageTitle>
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Edit Product</h3>
+
+        @if (Product == null || categories == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            <EditForm EditContext="editContext" OnValidSubmit="UpdateProduct" FormName="EditProductForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label>Product Name</label>
+                    <InputText class="form-control" @bind-Value="editableProduct.ProductName" />
+                    <ValidationMessage For="() => editableProduct.ProductName" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Category</label>
+                    <InputSelect class="form-control" @bind-Value="editableProduct.CategoryId">
+                        <option value="">-- Select Category --</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.CategoryId">@category.CategoryName</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="() => editableProduct.CategoryId" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Weight</label>
+                    <InputText class="form-control" @bind-Value="editableProduct.Weight" />
+                    <ValidationMessage For="() => editableProduct.Weight" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Unit Price</label>
+                    <InputNumber class="form-control" @bind-Value="editableProduct.UnitPrice" />
+                    <ValidationMessage For="() => editableProduct.UnitPrice" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Units In Stock</label>
+                    <InputNumber class="form-control" @bind-Value="editableProduct.UnitsInStock" />
+                    <ValidationMessage For="() => editableProduct.UnitsInStock" />
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a class="btn btn-secondary" href="/products">Back to List</a>
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int ProductId { get; set; }
+
+    private Product? Product { get; set; }
+    private List<Category>? categories;
+    private ProductUpdateDTO editableProduct = new();
+    private EditContext? editContext;
+    private string? errorMessage;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Product = await ProductService.GetProductByIdAsync(ProductId);
+        categories = await CategoryService.GetAllCategoriesAsync();
+
+        if (Product == null)
+        {
+            NavigationManager.NavigateTo("/notfound");
+            return;
+        }
+
+        editableProduct.ProductId = Product.ProductId;
+        editableProduct.ProductName = Product.ProductName;
+        editableProduct.CategoryId = Product.CategoryId;
+        editableProduct.Weight = Product.Weight;
+        editableProduct.UnitPrice = Product.UnitPrice;
+        editableProduct.UnitsInStock = Product.UnitsInStock;
+
+        editContext = new EditContext(editableProduct);
+    }
+
+    private async Task UpdateProduct()
+    {
+        if (Product == null) return;
+
+        Product.ProductName = editableProduct.ProductName;
+        Product.CategoryId = editableProduct.CategoryId;
+        Product.Weight = editableProduct.Weight;
+        Product.UnitPrice = editableProduct.UnitPrice;
+        Product.UnitsInStock = editableProduct.UnitsInStock;
+
+        await ProductService.UpdateProductAsync(Product);
+
+        var updated = await ProductService.GetProductByIdAsync(Product.ProductId);
+        if (updated?.ProductName == Product.ProductName)
+        {
+            NavigationManager.NavigateTo("/products");
+        }
+        else
+        {
+            errorMessage = "Update failed.";
+        }
+    }
+}
