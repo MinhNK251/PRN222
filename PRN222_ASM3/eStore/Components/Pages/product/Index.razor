@@ -1,0 +1,278 @@
+﻿@page "/products"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Product List</PageTitle>
+
+<AuthorizeView Roles="Admin" Context="auth">
+    <Authorized>
+        <h3>Product List</h3>
+
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-3">
+                <InputText class="form-control" placeholder="Search name..." @bind-Value="searchName" />
+            </div>
+            <div class="col-md-3">
+                <InputNumber class="form-control" placeholder="Unit Price..." @bind-Value="unitPrice" />
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100" @onclick="ApplyFilter">Search</button>
+            </div>
+        </div>
+
+        <p>
+            <button class="btn btn-success" @onclick="CreateProduct">Create New</button>
+        </p>
+
+        @if (lowStockAlerts.Any())
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>🚨 Low Stock Warning:</strong>
+                <ul class="mb-0">
+                    @foreach (var alert in lowStockAlerts)
+                    {
+                        <li class="mb-1">
+                            Product <strong>@alert.ProductName</strong> only has
+                            <strong class="@GetStockClass(alert.UnitsInStock)">
+                                @alert.UnitsInStock
+                            </strong> units left.
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+
+        @if (filteredProducts == null)
+        {
+            <p><em>Loading products...</em></p>
+        }
+        else if (!filteredProducts.Any())
+        {
+            <p>No products found.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Category Name</th>
+                        <th>Weight</th>
+                        <th>Unit Price</th>
+                        <th>Units In Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in GetPagedProducts())
+                    {
+                        <tr>
+                            <td>@product.ProductName</td>
+                            <td>@product.Category?.CategoryName</td>
+                            <td>@product.Weight</td>
+                            <td>@product.UnitPrice</td>
+                            <td>@product.UnitsInStock</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="@($"/products/edit?ProductId={product.ProductId}")">Edit</a>
+                                <a class="btn btn-sm btn-secondary" href="@($"/products/details?ProductId={product.ProductId}")">Details</a>
+                                <a class="btn btn-sm btn-danger" href="@($"/products/delete?ProductId={product.ProductId}")">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (totalPages > 1)
+            {
+                <div class="pagination-container">
+                    <button class="btn btn-outline-primary"
+                            disabled="@(@currentPage == 1)"
+                            @onclick="() => ChangePage(currentPage - 1)">
+                        Previous
+                    </button>
+
+                    <span class="page-info">Page @currentPage of @totalPages</span>
+
+                    <button class="btn btn-outline-primary"
+                            disabled="@(@currentPage == totalPages)"
+                            @onclick="() => ChangePage(currentPage + 1)">
+                        Next
+                    </button>
+                </div>
+
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to access this page.</p>
+        <a href="/login" class="btn btn-primary">Go to Login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private int currentPage = 1;
+    private int pageSize = 5;
+    private int totalPages => (int)Math.Ceiling((double)(filteredProducts?.Count ?? 0) / pageSize);
+    private List<Product>? products;
+    private List<Product>? filteredProducts;
+    private List<LowStockAlertDTO> lowStockAlerts = new();
+    private string? searchName;
+    private decimal? unitPrice;
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetAllProductsWithCategoryAsync();
+        filteredProducts = products;
+
+        lowStockAlerts = await ProductService.GetLowStockAlertsAsync();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/productcategoryhub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<LowStockAlertDTO>("LowStockAlert", alert =>
+        {
+            var existing = lowStockAlerts.FirstOrDefault(a => a.ProductId == alert.ProductId);
+
+            if (existing != null)
+            {
+                // Update UnitsInStock nếu giảm
+                if (alert.UnitsInStock < existing.UnitsInStock)
+                    existing.UnitsInStock = alert.UnitsInStock;
+            }
+            else
+            {
+                lowStockAlerts.Add(alert);
+            }
+
+            InvokeAsync(StateHasChanged);
+        });
+
+        hubConnection.On<ProductSignalRDTO>("ProductCreated", async dto =>
+        {
+            var newProduct = new Product
+                {
+                    ProductId = dto.ProductId,
+                    ProductName = dto.ProductName,
+                    CategoryId = dto.CategoryId,
+                    Weight = dto.Weight,
+                    UnitPrice = dto.UnitPrice,
+                    UnitsInStock = dto.UnitsInStock,
+                    Category = new Category
+                    {
+                        CategoryId = dto.CategoryId,
+                        CategoryName = dto.CategoryName
+                    }
+                };
+
+            products ??= new List<Product>();
+            products.Add(newProduct);
+            ApplyFilter();
+            await InvokeAsync(StateHasChanged);
+        });
+
+        hubConnection.On<ProductSignalRDTO>("ProductUpdated", updated =>
+    {
+        var existing = products?.FirstOrDefault(p => p.ProductId == updated.ProductId);
+        if (existing != null)
+        {
+            existing.ProductName = updated.ProductName;
+            existing.CategoryId = updated.CategoryId;
+            existing.Weight = updated.Weight;
+            existing.UnitPrice = updated.UnitPrice;
+            existing.UnitsInStock = updated.UnitsInStock;
+
+            if (existing.Category == null)
+                existing.Category = new Category();
+
+            existing.Category.CategoryId = updated.CategoryId;
+            existing.Category.CategoryName = updated.CategoryName;
+
+            ApplyFilter();
+            InvokeAsync(StateHasChanged);
+        }
+    });
+
+
+        hubConnection.On<int>("ProductDeleted", id =>
+        {
+            var product = products?.FirstOrDefault(p => p.ProductId == id);
+            if (product != null)
+            {
+                products!.Remove(product);
+                ApplyFilter();
+                InvokeAsync(StateHasChanged);
+            }
+        });
+
+        try
+        {
+            await hubConnection.StartAsync();
+            Console.WriteLine("SignalR connection started");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"SignalR failed: {ex.Message}");
+        }
+    }
+
+    private void CreateProduct()
+    {
+        NavigationManager.NavigateTo("/products/create");
+    }
+
+    private void ApplyFilter()
+    {
+        if (products == null) return;
+
+        filteredProducts = products.Where(p =>
+            (string.IsNullOrWhiteSpace(searchName) || p.ProductName.Contains(searchName, StringComparison.OrdinalIgnoreCase)) &&
+            (!unitPrice.HasValue || p.UnitPrice <= unitPrice.Value)
+        ).ToList();
+
+        currentPage = 1;
+    }
+
+    private IEnumerable<Product> GetPagedProducts()
+    {
+        return filteredProducts?
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            ?? Enumerable.Empty<Product>();
+    }
+
+    private void ChangePage(int newPage)
+    {
+        if (newPage >= 1 && newPage <= totalPages)
+        {
+            currentPage = newPage;
+            StateHasChanged();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    private string GetStockClass(int stock) =>
+    stock < 5 ? "text-danger fw-bold" :
+    stock < 8 ? "text-warning" :
+    "text-body";
+}
+
+<style>
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+    }
+</style>
