@@ -1,0 +1,238 @@
+﻿@page "/user/products"
+
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Http
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+@inject ProtectedLocalStorage LocalStorage
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICategoryService CategoryService
+<div class="products-container">
+    <h3>Product List</h3>
+    <div style="text-align: center; margin-top: 20px;">
+        <button class="btn-add-to-cart" @onclick="ViewCart">View Cart (@cart.Count items)</button>
+    </div>
+    @if (products == null)
+    {
+        <p class="loading-text">Loading...</p>
+    }
+    else if (!products.Any())
+    {
+        <p class="no-products">No products available.</p>
+    }
+    else
+    {
+        <div class="products-grid">
+            @foreach (var product in products)
+            {
+                <div class="product-card">
+                    <h4>@(product.ProductName ?? "N/A")</h4>
+                    <p><strong>Category:</strong> @(categoryNames.ContainsKey(product.CategoryId) ? categoryNames[product.CategoryId] : "Unknown")</p>
+
+                    <p><strong>Weight:</strong> @(product.Weight ?? "N/A")</p>
+                    <p class="price">@product.UnitPrice.ToString("C")</p>
+                    <p><strong>In Stock:</strong> @product.UnitsInStock</p>
+                    <button class="btn-add-to-cart" @onclick="() => AddToCart(product)">
+                        Add to Cart
+                    </button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<Product> products;
+    private List<Product> cart = new List<Product>();
+    private Dictionary<int, string> categoryNames = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {   products = await ProductService.GetAllProductsAsync();
+
+        foreach (var product in products)
+        {
+            if (!categoryNames.ContainsKey(product.CategoryId))
+            {
+                var categoryName = await CategoryService.GetCategoryNameAsync(product.CategoryId);
+                if (!string.IsNullOrEmpty(categoryName))
+                {
+                    categoryNames[product.CategoryId] = categoryName;
+                }
+            }
+        }
+
+            await LoadCartFromStorage();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in OnInitializedAsync: {ex.Message}");
+        }
+    }
+
+    private async Task AddToCart(Product product)
+    {
+        try
+        {
+            cart.Add(product);
+            await SaveCartToStorage();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error adding to cart: {ex.Message}");
+        }
+    }
+
+    private async Task SaveCartToStorage()
+    {
+        try
+        {
+            var cartJson = System.Text.Json.JsonSerializer.Serialize(cart);
+            await LocalStorage.SetAsync("ShoppingCart", cartJson);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving cart: {ex.Message}");
+        }
+    }
+
+    private void ViewCart()
+    {
+        Navigation.NavigateTo("/cart");
+    }
+
+    private async Task LoadCartFromStorage()
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<string>("ShoppingCart");
+            if (result.Success && !string.IsNullOrEmpty(result.Value))
+            {
+                cart = System.Text.Json.JsonSerializer.Deserialize<List<Product>>(result.Value) ?? new List<Product>();
+            }
+            else
+            {
+                cart = new List<Product>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading cart: {ex.Message}");
+            cart = new List<Product>();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadCartFromStorage();
+            StateHasChanged();
+        }
+    }
+}
+
+<style>
+    .products-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .products-container h3 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card h4 {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+            height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .product-card .price {
+            font-size: 16px;
+            font-weight: 600;
+            color: #007bff;
+            margin: 10px 0;
+        }
+
+    .btn-add-to-cart {
+        padding: 8px 16px;
+        font-size: 14px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: #218838;
+        }
+
+    .loading-text {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .no-products {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .message {
+        text-align: center;
+        color: #28a745;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+</style>
