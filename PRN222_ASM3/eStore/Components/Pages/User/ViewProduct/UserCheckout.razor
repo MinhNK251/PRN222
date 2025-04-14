@@ -1,0 +1,431 @@
+﻿@page "/checkout"
+
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+@inject ProtectedLocalStorage LocalStorage
+@inject IOrderService OrderService
+@inject IOrderDetailService OrderDetailService
+@inject IMemberService MemberService  
+@inject AuthenticationStateProvider AuthStateProvider
+
+<div class="checkout-container">
+    <h3>Checkout</h3>
+
+    @if (cart == null || !cart.Any())
+    {
+        <div class="empty-checkout">
+            <p>Your cart is empty. Please add items before checkout.</p>
+            <button class="btn-continue-shopping" @onclick="GoToProducts">Browse Products</button>
+        </div>
+    }
+    else
+    {
+        <div class="checkout-summary">
+            <h4>Order Summary</h4>
+            <p>Total Items: @cart.Count</p>
+            <p>Total: @(cart.GroupBy(p => p.ProductId).Sum(g => g.First().UnitPrice * g.Count()).ToString("C"))</p>
+            @* <p>Shipping: $5.00</p> *@
+            @* <p><strong>Grand Total: @(cart.Sum(p => p.UnitPrice) + 5)</strong></p> *@
+        </div>
+
+        <div class="checkout-form">
+            <h4>Shipping Information</h4>
+            <div class="form-group">
+                <label for="requiredDate">Required Date</label>
+                <input type="date" id="requiredDate" class="form-control" @bind="requiredDate" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <textarea id="address" class="form-control" @bind="shippingAddress" readonly></textarea>
+            </div>
+
+            <div class="checkout-actions">
+                <button class="btn-back" @onclick="GoToCart">Back to Cart</button>
+                <button class="btn-place-order" @onclick="PlaceOrder" disabled="@isProcessing">
+                    @if (isProcessing)
+                    {
+                        <span>Processing...</span>
+                    }
+                    else
+                    {
+                        <span>Buy</span>
+                    }
+                </button>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="error-message">
+            @errorMessage
+        </div>
+    }
+</div>
+
+@code {
+    private List<Product> cart = new List<Product>();
+    private DateTime requiredDate = DateTime.Now.AddDays(3);
+    private string shippingAddress = ""; 
+    private bool isProcessing = false;
+    private string errorMessage = "";
+    private int currentMemberId = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCartFromStorage();
+        await GetCurrentMemberId();
+        await LoadMemberShippingAddress();  
+    }
+
+    private async Task GetCurrentMemberId()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var memberIdClaim = user.FindFirst("MemberId");
+            if (memberIdClaim != null && int.TryParse(memberIdClaim.Value, out int memberId))
+            {
+                currentMemberId = memberId;
+            }
+            else
+            {
+                try
+                {
+                    var userSessionResult = await LocalStorage.GetAsync<string>("UserSession");
+                    if (userSessionResult.Success && !string.IsNullOrEmpty(userSessionResult.Value))
+                    {
+                        var userSession = System.Text.Json.JsonSerializer.Deserialize<UserSession>(userSessionResult.Value);
+                        if (userSession != null)
+                        {
+                            currentMemberId = userSession.MemberId;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error getting member ID: {ex.Message}");
+                }
+            }
+        }
+    }
+
+    private async Task LoadMemberShippingAddress()
+    {
+        if (currentMemberId > 0)
+        {
+            try
+            {
+                var member = await MemberService.GetMemberByIdAsync(currentMemberId);
+                if (member != null)
+                {
+                    shippingAddress = $"{member.Country}, {member.City}";  
+                }
+                else
+                {
+                    errorMessage = "Could not load member information.";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading member address: {ex.Message}");
+                errorMessage = "An error occurred while loading your shipping address.";
+            }
+        }
+    }
+
+    private async Task LoadCartFromStorage()
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<string>("ShoppingCart");
+            if (result.Success && !string.IsNullOrEmpty(result.Value))
+            {
+                cart = System.Text.Json.JsonSerializer.Deserialize<List<Product>>(result.Value) ?? new List<Product>();
+            }
+            else
+            {
+                cart = new List<Product>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading cart: {ex.Message}");
+            cart = new List<Product>();
+        }
+    }
+
+    // private async Task PlaceOrder()
+    // {
+    //     if (string.IsNullOrWhiteSpace(shippingAddress))
+    //     {
+    //         errorMessage = "Please provide a shipping address.";
+    //         return;
+    //     }
+
+    //     if (currentMemberId <= 0)
+    //     {
+    //         errorMessage = "You must be logged in to place an order.";
+    //         return;
+    //     }
+
+    //     isProcessing = true;
+    //     errorMessage = "";
+
+    //     try
+    //     {
+    //         var order = new Order
+    //         {
+    //             MemberId = currentMemberId,
+    //             OrderDate = DateTime.Now,
+    //             ShippedDate = requiredDate,
+    //                 RequiredDate = requiredDate,
+
+    //         };
+
+    //         await OrderService.AddOrderAsync(order);
+
+    //         var memberOrders = await OrderService.GetOrdersByMemberIdAsync(currentMemberId);
+    //         var createdOrder = memberOrders
+    //             .OrderByDescending(o => o.OrderDate)
+    //             .FirstOrDefault();
+
+    //         if (createdOrder != null)
+    //         {
+    //             foreach (var item in cart)
+    //             {
+    //                 var orderDetail = new OrderDetail
+    //                 {
+    //                     OrderId = createdOrder.OrderId,
+    //                     ProductId = item.ProductId,
+    //                     UnitPrice = item.UnitPrice,
+    //                     Quantity = 1,
+    //                     Discount = 0.0
+    //                 };
+    //                 await OrderDetailService.AddOrderDetailAsync(orderDetail);
+    //             }
+
+    //             await LocalStorage.DeleteAsync("ShoppingCart");
+    //             Navigation.NavigateTo($"/order-confirmation/{createdOrder.OrderId}");
+    //         }
+    //         else
+    //         {
+    //             errorMessage = "Failed to create the order. Please try again.";
+    //         }
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         Console.WriteLine($"Error placing order: {ex.Message}");
+    //         errorMessage = "An error occurred while placing your order. Please try again.";
+    //     }
+
+    //     isProcessing = false;
+    // }
+    private async Task PlaceOrder()
+    {
+        if (string.IsNullOrWhiteSpace(shippingAddress))
+        {
+            errorMessage = "Please provide a shipping address.";
+            return;
+        }
+
+        if (currentMemberId <= 0)
+        {
+            errorMessage = "You must be logged in to place an order.";
+            return;
+        }
+
+        isProcessing = true;
+        errorMessage = "";
+
+        try
+        {
+          
+            var order = new Order
+                {
+                    MemberId = currentMemberId,
+                    OrderDate = DateTime.Now,
+                    ShippedDate = requiredDate, 
+                    RequiredDate = requiredDate,
+                    OrderDetails = cart
+                        .GroupBy(p => p.ProductId) 
+                        .Select(g => new OrderDetail
+                        {
+                            ProductId = g.Key,
+                            UnitPrice = g.First().UnitPrice,
+                            Quantity = g.Count(),
+                            Discount = 0.0
+                        }).ToList()
+                };
+
+          
+            await OrderService.AddOrderAsync(order);
+
+           
+            await LocalStorage.DeleteAsync("ShoppingCart");
+            Navigation.NavigateTo($"/order-confirmation/{order.OrderId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error placing order: {ex.Message}");
+            errorMessage = ex.Message; 
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private void GoToCart()
+    {
+        Navigation.NavigateTo("/cart");
+    }
+
+    private void GoToProducts()
+    {
+        Navigation.NavigateTo("/user/products");
+    }
+
+   
+}
+
+<style>
+    .checkout-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .checkout-container h3 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+        .checkout-container h4 {
+            color: #333;
+            font-size: 20px;
+            margin: 15px 0;
+        }
+
+    .empty-checkout {
+        text-align: center;
+        padding: 40px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+        .empty-checkout p {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+    .checkout-summary {
+        background-color: #e9f2ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+        .checkout-summary p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    textarea.form-control {
+        height: 100px;
+    }
+
+    .checkout-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .btn-back {
+        padding: 10px 20px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+
+    .btn-place-order {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-place-order:hover {
+            background-color: #218838;
+        }
+
+        .btn-place-order:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+    .btn-continue-shopping {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-continue-shopping:hover {
+            background-color: #0069d9;
+        }
+
+    .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
