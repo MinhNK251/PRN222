@@ -1,0 +1,209 @@
+﻿@page "/order-confirmation/{OrderId:int}"
+
+@using BusinessObject.Entities
+@using Service.Services.Interfaces
+@inject NavigationManager Navigation
+@inject IOrderService OrderService
+@inject IOrderDetailService OrderDetailService
+
+<div class="confirmation-container">
+    <div class="confirmation-box">
+        <div class="confirmation-icon">✓</div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for your purchase. Your order has been received and is being processed.</p>
+
+        @if (order != null)
+        {
+            <div class="confirmation-details">
+                <h3>Order Information</h3>
+                <p><strong>Order Number:</strong> #@order.OrderId</p>
+                <p><strong>Order Date:</strong> @order.OrderDate.ToString("MMM dd, yyyy")</p>
+                <p><strong>Required Date:</strong> @(order.RequiredDate?.ToString("MMM dd, yyyy") ?? "Not specified")</p>
+                <p><strong>Shipping Cost:</strong> @(order.Freight?.ToString("C") ?? "$0.00")</p>
+            </div>
+
+            @if (orderDetails != null && orderDetails.Any())
+            {
+                <div class="order-items">
+                    <h3>Order Items</h3>
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th> 
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in orderDetails)
+                            {
+                                <tr>
+                                    <td>@item.Product.ProductName</td>
+                                    <td>@item.UnitPrice.ToString("C")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                                <td>@orderDetails.Sum(d => d.UnitPrice * d.Quantity).ToString("C")</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Shipping:</strong></td>
+                                <td>@(order.Freight?.ToString("C") ?? "$0.00")</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                                <td>@((orderDetails.Sum(d => d.UnitPrice * d.Quantity) + (order.Freight ?? 0)).ToString("C"))</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Order details could not be loaded. Please check your order history.</p>
+        }
+
+        <button class="btn-continue-shopping" @onclick="ContinueShopping">Continue Shopping</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int OrderId { get; set; }
+
+    private Order order;
+    private List<OrderDetail> orderDetails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadOrderData();
+    }
+
+    private async Task LoadOrderData()
+    {
+        try
+        {
+            // Load the order
+            order = await OrderService.GetOrderByIdAsync(OrderId);
+
+            if (order != null)
+            {
+                // Load the order details with Product data
+                orderDetails = await OrderDetailService.GetOrderDetailsByOrderIdAsync(OrderId);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading order data: {ex.Message}");
+        }
+    }
+
+    private void ContinueShopping()
+    {
+        Navigation.NavigateTo("/user/products");
+    }
+}
+
+<style>
+    .confirmation-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .confirmation-box {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .confirmation-icon {
+        background-color: #28a745;
+        color: white;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-size: 40px;
+        line-height: 70px;
+        margin: 0 auto 20px;
+    }
+
+    .confirmation-box h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-box h3 {
+        color: #333;
+        margin: 15px 0;
+        font-size: 20px;
+    }
+
+    .confirmation-box p {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .confirmation-details {
+        background-color: #e9f2ff;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .order-items {
+        margin: 20px 0;
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        .items-table th,
+        .items-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .items-table th {
+            background-color: #f2f2f2;
+        }
+
+        .items-table tfoot td {
+            border-top: 2px solid #ddd;
+            font-weight: bold;
+        }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .btn-continue-shopping {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+        .btn-continue-shopping:hover {
+            background-color: #0069d9;
+        }
+</style>
