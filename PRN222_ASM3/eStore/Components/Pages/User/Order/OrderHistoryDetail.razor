@@ -1,0 +1,175 @@
+﻿@page "/user/orders/{OrderId:int}/details"
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+
+@inject IOrderService OrderService
+@inject IOrderDetailService OrderDetailService
+@inject NavigationManager Navigation
+
+<style>
+    .order-details-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .order-details-container h4 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+    .order-info {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .order-info p {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+            .order-info p strong {
+                color: #333;
+                font-weight: 600;
+            }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        .table td {
+            padding: 12px 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+    .loading-text {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .back-button:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+</style>
+
+<div class="order-details-container">
+    @if (order == null || orderDetails == null)
+    {
+        <p class="loading-text">Loading...</p>
+    }
+    else
+    {
+        <div class="order-info">
+            <h4>Order Information</h4>
+            <p><strong>Member:</strong> @(order.Member?.CompanyName ?? "N/A")</p>
+            <p><strong>Order Date:</strong> @order.OrderDate.ToString("yyyy-MM-dd")</p>
+            <p><strong>Total Amount:</strong> @CalculateTotal().ToString("C")</p>
+        </div>
+
+        <div class="table-container">
+            <h4>Order Details</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in orderDetails)
+                    {
+                        <tr>
+                            <td>@(detail.Product?.ProductName ?? "N/A")</td>
+                            <td>@detail.UnitPrice.ToString("C")</td>
+                            <td>@detail.Quantity</td>
+                            <td>@((detail.Discount * 100).ToString("F2"))%</td>
+                            <td>@((detail.UnitPrice * detail.Quantity * (1 - (decimal)detail.Discount)).ToString("C"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <NavLink class="back-button" href="/user/orders">
+            Back to Orders
+        </NavLink>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int OrderId { get; set; }
+
+    private Order order;
+    private List<OrderDetail> orderDetails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = await OrderService.GetOrderByIdAsync(OrderId);
+        orderDetails = await OrderDetailService.GetOrderDetailsByOrderIdAsync(OrderId);
+    }
+
+    private decimal CalculateTotal()
+    {
+        return orderDetails?.Sum(od => od.UnitPrice * od.Quantity * (1 - (decimal)od.Discount)) ?? 0;
+    }
+}
