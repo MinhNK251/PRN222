@@ -1,0 +1,248 @@
+﻿@page "/user/orders"
+
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+@inject IOrderService OrderService
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IMemberService MemberService
+
+<div class="order-history-container">
+    <h3>Order History</h3>
+
+    @if (orders == null)
+    {
+        <p class="loading-text">Loading...</p>
+    }
+    else if (!orders.Any())
+    {
+        <p class="no-orders">No orders found.</p>
+    }
+    else
+    {
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Order Date</th>
+                        <th>Required Date</th>
+                        <th>Shipped Date</th>
+                        <th>Total Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in paginatedOrders)
+                    {
+                        <tr>
+                            <td>@(order.Member?.CompanyName ?? "N/A")</td>
+                            <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                            <td>@(order.RequiredDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                            <td>@(order.ShippedDate?.ToString("yyyy-MM-dd") ?? "-")</td>
+                            <td>@CalculateTotal(order).ToString("C")</td>
+                            <td>
+                                <NavLink class="btn-view" href="@($"/user/orders/{order.OrderId}/details")">
+                                    View
+                                </NavLink>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button class="btn-pagination" disabled="@(currentPage == 1)" @onclick="PreviousPage">Previous</button>
+            <span>Page @currentPage of @totalPages</span>
+            <button class="btn-pagination" disabled="@(currentPage == totalPages)" @onclick="NextPage">Next</button>
+        </div>
+    }
+</div>
+
+@code {
+    private List<Order> orders;
+    private List<Order> paginatedOrders;
+    private int currentPage = 1;
+    private int pageSize = 10; // Number of orders per page
+    private int totalPages => (int)Math.Ceiling((double)(orders?.Count ?? 0) / pageSize);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            var memberIdClaim = user.FindFirst("MemberId")?.Value;
+            if (int.TryParse(memberIdClaim, out int memberId))
+            {
+                orders = await OrderService.GetOrdersByMemberIdAsync(memberId);
+                UpdatePaginatedOrders();
+            }
+            else
+            {
+                orders = new List<Order>();
+            }
+        }
+        else
+        {
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+    private void UpdatePaginatedOrders()
+    {
+        if (orders != null)
+        {
+            paginatedOrders = orders
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+    }
+
+    private decimal CalculateTotal(Order order)
+    {
+        return order.OrderDetails?.Sum(od => od.UnitPrice * od.Quantity * (1 - (decimal)od.Discount)) ?? 0;
+    }
+
+    private void PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            UpdatePaginatedOrders();
+            StateHasChanged();
+        }
+    }
+
+    private void NextPage()
+    {
+        if (currentPage < totalPages)
+        {
+            currentPage++;
+            UpdatePaginatedOrders();
+            StateHasChanged();
+        }
+    }
+}
+
+<style>
+    .order-history-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .order-history-container h3 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        .table td {
+            padding: 12px 15px;
+            color: #555;
+            font-size: 15px;
+        }
+
+    .btn-view {
+        padding: 6px 12px;
+        font-size: 14px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn-view:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+    .loading-text {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        padding: 20px;
+    }
+
+    .no-orders {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        padding: 20px;
+    }
+
+    /* Pagination styles */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .btn-pagination {
+        padding: 8px 16px;
+        font-size: 14px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-pagination:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-pagination:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+</style>
