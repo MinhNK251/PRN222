@@ -1,0 +1,246 @@
+﻿@page "/cart"
+
+@using BusinessObject.Entities
+@using Service.Services
+@using Service.Services.Interfaces
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject NavigationManager Navigation
+@inject ProtectedLocalStorage LocalStorage
+
+<div class="cart-container">
+    <h3>Shopping Cart</h3>
+
+    @if (cart == null || !cart.Any())
+    {
+        <div class="empty-cart">
+            <p>Your shopping cart is empty.</p>
+            <button class="btn-continue-shopping" @onclick="ContinueShopping">Continue Shopping</button>
+        </div>
+    }
+    else
+    {
+        <div class="cart-summary">
+            <p>Total Items: @cart.Count</p>
+            <p>Total Amount: @cart.Sum(p => p.UnitPrice).ToString("C")</p>
+        </div>
+
+        <div class="cart-items">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th> 
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var group in cart.GroupBy(p => p.ProductName))
+                    {
+                        var product = group.First(); 
+                        var quantity = group.Count(); 
+                        <tr>
+                            <td>@(product.ProductName ?? "N/A")</td>
+                            <td>@product.UnitPrice.ToString("C")</td>
+                            <td>@quantity</td> 
+                            <td>
+                                <button class="btn-remove" @onclick="() => RemoveFromCart(product)">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cart-actions">
+            <button class="btn-continue-shopping" @onclick="ContinueShopping">Continue Shopping</button>
+            <button class="btn-checkout" @onclick="Checkout">Buy</button>
+           
+        </div>
+    }
+</div>
+
+@code {
+    private List<Product> cart = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCartFromStorage();
+    }
+
+    private async Task LoadCartFromStorage()
+    {
+        try
+        {
+            var result = await LocalStorage.GetAsync<string>("ShoppingCart");
+            if (result.Success && !string.IsNullOrEmpty(result.Value))
+            {
+                cart = System.Text.Json.JsonSerializer.Deserialize<List<Product>>(result.Value) ?? new List<Product>();
+            }
+            else
+            {
+                cart = new List<Product>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading cart: {ex.Message}");
+            cart = new List<Product>();
+        }
+    }
+
+    private async Task SaveCartToStorage()
+    {
+        try
+        {
+            var cartJson = System.Text.Json.JsonSerializer.Serialize(cart);
+            await LocalStorage.SetAsync("ShoppingCart", cartJson);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving cart: {ex.Message}");
+        }
+    }
+
+    private async Task RemoveFromCart(Product product)
+    {
+        // Remove one instance of the product
+        var itemToRemove = cart.FirstOrDefault(p => p.ProductName == product.ProductName);
+        if (itemToRemove != null)
+        {
+            cart.Remove(itemToRemove);
+            await SaveCartToStorage();
+            StateHasChanged();
+        }
+    }
+
+    private async Task ClearCart()
+    {
+        cart.Clear();
+        await SaveCartToStorage();
+        StateHasChanged();
+    }
+
+    private void ContinueShopping()
+    {
+        Navigation.NavigateTo("/user/products");
+    }
+
+    private void Checkout()
+    {
+        Navigation.NavigateTo("/checkout");
+    }
+}
+
+<style>
+    .cart-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+        .cart-container h3 {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+
+    .empty-cart {
+        text-align: center;
+        padding: 40px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+        .empty-cart p {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+    .cart-summary {
+        background-color: #e9f2ff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+        .cart-summary p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .cart-table th {
+            background-color: #f2f2f2;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .cart-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-continue-shopping {
+        padding: 10px 20px;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-continue-shopping:hover {
+            background-color: #5a6268;
+        }
+
+    .btn-checkout {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-checkout:hover {
+            background-color: #218838;
+        }
+
+
+    .btn-remove {
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-remove:hover {
+            background-color: #c82333;
+        }
+</style>
